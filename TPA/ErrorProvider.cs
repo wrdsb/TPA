@@ -44,7 +44,7 @@ namespace TPA
             Boolean Success = true;
 
             //schema specific error log table
-            string SQLStatement = @"INSERT dbo.hd_TPA_error_log
+            string SQLStatement = @"INSERT dbo.hd_empinquiry_error_log
                                               ( error_source
                                               , error_message
                                               , stack_trace

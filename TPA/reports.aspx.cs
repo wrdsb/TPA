@@ -663,7 +663,7 @@ namespace TPA
                 using (SqlConnection con = new SqlConnection(connString))
                 {
                     con.Open();
-                    var query = "INSERT INTO hd_TPA_audit (employee_id, firstname, surname, emailaddress, userid, Purpose, inquiry_date) " +
+                    var query = "INSERT INTO hd_empinquiry_audit (employee_id, firstname, surname, emailaddress, userid, Purpose, inquiry_date) " +
                                 "VALUES (@empId, @firstName, @surName, @email, @userId, @purpose, @currenDate)";
 
                     using (SqlCommand cmd = new SqlCommand(query, con))

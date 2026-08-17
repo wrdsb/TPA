@@ -86,7 +86,7 @@ namespace TPA
                                             , form_link                                 AS Forms
                                             , notes                                     AS Notes
                                             , Id
-                                    FROM    [hd_TPA_smartphone]
+                                    FROM    [hd_empinquiry_smartphone]
                                     WHERE   employee_id = @EmployeeID";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -184,7 +184,7 @@ namespace TPA
             try
             {
                 string sql = @"
-                                UPDATE  hd_TPA_smartphone
+                                UPDATE  hd_empinquiry_smartphone
                                 SET     order_date = @OrderDate
                                         , phone_number = @PhoneNumber
                                         , tier = @Tier
@@ -226,7 +226,7 @@ namespace TPA
             try
             {
                
-                string sql = @"INSERT INTO [hd_TPA_smartphone]
+                string sql = @"INSERT INTO [hd_empinquiry_smartphone]
                 (
                     employee_id
                     , employee_name
@@ -337,7 +337,7 @@ namespace TPA
 
                 // Use this id to retrieve the row from the database
                 string sql = @" SELECT *
-                                FROM hd_TPA_smartphone
+                                FROM hd_empinquiry_smartphone
                                 WHERE Id = @Id";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
@@ -393,7 +393,7 @@ namespace TPA
                 int id = Convert.ToInt32(
                     smartphoneOrdersGrid.DataKeys[rowIndex].Value);
 
-                string sql = @"DELETE FROM hd_TPA_smartphone WHERE Id = @Id";
+                string sql = @"DELETE FROM hd_empinquiry_smartphone WHERE Id = @Id";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand(sql, con))

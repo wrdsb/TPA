@@ -73,7 +73,7 @@ namespace TPA
                                             , FORMAT(next_eligible_date, 'yyyy-MM-dd')  AS EligibleDate
                                             , notes                                     AS Notes
                                             , Id
-                                    FROM    [hd_TPA_smartphone] WHERE ";
+                                    FROM    [hd_empinquiry_smartphone] WHERE ";
 
                     if (dateType == "ORDER_DATE" && !string.IsNullOrEmpty(tb_fromDate.Text))
                         sql += " order_date BETWEEN @fromDate and @toDate AND ";
@@ -245,8 +245,8 @@ namespace TPA
         void GenerateCSV()
         {
             // TODO: Need to work on logs
-            // May be need to to include "job description" column in the hd_TPA_smartphone table to include in the CSV file
-            // May be need to include "Created by" & "Modified by" & "Modified date" column in the hd_TPA_smartphone table. 
+            // May be need to to include "job description" column in the hd_empinquiry_smartphone table to include in the CSV file
+            // May be need to include "Created by" & "Modified by" & "Modified date" column in the hd_empinquiry_smartphone table. 
             try
             {
                 Response.Clear();
