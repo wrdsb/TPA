@@ -116,7 +116,7 @@ namespace TPA
                     {
                         reader.Close();
                         con.Close();
-                        throw new Exception("The user is not authorized to access the Employee Inquiry application. Please contact administrator for assistance.");
+                        throw new Exception("The user is not authorized to access the Teacher Performance Appraisal application. Please contact administrator for assistance.");
                     }
                     reader.Close();
                     con.Close();
@@ -157,7 +157,7 @@ namespace TPA
                     else
                     {
                         Loggers.Log("User is not an admin. Access denied.");
-                        throw new Exception("The user is not authorized to access the Employee Inquiry application. Please contact administrator for assistance.");
+                        throw new Exception("The user is not authorized to access the Teacher Performance Appraisal application. Please contact administrator for assistance.");
                     }
 
                 }

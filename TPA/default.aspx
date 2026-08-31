@@ -7,7 +7,7 @@
                 <%--<h2>Welcome <asp:Label ID="lbl_name" runat="server"></asp:Label>!</h2>--%>
                 <%--<h3>Audit</h3>--%>
                 <div style ="background-color:aliceblue">                  
-                    Please provide Audit information for the current search: 
+                    Please provide details of appraisal for audit purposes: 
                     <%--<ol>
                         <li>Purpose</li>
                         <li>Ticket #</li>                       
@@ -16,7 +16,7 @@
                 <br />              
                
                 <div class="form-group">
-                    <label class="required" for="tb_purpose">Ticket # or Purpose of search<span class="required_error"></span></label>
+                    
 
                     <asp:TextBox ID="tb_purpose" runat="server" CssClass="form-control"  TextMode="MultiLine" 
                     ValidationGroup="submit" MaxLength="400">
