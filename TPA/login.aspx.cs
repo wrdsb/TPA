@@ -99,7 +99,7 @@ namespace TPA
 
                     bool admin = false;
                     string empId = Session["ein"].ToString().Trim();
-                    query = string.Format("SELECT admin FROM hd_empinquiry_user WHERE employee_id = '{0}'", empId);
+                    query = string.Format("SELECT admin FROM hd_tpa_user WHERE employee_id = '{0}'", empId);
                     connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
                     con = new SqlConnection(connString);
                     cmd = new SqlCommand(query, con);
