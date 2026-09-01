@@ -7,7 +7,7 @@
                 <%--<h2>Welcome <asp:Label ID="lbl_name" runat="server"></asp:Label>!</h2>--%>
                 <%--<h3>Audit</h3>--%>
                 <div style ="background-color:aliceblue">                  
-                    Please provide details of appraisal for audit purposes: 
+                    Please provide details for audit purposes
                     <%--<ol>
                         <li>Purpose</li>
                         <li>Ticket #</li>                       
