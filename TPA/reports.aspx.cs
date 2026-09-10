@@ -46,17 +46,17 @@ namespace TPA
                     tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
                     tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
                     tb_firstname.Text = Session["firstname_text"] != null ? Session["firstname_text"].ToString() : string.Empty;
-                    tb_formername.Text = Session["formername_text"] != null ? Session["formername_text"].ToString() : string.Empty;
-                    tb_preferredfirstname.Text = Session["knownasfirstname_text"] != null ? Session["knownasfirstname_text"].ToString() : string.Empty;
-                    tb_preferredsurname.Text = Session["knownassurname_text"] != null ? Session["knownassurname_text"].ToString() : string.Empty;
-                    tb_pal.Text = Session["pal_text"] != null ? Session["pal_text"].ToString() : string.Empty;
-                    tb_email.Text = Session["email_text"] != null ? Session["email_text"].ToString() : string.Empty;
-                    tb_phone.Text = Session["phone_text"] != null ? Session["phone_text"].ToString() : string.Empty;
-                    tb_grpcode.Text = Session["groupcode_text"] != null ? Session["groupcode_text"].ToString() : string.Empty;
-                    tb_job.Text = Session["job_text"] != null ? Session["job_text"].ToString() : string.Empty;
+                    //tb_formername.Text = Session["formername_text"] != null ? Session["formername_text"].ToString() : string.Empty;
+                    //tb_preferredfirstname.Text = Session["knownasfirstname_text"] != null ? Session["knownasfirstname_text"].ToString() : string.Empty;
+                    //tb_preferredsurname.Text = Session["knownassurname_text"] != null ? Session["knownassurname_text"].ToString() : string.Empty;
+                    //tb_pal.Text = Session["pal_text"] != null ? Session["pal_text"].ToString() : string.Empty;
+                    //tb_email.Text = Session["email_text"] != null ? Session["email_text"].ToString() : string.Empty;
+                    //tb_phone.Text = Session["phone_text"] != null ? Session["phone_text"].ToString() : string.Empty;
+                    //tb_grpcode.Text = Session["groupcode_text"] != null ? Session["groupcode_text"].ToString() : string.Empty;
+                    //tb_job.Text = Session["job_text"] != null ? Session["job_text"].ToString() : string.Empty;
 
-                    if (Session["status_list"] != null)
-                        ddl_status.SelectedValue = Session["status_list"].ToString();
+                    //if (Session["status_list"] != null)
+                    //    ddl_status.SelectedValue = Session["status_list"].ToString();
 
                     showSearchData();
                 }
@@ -92,122 +92,123 @@ namespace TPA
             get { return tb_firstname.Text.Trim(); }
         }
 
-        string formername
-        {
-            get { return tb_formername.Text.Trim(); }
-        }
-        string knownasfirstname
-        {
-            get { return tb_preferredfirstname.Text.Trim(); }
-        }
-        string knownassurname
-        {
-            get { return tb_preferredsurname.Text.Trim(); }
-        }
-        string pal
-        {
-            get { return tb_pal.Text.Trim(); }
-        }
-        string email
-        {
-            get { return tb_email.Text.Trim(); }
-        }
+        //string formername
+        //{
+        //    get { return tb_formername.Text.Trim(); }
+        //}
+        //string knownasfirstname
+        //{
+        //    get { return tb_preferredfirstname.Text.Trim(); }
+        //}
+        //string knownassurname
+        //{
+        //    get { return tb_preferredsurname.Text.Trim(); }
+        //}
+        //string pal
+        //{
+        //    get { return tb_pal.Text.Trim(); }
+        //}
+        //string email
+        //{
+        //    get { return tb_email.Text.Trim(); }
+        //}
      
-        string phone
-        {
-            get { return tb_phone.Text.Trim(); }
-        }
+        //string phone
+        //{
+        //    get { return tb_phone.Text.Trim(); }
+        //}
        
-        string groupcode
-        {
-            get { return tb_grpcode.Text.Trim(); }
-        }
-        string job
-        {
-            get { return tb_job.Text.Trim(); }
-        }
-        string status
-        {
-            get { return ddl_status.SelectedValue; }
-        }
+        //string groupcode
+        //{
+        //    get { return tb_grpcode.Text.Trim(); }
+        //}
+        //string job
+        //{
+        //    get { return tb_job.Text.Trim(); }
+        //}
+        //string status
+        //{
+        //    get { return ddl_status.SelectedValue; }
+        //}
 
         
         bool GenerateQuery()
         {
             //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
             searchFilter = string.Empty;
-            Session["area"] = string.Empty;
-            Session["phonewithoutarea"] = string.Empty;
-            Session["jobcode"] = string.Empty;
-            Session["jobdesc"] = string.Empty;
+            //Session["area"] = string.Empty;
+            //Session["phonewithoutarea"] = string.Empty;
+            //Session["jobcode"] = string.Empty;
+            //Session["jobdesc"] = string.Empty;
 
             try
             {
                 string query = "";                                 
 
                 if (string.IsNullOrEmpty(surname) &&
-                    string.IsNullOrEmpty(knownasfirstname) &&
-                    string.IsNullOrEmpty(pal) &&
-                    string.IsNullOrEmpty(email) &&
-                    string.IsNullOrEmpty(phone) &&
+                    //string.IsNullOrEmpty(knownasfirstname) &&
+                    //string.IsNullOrEmpty(pal) &&
+                    //string.IsNullOrEmpty(email) &&
+                    //string.IsNullOrEmpty(phone) &&
                     string.IsNullOrEmpty(empid) &&
-                    string.IsNullOrEmpty(firstname) &&
-                    string.IsNullOrEmpty(job) &&
-                    string.IsNullOrEmpty(status) &&
-                    string.IsNullOrEmpty(formername) &&
-                    string.IsNullOrEmpty(knownassurname) &&
-                    string.IsNullOrEmpty(groupcode))
+                    string.IsNullOrEmpty(firstname) /*&&*/
+                    //string.IsNullOrEmpty(job) &&
+                    //string.IsNullOrEmpty(status) &&
+                    //string.IsNullOrEmpty(formername) &&
+                    //string.IsNullOrEmpty(knownassurname) &&
+                    //string.IsNullOrEmpty(groupcode)
+                    )
                     return false;
 
                 var filtersObj = new
                 {
                     Empid = empid,
                     Surname = surname,
-                    Firstname = firstname,
-                    Former = formername,
-                    Knownfirst = knownasfirstname,
-                    Knownlast = knownassurname,
-                    Pal = pal,
-                    Email = email,
-                    Phone = phone,
-                    Group = groupcode,
-                    Job = job,
-                    Status = status
+                    Firstname = firstname
+                    //Former = formername,
+                    //Knownfirst = knownasfirstname,
+                    //Knownlast = knownassurname,
+                    //Pal = pal,
+                    //Email = email,
+                    //Phone = phone,
+                    //Group = groupcode,
+                    //Job = job,
+                    //Status = status
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
 
-                if (!string.IsNullOrEmpty(phone)) // work around to split area code from phone number
-                {
-                    if (phone.Length > 3)
-                    {
-                        Session["area"] = phone.Substring(0, 3);
-                        Session["phonewithoutarea"] = phone.Substring(3);
-                    }
-                    else
-                    {
-                        Session["area"] = phone;
-                        Session["phonewithoutarea"] = string.Empty;
-                    }
-                }
+                //if (!string.IsNullOrEmpty(phone)) // work around to split area code from phone number
+                //{
+                //    if (phone.Length > 3)
+                //    {
+                //        Session["area"] = phone.Substring(0, 3);
+                //        Session["phonewithoutarea"] = phone.Substring(3);
+                //    }
+                //    else
+                //    {
+                //        Session["area"] = phone;
+                //        Session["phonewithoutarea"] = string.Empty;
+                //    }
+                //}
 
 
-                bool jobQuery_AND = false;
-                if (!string.IsNullOrEmpty(job))// work around to split job code from job description
-                {
-                    if (job.Contains(" - "))
-                    {
-                        Session["jobcode"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
-                        Session["jobdesc"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
-                        jobQuery_AND = true;
+                //bool jobQuery_AND = false;
+                //if (!string.IsNullOrEmpty(job))// work around to split job code from job description
+                //{
+                //    if (job.Contains(" - "))
+                //    {
+                //        Session["jobcode"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
+                //        Session["jobdesc"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
+                //        jobQuery_AND = true;
 
-                    }
-                    else
-                    {
-                        Session["jobcode"] = job;
-                        Session["jobdesc"] = job;
-                    }
-                }
+                //    }
+                //    else
+                //    {
+                //        Session["jobcode"] = job;
+                //        Session["jobdesc"] = job;
+                //    }
+                //}
 
 
                 /*
@@ -253,25 +254,25 @@ namespace TPA
 
                 query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%' +@firstname+ '%' AND ";
                 query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";
-                query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%' +@knownasfirstname+ '%' AND ";
-                query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = @status  AND ";
+                //query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%' +@knownasfirstname+ '%' AND ";
+                //query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = @status  AND ";
                 query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id = @empid AND ";
-                query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%' +@email+ '%' AND ";
-                query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%' + @phonewithoutarea + '%' AND ";
-                query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_area LIKE '%' + @area + '%' AND ";
-                query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%' + @formername + '%' AND ";
-                query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%' + @knownassurname + '%' AND ";
+                //query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%' +@email+ '%' AND ";
+                //query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%' + @phonewithoutarea + '%' AND ";
+                //query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_area LIKE '%' + @area + '%' AND ";
+                //query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%' + @formername + '%' AND ";
+                //query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%' + @knownassurname + '%' AND ";
 
-                if (jobQuery_AND)
-                {
-                    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%' + @jobdesc + '%' AND job.job_code LIKE '%' + @jobcode + '%' AND ";
-                }
-                else
-                    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%' + @jobdesc + '%' OR job.job_code LIKE '%' + @jobcode + '%') AND ";
+                //if (jobQuery_AND)
+                //{
+                //    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%' + @jobdesc + '%' AND job.job_code LIKE '%' + @jobcode + '%' AND ";
+                //}
+                //else
+                //    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%' + @jobdesc + '%' OR job.job_code LIKE '%' + @jobcode + '%') AND ";
 
-                query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%' + @pal + '%' AND ";
+                //query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%' + @pal + '%' AND ";
 
-                query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%' + @groupcode + '%' AND ";
+                //query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%' + @groupcode + '%' AND ";
 
                 //query += @" empos.home_location_ind = 'Y' 
                 //        AND 
@@ -327,30 +328,30 @@ namespace TPA
                     DataSource_search.SelectParameters.Add("firstname", firstname);
                 if (!string.IsNullOrEmpty(surname))
                     DataSource_search.SelectParameters.Add("surname", surname);
-                if (!string.IsNullOrEmpty(knownasfirstname))
-                    DataSource_search.SelectParameters.Add("knownasfirstname", knownasfirstname);
-                if (!string.IsNullOrEmpty(status))
-                    DataSource_search.SelectParameters.Add("status", status);
+                //if (!string.IsNullOrEmpty(knownasfirstname))
+                //    DataSource_search.SelectParameters.Add("knownasfirstname", knownasfirstname);
+                //if (!string.IsNullOrEmpty(status))
+                //    DataSource_search.SelectParameters.Add("status", status);
                 if (!string.IsNullOrEmpty(empid))
                     DataSource_search.SelectParameters.Add("empid", empid);
-                if (!string.IsNullOrEmpty(email))
-                    DataSource_search.SelectParameters.Add("email", email);
-                if (!string.IsNullOrEmpty(phone))
-                    DataSource_search.SelectParameters.Add("phonewithoutarea",Session["phonewithoutarea"].ToString());
-                if (!string.IsNullOrEmpty(phone))
-                    DataSource_search.SelectParameters.Add("area", Session["area"].ToString());
-                if (!string.IsNullOrEmpty(formername))
-                    DataSource_search.SelectParameters.Add("formername", formername);
-                if (!string.IsNullOrEmpty(knownassurname))
-                    DataSource_search.SelectParameters.Add("knownassurname", knownassurname);
-                if (!string.IsNullOrEmpty(job))
-                    DataSource_search.SelectParameters.Add("jobcode", Session["jobcode"].ToString());
-                if (!string.IsNullOrEmpty(job))
-                    DataSource_search.SelectParameters.Add("jobdesc", Session["jobdesc"].ToString());
-                if (!string.IsNullOrEmpty(pal))
-                    DataSource_search.SelectParameters.Add("pal", pal);
-                if (!string.IsNullOrEmpty(groupcode))
-                    DataSource_search.SelectParameters.Add("groupcode", groupcode);
+                //if (!string.IsNullOrEmpty(email))
+                //    DataSource_search.SelectParameters.Add("email", email);
+                //if (!string.IsNullOrEmpty(phone))
+                //    DataSource_search.SelectParameters.Add("phonewithoutarea",Session["phonewithoutarea"].ToString());
+                //if (!string.IsNullOrEmpty(phone))
+                //    DataSource_search.SelectParameters.Add("area", Session["area"].ToString());
+                //if (!string.IsNullOrEmpty(formername))
+                //    DataSource_search.SelectParameters.Add("formername", formername);
+                //if (!string.IsNullOrEmpty(knownassurname))
+                //    DataSource_search.SelectParameters.Add("knownassurname", knownassurname);
+                //if (!string.IsNullOrEmpty(job))
+                //    DataSource_search.SelectParameters.Add("jobcode", Session["jobcode"].ToString());
+                //if (!string.IsNullOrEmpty(job))
+                //    DataSource_search.SelectParameters.Add("jobdesc", Session["jobdesc"].ToString());
+                //if (!string.IsNullOrEmpty(pal))
+                //    DataSource_search.SelectParameters.Add("pal", pal);
+                //if (!string.IsNullOrEmpty(groupcode))
+                //    DataSource_search.SelectParameters.Add("groupcode", groupcode);
 
             }
             catch (Exception ex)
@@ -550,14 +551,14 @@ namespace TPA
 
         }
 
-        protected void ddl_status_DataBound(object sender, EventArgs e)
-        {
-            if (ddl_status.Items.Count > 0)
-            {
-                ddl_status.Items.Insert(0, new ListItem("", ""));
-                ddl_status.SelectedIndex = 0;
-            }
-        }
+        //protected void ddl_status_DataBound(object sender, EventArgs e)
+        //{
+        //    if (ddl_status.Items.Count > 0)
+        //    {
+        //        ddl_status.Items.Insert(0, new ListItem("", ""));
+        //        ddl_status.SelectedIndex = 0;
+        //    }
+        //}
         protected void lv_search_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             // Tell the DataPager the new page properties
@@ -694,43 +695,43 @@ namespace TPA
             int count = e.AffectedRows;
             lblCount.Text = "Total Records: " + count.ToString();
         }
-        protected void linkButtonEmpId_click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
+        //protected void linkButtonEmpId_click(object sender, EventArgs e)
+        //{
+        //    LinkButton btn = (LinkButton)sender;
 
-            Session["empId_text"] = tb_empId.Text.Trim();
-            Session["surname_text"] = tb_surname.Text.Trim();
-            Session["firstname_text"] = tb_firstname.Text.Trim();
-            Session["formername_text"] = tb_formername.Text.Trim();
-            Session["knownasfirstname_text"] = tb_preferredfirstname.Text.Trim();
-            Session["knownassurname_text"] = tb_preferredsurname.Text.Trim();
-            Session["pal_text"] = tb_pal.Text.Trim();
-            Session["email_text"] = tb_email.Text.Trim();
-            Session["phone_text"] = tb_phone.Text.Trim();
-            Session["groupcode_text"] = tb_grpcode.Text.Trim();
-            Session["job_text"] = tb_job.Text.Trim();
+        //    Session["empId_text"] = tb_empId.Text.Trim();
+        //    Session["surname_text"] = tb_surname.Text.Trim();
+        //    Session["firstname_text"] = tb_firstname.Text.Trim();
+        //    Session["formername_text"] = tb_formername.Text.Trim();
+        //    Session["knownasfirstname_text"] = tb_preferredfirstname.Text.Trim();
+        //    Session["knownassurname_text"] = tb_preferredsurname.Text.Trim();
+        //    Session["pal_text"] = tb_pal.Text.Trim();
+        //    Session["email_text"] = tb_email.Text.Trim();
+        //    Session["phone_text"] = tb_phone.Text.Trim();
+        //    Session["groupcode_text"] = tb_grpcode.Text.Trim();
+        //    Session["job_text"] = tb_job.Text.Trim();
             
 
-            if(!string.IsNullOrEmpty(ddl_status.SelectedValue.ToString().Trim()))
-                Session["status_list"] = ddl_status.SelectedValue.ToString().Trim();
+        //    if(!string.IsNullOrEmpty(ddl_status.SelectedValue.ToString().Trim()))
+        //        Session["status_list"] = ddl_status.SelectedValue.ToString().Trim();
          
-            // Retrieve the single string from the CommandArgument
-            string commandArgs = btn.CommandArgument;
+        //    // Retrieve the single string from the CommandArgument
+        //    string commandArgs = btn.CommandArgument;
 
-            // Split the string using the semicolon separator
-            string[] args = commandArgs.Split(';');
+        //    // Split the string using the semicolon separator
+        //    string[] args = commandArgs.Split(';');
 
-            // Access the individual values
-            string empId = args[0];
-            string surname = args[1];
-            string firstname = args[2];
+        //    // Access the individual values
+        //    string empId = args[0];
+        //    string surname = args[1];
+        //    string firstname = args[2];
 
-            Session["selectedEmpId"] = empId;
-            Session["selectedSurname"] = surname;
-            Session["selectedFirstname"] = firstname;
+        //    Session["selectedEmpId"] = empId;
+        //    Session["selectedSurname"] = surname;
+        //    Session["selectedFirstname"] = firstname;
 
-            // Redirect to smartphone page
-            Response.Redirect("smartphone.aspx");
-        }
+        //    // Redirect to smartphone page
+        //    Response.Redirect("smartphone.aspx");
+        //}
     }
 }

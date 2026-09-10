@@ -72,12 +72,12 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            <asp:TableCell>Former Name</asp:TableCell>
+                           <%-- <asp:TableCell>Former Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
+                            </asp:TableCell>--%>
                         </asp:TableRow>
-                        <asp:TableRow>
+                       <%-- <asp:TableRow>
                             <asp:TableCell>Known as firstname</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
@@ -95,8 +95,8 @@
                                 <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
 
-                        </asp:TableRow>
-                        <asp:TableRow>
+                        </asp:TableRow>--%>
+                        <%--<asp:TableRow>
                             <asp:TableCell>Phone</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
@@ -107,10 +107,6 @@
                             </asp:TableCell>
                             <asp:TableCell>Job</asp:TableCell>
                             <asp:TableCell>
-                                <%--<asp:DropDownList ID="ddl_job" runat="server" CssClass="form-control" Width="150px" Height="34px"
-                                    DataSourceID="SqlDataSource_job" DataTextField="job_code_description" DataValueField="description_abbr"
-                                    OnDataBound="ddl_job_DataBound">
-                                </asp:DropDownList>--%>
                                 <asp:TextBox ID="tb_job" runat="server" Width="150px" CssClass="form-control search_job"></asp:TextBox>
                             </asp:TableCell>
                             <asp:TableCell>Status</asp:TableCell>
@@ -120,7 +116,7 @@
                                     OnDataBound="ddl_status_DataBound">
                                 </asp:DropDownList>
                             </asp:TableCell>
-                        </asp:TableRow>
+                        </asp:TableRow>--%>
 
                         <asp:TableRow>
                             <asp:TableCell>
@@ -167,7 +163,7 @@
                                 <th>Home loc</th>
                                 <%--<th>Location code</th>
                                 <th>Record change date</th>--%>
-                                <th>Status</th>
+                                <%--<th>Status</th>--%>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
@@ -175,14 +171,7 @@
                     <ItemTemplate>
                         <tr>
                             <td>
-                                <asp:LinkButton  
-                                    ID="linkButtonEmpId" 
-                                    runat="server"
-                                    ToolTip ="Smartphone Orders"
-                                    Text='<%# Eval("employee_id") %>'
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
-                                    OnClick="linkButtonEmpId_click">
-                                </asp:LinkButton>
+                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
@@ -222,8 +211,8 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>--%>
-                            <td>
-                                <%--<%# Eval("emp_activity_code") %>--%>
+                           <%-- <td>
+                               
                                 <asp:Button
                                     ID="btnDetails"
                                     Width="100px" Height="40px"
@@ -243,13 +232,9 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                                <%-- <asp:Label
-                                    ID="lbl_activity_code"
-                                    runat="server"
-                                    Text='<%#Eval("emp_activity_code")%>'
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>--%>
+                              
 
-                            </td>
+                            </td>--%>
                         </tr>
                     </ItemTemplate>
                     <%-- TODO ======TODO  <AlternatingItemTemplate>
@@ -274,14 +259,15 @@
                     <SelectedItemTemplate>
                         <tr style="background-color: lightcyan">
                             <td>
-                               <asp:LinkButton  
+                                 <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
+                               <%--<asp:LinkButton  
                                     ID="linkButtonEmpId" 
                                     runat="server"
                                     ToolTip ="Smartphone Orders"
                                     Text='<%# Eval("employee_id") %>'
                                     CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
                                     OnClick="linkButtonEmpId_click">
-                                </asp:LinkButton>
+                                </asp:LinkButton>--%>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
@@ -321,8 +307,8 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>--%>
-                            <td>
-                                <%--<%# Eval("emp_activity_code") %>--%>
+                          <%--  <td>
+                                
                                 <asp:Button
                                     ID="btnDetails"
                                     Width="100px" Height="40px"
@@ -342,13 +328,9 @@
                                         Eval("emp_activity_code").ToString() == "ACTIVE"
                                         %>' />
 
-                                <%-- <asp:Label
-                                    ID="lbl_activity_code"
-                                    runat="server"
-                                    Text='<%#Eval("emp_activity_code")%>'
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ACTIVE" %>'></asp:Label>--%>
+                              
 
-                            </td>
+                            </td>--%>
                         </tr>
 
                     </SelectedItemTemplate>
