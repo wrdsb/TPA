@@ -72,10 +72,7 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            <%-- <asp:TableCell>Former Name</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>--%>
+                            
                             <asp:TableCell>
                                 <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
                             </asp:TableCell>
@@ -83,46 +80,8 @@
                                 <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                             </asp:TableCell>
                         </asp:TableRow>
-                        <%-- <asp:TableRow>
-                            <asp:TableCell>Known as firstname</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Known as surname</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_preferredsurname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>PAL\UserID</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_pal" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Email</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_email" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-
-                        </asp:TableRow>--%>
-                        <%--<asp:TableRow>
-                            <asp:TableCell>Phone</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_phone" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Group Code</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_grpcode" runat="server" Width="150px" CssClass="form-control search_groupcode"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Job</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_job" runat="server" Width="150px" CssClass="form-control search_job"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Status</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:DropDownList ID="ddl_status" runat="server" CssClass="form-control" Width="150px" Height="34px"
-                                    DataSourceID="SqlDataSource_status" DataTextField="emp_activity_code" DataValueField="emp_activity_code"
-                                    OnDataBound="ddl_status_DataBound">
-                                </asp:DropDownList>
-                            </asp:TableCell>
-                        </asp:TableRow>--%>
+                       
+                       
 
                       
                     </asp:Table>
@@ -143,184 +102,29 @@
                                 <asp:Literal runat="server" ID="litDetails"></asp:Literal>
                             </tr>
                             <tr>
-                                <th>Emp Id</th>
+                                <th>EIN</th>
                                 <th>Name (Surname, Firstname)</th>
-                                <%--<th>Known as (Surname, Firstname)</th>
-                                <th>Former Name</th>
-                                <th>UserID</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Postcode</th>
-                                <th>
-                                    <asp:LinkButton ID="lnkSortJobCode" runat="server" CommandName="Sort" CommandArgument="job_code">
-                                        Job code 
-                                    </asp:LinkButton>
-                                </th>
-                                <th>Job Desc</th>--%>
-                                <th>Group code</th>
+                                
+                                <th>Emp Group</th>                            
                                 <th>Home loc</th>
-                                <%--<th>Location code</th>
-                                <th>Record change date</th>--%>
-                                <%--<th>Status</th>--%>
+                                
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td>
-                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
-                            </td>
-                            <td>
-                                <asp:Label ID="lbl_name" runat="server"
-                                    Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
-                                </asp:Label>
-                            </td>
-                            <%--<td>
-                                <asp:Label ID="lbl_known_as" runat="server"
-                                    Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_phone" runat="server"
-                                    Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
-                                </asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>--%>
-                            <td>
-                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td style="text-align: center">
-                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
-                            <%--
-                            <td>
-                                <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
-
-                            <td>
-                                <asp:Label ID="lbl_review_date" runat="server" 
-                                    Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
-                            </td>--%>
-                            <%-- <td>
-                               
-                                <asp:Button
-                                    ID="btnDetails"
-                                    Width="100px" Height="40px"
-                                    CssClass="btn btn-primary"
-                                    runat="server"
-                                    Text='<%#Eval("emp_activity_code")%>'
-                                    CommandName="ViewDetails"
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") + ";" + Eval("location_code") + ";" + Eval("record_change_date") %>'
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
-                                        Eval("emp_activity_code").ToString() == "DECEASED" || 
-                                        Eval("emp_activity_code").ToString() == "INACTIVE" || 
-                                        Eval("emp_activity_code").ToString() == "ONLEAVE" || 
-                                        Eval("emp_activity_code").ToString() == "OTHER" || 
-                                        Eval("emp_activity_code").ToString() == "RESIGNED" || 
-                                        Eval("emp_activity_code").ToString() == "RETIRED" || 
-                                        Eval("emp_activity_code").ToString() == "TERMINAT" ||
-                                        Eval("emp_activity_code").ToString() == "ACTIVE"
-                                        %>' />
-
-                              
-
-                            </td>--%>
-                        </tr>
-                    </ItemTemplate>
-                    <%-- TODO ======TODO  <AlternatingItemTemplate>
-                        <tr style="background-color:#e6e6e6">
-                            <td><asp:Label ID="lbl_name" runat="server" 
-                                Text='<%# String.Format("{0}, {1}", Eval("victim_surname"),Eval("victim_firstname")) %>'>
-                                </asp:Label>
-                            </td>
-                            <td><asp:Label ID="Label6" runat="server" Text='Preferred'></asp:Label></td>
-                            <td><asp:Label ID="lbl_grade" runat="server" Text='<%#Eval("victim_grade") %>'></asp:Label></td>
-                            <td><asp:Label ID="Label2" runat="server" Text='test@email.com'></asp:Label></td>
-                            <td><asp:Label ID="Label3" runat="server" Text='1234'></asp:Label></td>
-                            <td><asp:Label ID="Label4" runat="server" Text='s/w analyst'></asp:Label></td>
-                            <td><asp:Label ID="Label5" runat="server" Text='n2d 5gh'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_incident_date" runat="server" 
-                                    Text='<%#Bind("date_occurred","{0:MMMM dd, yyyy}") %>'></asp:Label>
-                            </td>
-                            <td><asp:Label ID="Label1" runat="server" Text='Active'></asp:Label></td>
-                        </tr>
-                    </AlternatingItemTemplate>--%>
-                    <SelectedItemTemplate>
-                        <tr style="background-color: lightcyan">
-                            <td>
-                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
-                            </td>
-                            <td>
-                                <asp:Label ID="lbl_name" runat="server"
-                                    Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
-                                </asp:Label>
-                            </td>
-                          <%--  <td>
-                                <asp:Label ID="lbl_known_as" runat="server"
-                                    Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
-                           
-                            <td>
-                                <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_user_id" runat="server" Text='<%#Eval("user_id")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_email_address" runat="server" Text='<%#Eval("e_mail_address")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_phone" runat="server"
-                                    Text='<%# String.Format("{0}-{1}", Eval("telephone_area"), Eval("telephone_no"))%>'>
-                                </asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_postal_code" runat="server" Text='<%#Eval("postal_code")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>--%>
-                            <td>
-                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
-                            <td style="text-align: center">
-                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("home_location_ind")%>'></asp:Label></td>
-                            <%--
-                            <td>
-                                <asp:Label ID="lbl_location_code" runat="server" Text='<%#Eval("location_code")%>'></asp:Label></td>
-
-                            <td>
-                                <asp:Label ID="lbl_review_date" runat="server" 
-                                    Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
-                            </td>--%>
-                            <%--  <td>
+                            <td><asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>                           
+                            <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>
                                 
-                                <asp:Button
-                                    ID="btnDetails"
-                                    Width="100px" Height="40px"
-                                    CssClass="btn btn-primary"
-                                    runat="server"
-                                    Text='<%#Eval("emp_activity_code")%>'
-                                    CommandName="ViewDetails"
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("emp_activity_code") + ";" + Eval("location_code") + ";" + Eval("record_change_date") %>'
-                                    Visible='<%# Eval("emp_activity_code").ToString() == "ONLEAVE" ||
-                                        Eval("emp_activity_code").ToString() == "DECEASED" || 
-                                        Eval("emp_activity_code").ToString() == "INACTIVE" || 
-                                        Eval("emp_activity_code").ToString() == "ONLEAVE" || 
-                                        Eval("emp_activity_code").ToString() == "OTHER" || 
-                                        Eval("emp_activity_code").ToString() == "RESIGNED" || 
-                                        Eval("emp_activity_code").ToString() == "RETIRED" || 
-                                        Eval("emp_activity_code").ToString() == "TERMINAT" ||
-                                        Eval("emp_activity_code").ToString() == "ACTIVE"
-                                        %>' />
-
-                              
-
-                            </td>--%>
-                        </tr>
-
-                    </SelectedItemTemplate>
+                           
+                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>                                                    
+                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("HOME_LOCATION_CODE")%>'></asp:Label></td>
+                                
+                           
+                    </ItemTemplate>
+                    
+                    
                     <EmptyDataTemplate>
                         We didn't find any data.
                     </EmptyDataTemplate>

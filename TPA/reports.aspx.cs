@@ -134,29 +134,19 @@ namespace TPA
         
         bool GenerateQuery()
         {
-            //Loggers.Log("Building search query from reports page by user: " + Session["username"]);
+            
             searchFilter = string.Empty;
-            //Session["area"] = string.Empty;
-            //Session["phonewithoutarea"] = string.Empty;
-            //Session["jobcode"] = string.Empty;
-            //Session["jobdesc"] = string.Empty;
+           
 
             try
             {
                 string query = "";                                 
 
                 if (string.IsNullOrEmpty(surname) &&
-                    //string.IsNullOrEmpty(knownasfirstname) &&
-                    //string.IsNullOrEmpty(pal) &&
-                    //string.IsNullOrEmpty(email) &&
-                    //string.IsNullOrEmpty(phone) &&
+                    
                     string.IsNullOrEmpty(empid) &&
-                    string.IsNullOrEmpty(firstname) /*&&*/
-                    //string.IsNullOrEmpty(job) &&
-                    //string.IsNullOrEmpty(status) &&
-                    //string.IsNullOrEmpty(formername) &&
-                    //string.IsNullOrEmpty(knownassurname) &&
-                    //string.IsNullOrEmpty(groupcode)
+                    string.IsNullOrEmpty(firstname) 
+                   
                     )
                     return false;
 
@@ -178,111 +168,49 @@ namespace TPA
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
 
-                //if (!string.IsNullOrEmpty(phone)) // work around to split area code from phone number
-                //{
-                //    if (phone.Length > 3)
-                //    {
-                //        Session["area"] = phone.Substring(0, 3);
-                //        Session["phonewithoutarea"] = phone.Substring(3);
-                //    }
-                //    else
-                //    {
-                //        Session["area"] = phone;
-                //        Session["phonewithoutarea"] = string.Empty;
-                //    }
-                //}
+                
 
 
-                //bool jobQuery_AND = false;
-                //if (!string.IsNullOrEmpty(job))// work around to split job code from job description
-                //{
-                //    if (job.Contains(" - "))
-                //    {
-                //        Session["jobcode"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[0];
-                //        Session["jobdesc"] = job.Split(new string[] { " - " }, StringSplitOptions.None)[1];
-                //        jobQuery_AND = true;
-
-                //    }
-                //    else
-                //    {
-                //        Session["jobcode"] = job;
-                //        Session["jobdesc"] = job;
-                //    }
-                //}
+                
 
 
-                /*
-                 * WHERE empos.home_location_ind = 'Y' 
-                        AND empos.position_start_date <= getdate()
-                        AND (empos.position_end_date >= getdate() or empos.position_end_date is null) AND
-                 * */
+                
 
-                query = @"SELECT 
-                    emp.employee_id,
-                    emp.surname,
-                    emp.first_name,
-                    emp.known_as_first,
-                    emp.postal_code,
-                    emp.telephone_area,
-                    emp.telephone_no,
-                    emp.emp_activity_code,
-                    emp.e_mail_address,  
-                    emp.former_name,
-                    emp.known_as,
-
-                    job.description_text,
-                    job.job_code,
-
-                    empos.emp_group_code,
-                    empos.location_code,
-                    empos.record_change_date,
-                    empos.home_location_ind,
-
-                    usr.user_id 
-
-                    FROM ec_employee emp 
-                    LEFT OUTER JOIN hd_ec_users usr
-                    ON (emp.employee_id = usr.employee_id)     
-                    INNER JOIN ec_employee_positions empos
-                    ON (emp.employee_id = empos.employee_id) 
-                    INNER JOIN ec_jobs job
-                    ON (empos.job_code = job.job_code) 
-
-                    WHERE ";
+                query = @"  SELECT		emp.EMPLOYEE_ID AS EIN
+			                            , emp.SURNAME+', '+emp.FIRST_NAME AS NAME
+			                            , emp.EMP_GROUP_CODE
+			                            , grp.DESCRIPTION_ABBR grp_desc
+			                            , emp.HOME_LOCATION_CODE
+			                            , loc.DESCRIPTION_ABBR loc_desc
+			                            , emp.CONTRACT_CODE
+			                            , cnt.DESCRIPTION_ABBR cnt_desc
+			                            , emp.CONTRACT_DATE
+			                            , emp.ORIGINAL_START_DATE
+			                            , emp.REVIEW_DATE
+			                            , emp.TERMINATION_CODE 
+			                            , t.DESCRIPTION_ABBR term_desc
+			                            , emp.TERMINATION_DATE
+			                            , emp.PREVIOUS_TERMINATION_CODE
+			                            , pt.DESCRIPTION_ABBR prev_term_desc
+			                            , emp.PREVIOUS_TERMINATION_DATE
+                            FROM		EC_EMPLOYEE emp
+                            JOIN		EC_GROUP_CODES grp			ON  grp.EMP_GROUP_CODE = emp.EMP_GROUP_CODE
+                            JOIN		EC_LOCATIONS loc			ON	loc.LOCATION_CODE = emp.HOME_LOCATION_CODE
+                            JOIN		EC_EMPLOYEE_POSITIONS empos ON	empos.EMPLOYEE_ID = emp.EMPLOYEE_ID
+                            LEFT JOIN	EC_CODE_CONTRACT_CODE cnt	ON	cnt.CODE_VALUE = emp.CONTRACT_CODE
+                            LEFT JOIN	EC_CODE_TERMINATION_CODE t	ON	t.CODE_VALUE = emp.TERMINATION_CODE
+                            LEFT JOIN	EC_CODE_TERMINATION_CODE pt	ON	pt.CODE_VALUE = emp.PREVIOUS_TERMINATION_CODE
+                            WHERE ";
 
 
 
                 query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%' +@firstname+ '%' AND ";
-                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";
-                //query += string.IsNullOrEmpty(knownasfirstname) ? "" : "emp.known_as_first LIKE '%' +@knownasfirstname+ '%' AND ";
-                //query += string.IsNullOrEmpty(status) ? "" : "emp.emp_activity_code = @status  AND ";
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";               
                 query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id = @empid AND ";
-                //query += string.IsNullOrEmpty(email) ? "" : "emp.e_mail_address LIKE '%' +@email+ '%' AND ";
-                //query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_no LIKE '%' + @phonewithoutarea + '%' AND ";
-                //query += string.IsNullOrEmpty(phone) ? "" : "emp.telephone_area LIKE '%' + @area + '%' AND ";
-                //query += string.IsNullOrEmpty(formername) ? "" : "emp.former_name LIKE '%' + @formername + '%' AND ";
-                //query += string.IsNullOrEmpty(knownassurname) ? "" : "emp.known_as LIKE '%' + @knownassurname + '%' AND ";
 
-                //if (jobQuery_AND)
-                //{
-                //    query += string.IsNullOrEmpty(job) ? "" : "job.description_text LIKE '%' + @jobdesc + '%' AND job.job_code LIKE '%' + @jobcode + '%' AND ";
-                //}
-                //else
-                //    query += string.IsNullOrEmpty(job) ? "" : "(job.description_text LIKE '%' + @jobdesc + '%' OR job.job_code LIKE '%' + @jobcode + '%') AND ";
-
-                //query += string.IsNullOrEmpty(pal) ? "" : "usr.user_id LIKE '%' + @pal + '%' AND ";
-
-                //query += string.IsNullOrEmpty(groupcode) ? "" : "empos.emp_group_code LIKE '%' + @groupcode + '%' AND ";
-
-                //query += @" empos.home_location_ind = 'Y' 
-                //        AND 
-                query += @" empos.position_start_date <= getdate() ";
-                /*AND 
-                (empos.position_end_date IS NULL OR empos.position_end_date = emp.termination_date)";*/ // -- Fix to display all the records of the employee. Ticket # T2605-02406
-
-
-                query += " ORDER BY emp.employee_id ASC";
-                //Loggers.Log("Search query built: " + query);
+                query = query.Substring(0, query.Length - 4);
+              
+                
                 Global.searchQuery = query;
                 return true;
             }
@@ -302,6 +230,7 @@ namespace TPA
             try
             {
                 DataSource_search.SelectCommand = Global.searchQuery;
+                Response.Write("Executing Query: " + DataSource_search.SelectCommand);
                 LoadParameters();
                 lv_search.DataBind();
                 lv_search.SelectedIndex = -1;
