@@ -103,9 +103,9 @@
                             </tr>
                             <tr>
                                 <th>EIN</th>
-                                <th>Name (Surname, Firstname)</th>
-                                
-                                <th>Emp Group</th>                            
+                                <th>Name (Surname, Firstname)</th>                               
+                                <th>Emp Group</th>     
+                                <th>Group Desc</th>
                                 <th>Home loc</th>
                                 
                             </tr>
@@ -115,13 +115,11 @@
                     <ItemTemplate>
                         <tr>
                             <td><asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>                           
-                            <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>
-                                
-                           
-                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>                                                    
-                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("HOME_LOCATION_CODE")%>'></asp:Label></td>
-                                
-                           
+                            <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
+                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUP_CODE")%>'></asp:Label></td>   
+                            <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("GROUP_DESC")%>'></asp:Label></td>                          
+                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION_CODE")%>'></asp:Label></td>                              
+                         </tr>  
                     </ItemTemplate>
                     
                     

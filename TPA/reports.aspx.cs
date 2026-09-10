@@ -167,20 +167,14 @@ namespace TPA
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
-
+               
                 
 
-
-                
-
-
-                
-
-                query = @"  SELECT		emp.EMPLOYEE_ID AS EIN
-			                            , emp.SURNAME+', '+emp.FIRST_NAME AS NAME
-			                            , emp.EMP_GROUP_CODE
-			                            , grp.DESCRIPTION_ABBR grp_desc
-			                            , emp.HOME_LOCATION_CODE
+                query = @"  SELECT		emp.EMPLOYEE_ID                         AS EIN
+			                            , emp.SURNAME+', '+emp.FIRST_NAME       AS NAME
+			                            , emp.EMP_GROUP_CODE                    AS GROUP_CODE
+			                            , grp.DESCRIPTION_ABBR                  AS GROUP_DESC
+			                            , emp.HOME_LOCATION_CODE                AS LOCATION_CODE
 			                            , loc.DESCRIPTION_ABBR loc_desc
 			                            , emp.CONTRACT_CODE
 			                            , cnt.DESCRIPTION_ABBR cnt_desc
@@ -230,7 +224,7 @@ namespace TPA
             try
             {
                 DataSource_search.SelectCommand = Global.searchQuery;
-                Response.Write("Executing Query: " + DataSource_search.SelectCommand);
+                //Response.Write("Executing Query: " + DataSource_search.SelectCommand);
                 LoadParameters();
                 lv_search.DataBind();
                 lv_search.SelectedIndex = -1;
