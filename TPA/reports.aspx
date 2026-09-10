@@ -104,10 +104,10 @@
                             <tr>
                                 <th>EIN</th>
                                 <th>Name (Surname, Firstname)</th>                               
-                                <th>Emp Group</th>     
+                                <th>Group Code</th>     
                                 <th>Group Desc</th>
-                                <th>Home loc</th>
-                                
+                                <th>Location Code</th>
+                                <th>Location Desc</th>                              
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
@@ -118,7 +118,9 @@
                             <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
                             <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUP_CODE")%>'></asp:Label></td>   
                             <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("GROUP_DESC")%>'></asp:Label></td>                          
-                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION_CODE")%>'></asp:Label></td>                              
+                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION_CODE")%>'></asp:Label></td>
+                            <td><asp:Label ID="Label2" runat="server" Text='<%#Eval("LOC_DESC")%>'></asp:Label></td>    
+                            
                          </tr>  
                     </ItemTemplate>
                     

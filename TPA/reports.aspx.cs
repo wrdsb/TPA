@@ -155,15 +155,7 @@ namespace TPA
                     Empid = empid,
                     Surname = surname,
                     Firstname = firstname
-                    //Former = formername,
-                    //Knownfirst = knownasfirstname,
-                    //Knownlast = knownassurname,
-                    //Pal = pal,
-                    //Email = email,
-                    //Phone = phone,
-                    //Group = groupcode,
-                    //Job = job,
-                    //Status = status
+                    
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
@@ -175,7 +167,7 @@ namespace TPA
 			                            , emp.EMP_GROUP_CODE                    AS GROUP_CODE
 			                            , grp.DESCRIPTION_ABBR                  AS GROUP_DESC
 			                            , emp.HOME_LOCATION_CODE                AS LOCATION_CODE
-			                            , loc.DESCRIPTION_ABBR loc_desc
+			                            , loc.DESCRIPTION_ABBR                  AS LOC_DESC
 			                            , emp.CONTRACT_CODE
 			                            , cnt.DESCRIPTION_ABBR cnt_desc
 			                            , emp.CONTRACT_DATE
@@ -190,7 +182,6 @@ namespace TPA
                             FROM		EC_EMPLOYEE emp
                             JOIN		EC_GROUP_CODES grp			ON  grp.EMP_GROUP_CODE = emp.EMP_GROUP_CODE
                             JOIN		EC_LOCATIONS loc			ON	loc.LOCATION_CODE = emp.HOME_LOCATION_CODE
-                            JOIN		EC_EMPLOYEE_POSITIONS empos ON	empos.EMPLOYEE_ID = emp.EMPLOYEE_ID
                             LEFT JOIN	EC_CODE_CONTRACT_CODE cnt	ON	cnt.CODE_VALUE = emp.CONTRACT_CODE
                             LEFT JOIN	EC_CODE_TERMINATION_CODE t	ON	t.CODE_VALUE = emp.TERMINATION_CODE
                             LEFT JOIN	EC_CODE_TERMINATION_CODE pt	ON	pt.CODE_VALUE = emp.PREVIOUS_TERMINATION_CODE
