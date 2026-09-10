@@ -72,12 +72,18 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                           <%-- <asp:TableCell>Former Name</asp:TableCell>
+                            <%-- <asp:TableCell>Former Name</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_formername" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>--%>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
+                            </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
+                            </asp:TableCell>
                         </asp:TableRow>
-                       <%-- <asp:TableRow>
+                        <%-- <asp:TableRow>
                             <asp:TableCell>Known as firstname</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_preferredfirstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
@@ -118,14 +124,7 @@
                             </asp:TableCell>
                         </asp:TableRow>--%>
 
-                        <asp:TableRow>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
-                            </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
-                            </asp:TableCell>
-                        </asp:TableRow>
+                      
                     </asp:Table>
                 </asp:Panel>
                 <br />
@@ -146,8 +145,7 @@
                             <tr>
                                 <th>Emp Id</th>
                                 <th>Name (Surname, Firstname)</th>
-                                <th>Known as (Surname, Firstname)</th>
-                                <%--<th>Known as surname</th>--%>
+                                <%--<th>Known as (Surname, Firstname)</th>
                                 <th>Former Name</th>
                                 <th>UserID</th>
                                 <th>Email</th>
@@ -158,7 +156,7 @@
                                         Job code 
                                     </asp:LinkButton>
                                 </th>
-                                <th>Job Desc</th>
+                                <th>Job Desc</th>--%>
                                 <th>Group code</th>
                                 <th>Home loc</th>
                                 <%--<th>Location code</th>
@@ -178,11 +176,9 @@
                                     Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
                                 </asp:Label>
                             </td>
-                            <td>
+                            <%--<td>
                                 <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
-                            <%--<td>
-                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
                             <td>
                                 <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td>
@@ -198,7 +194,7 @@
                             <td>
                                 <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
                             <td>
-                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
+                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>--%>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
                             <td style="text-align: center">
@@ -211,7 +207,7 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>--%>
-                           <%-- <td>
+                            <%-- <td>
                                
                                 <asp:Button
                                     ID="btnDetails"
@@ -259,26 +255,17 @@
                     <SelectedItemTemplate>
                         <tr style="background-color: lightcyan">
                             <td>
-                                 <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
-                               <%--<asp:LinkButton  
-                                    ID="linkButtonEmpId" 
-                                    runat="server"
-                                    ToolTip ="Smartphone Orders"
-                                    Text='<%# Eval("employee_id") %>'
-                                    CommandArgument='<%# Eval("employee_id") + ";" + Eval("surname") + ";" + Eval("first_name") %>'
-                                    OnClick="linkButtonEmpId_click">
-                                </asp:LinkButton>--%>
+                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("employee_id")%>'></asp:Label></td>
                             </td>
                             <td>
                                 <asp:Label ID="lbl_name" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("surname"),Eval("first_name")) %>'>
                                 </asp:Label>
                             </td>
-                            <td>
+                          <%--  <td>
                                 <asp:Label ID="lbl_known_as" runat="server"
                                     Text='<%# String.Format("{0}, {1}", Eval("known_as"),Eval("known_as_first")) %>'></asp:Label></td>
-                            <%--<td>
-                                <asp:Label ID="lbl_known_as_surname" runat="server" Text='<%#Eval("known_as")%>'></asp:Label></td>--%>
+                           
                             <td>
                                 <asp:Label ID="lbl_former_name" runat="server" Text='<%#Eval("former_name")%>'></asp:Label></td>
                             <td>
@@ -294,7 +281,7 @@
                             <td>
                                 <asp:Label ID="lbl_jobcode" runat="server" Text='<%#Eval("job_code") %>'></asp:Label></td>
                             <td>
-                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>
+                                <asp:Label ID="lbl_jobdesc" runat="server" Text='<%#Eval("description_text") %>'></asp:Label></td>--%>
                             <td>
                                 <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("emp_group_code")%>'></asp:Label></td>
                             <td style="text-align: center">
@@ -307,7 +294,7 @@
                                 <asp:Label ID="lbl_review_date" runat="server" 
                                     Text='<%#Bind("record_change_date","{0:MMMM dd, yyyy}") %>'></asp:Label>
                             </td>--%>
-                          <%--  <td>
+                            <%--  <td>
                                 
                                 <asp:Button
                                     ID="btnDetails"
