@@ -167,12 +167,12 @@ namespace TPA
 			                            , emp.EMP_GROUP_CODE                    AS GROUP_CODE
 			                            , grp.DESCRIPTION_ABBR                  AS GROUP_DESC
 			                            , emp.HOME_LOCATION_CODE                AS LOCATION_CODE
-			                            , loc.DESCRIPTION_ABBR                  AS LOC_DESC
-			                            , emp.CONTRACT_CODE
-			                            , cnt.DESCRIPTION_ABBR cnt_desc
-			                            , emp.CONTRACT_DATE
-			                            , emp.ORIGINAL_START_DATE
-			                            , emp.REVIEW_DATE
+			                            , loc.DESCRIPTION_ABBR                  AS LOCATION_DESC
+			                            , emp.CONTRACT_CODE                     AS CONTRACT_CODE
+			                            , cnt.DESCRIPTION_ABBR                  AS CONTRACT_DESC
+			                            , emp.CONTRACT_DATE                     AS CONTRACT_DATE
+			                            , emp.ORIGINAL_START_DATE               AS ORIGINAL_START_DATE
+			                            , emp.REVIEW_DATE                       AS REVIEW_DATE
 			                            , emp.TERMINATION_CODE 
 			                            , t.DESCRIPTION_ABBR term_desc
 			                            , emp.TERMINATION_DATE

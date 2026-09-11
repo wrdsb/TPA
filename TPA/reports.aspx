@@ -107,7 +107,12 @@
                                 <th>Group Code</th>     
                                 <th>Group Desc</th>
                                 <th>Location Code</th>
-                                <th>Location Desc</th>                              
+                                <th>Location Desc</th>    
+                                <th>Contract Code</th>
+                                <th>Contract Desc</th>
+                                <th>Contract Date</th>
+                                <th>Start Date</th>
+                                <th>Review Date</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
@@ -119,8 +124,12 @@
                             <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUP_CODE")%>'></asp:Label></td>   
                             <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("GROUP_DESC")%>'></asp:Label></td>                          
                             <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION_CODE")%>'></asp:Label></td>
-                            <td><asp:Label ID="Label2" runat="server" Text='<%#Eval("LOC_DESC")%>'></asp:Label></td>    
-                            
+                            <td><asp:Label ID="Label2" runat="server" Text='<%#Eval("LOCATION_DESC")%>'></asp:Label></td>    
+                            <td><asp:Label ID="Label3" runat="server" Text='<%#Eval("CONTRACT_CODE")%>'></asp:Label></td>   
+                            <td><asp:Label ID="Label4" runat="server" Text='<%#Eval("CONTRACT_DESC")%>'></asp:Label></td>  
+                            <td><asp:Label ID="Label5" runat="server" Text='<%#Eval("CONTRACT_DATE")%>'></asp:Label></td>  
+                            <td><asp:Label ID="Label6" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
+                            <td><asp:Label ID="Label7" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
                          </tr>  
                     </ItemTemplate>
                     
