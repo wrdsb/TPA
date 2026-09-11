@@ -113,6 +113,8 @@
                                 <th>Contract Date</th>
                                 <th>Start Date</th>
                                 <th>Review Date</th>
+                                <th>Termination</th>
+                                <th>Previous Termination</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
@@ -130,6 +132,8 @@
                             <td><asp:Label ID="Label5" runat="server" Text='<%#Eval("CONTRACT_DATE")%>'></asp:Label></td>  
                             <td><asp:Label ID="Label6" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
                             <td><asp:Label ID="Label7" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
+                             <td><asp:Label ID="Label9" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>  
+                            <td><asp:Label ID="Label8" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td> 
                          </tr>  
                     </ItemTemplate>
                     

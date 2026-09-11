@@ -173,12 +173,18 @@ namespace TPA
 			                            , emp.CONTRACT_DATE                     AS CONTRACT_DATE
 			                            , emp.ORIGINAL_START_DATE               AS ORIGINAL_START_DATE
 			                            , emp.REVIEW_DATE                       AS REVIEW_DATE
-			                            , emp.TERMINATION_CODE 
-			                            , t.DESCRIPTION_ABBR term_desc
-			                            , emp.TERMINATION_DATE
-			                            , emp.PREVIOUS_TERMINATION_CODE
-			                            , pt.DESCRIPTION_ABBR prev_term_desc
-			                            , emp.PREVIOUS_TERMINATION_DATE
+			                            , CONCAT_WS
+											(' | ', 
+											emp.TERMINATION_CODE,                 
+											t.DESCRIPTION_ABBR,					
+											emp.TERMINATION_DATE                  
+											)									AS TERMINATION
+			                            , CONCAT_WS
+											(' | ', 
+											emp.PREVIOUS_TERMINATION_CODE, 
+											pt.DESCRIPTION_ABBR, 
+											CONVERT(VARCHAR(10), emp.PREVIOUS_TERMINATION_DATE, 120)
+											)									AS PREVIOUS_TERMINATION
                             FROM		EC_EMPLOYEE emp
                             JOIN		EC_GROUP_CODES grp			ON  grp.EMP_GROUP_CODE = emp.EMP_GROUP_CODE
                             JOIN		EC_LOCATIONS loc			ON	loc.LOCATION_CODE = emp.HOME_LOCATION_CODE
