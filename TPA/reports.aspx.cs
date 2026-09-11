@@ -162,10 +162,13 @@ namespace TPA
                
                 
 
-                query = @"  SELECT		emp.EMPLOYEE_ID                         AS EIN
-			                            , emp.SURNAME+', '+emp.FIRST_NAME       AS NAME
-			                            , emp.EMP_GROUP_CODE                    AS GROUP_CODE
-			                            , grp.DESCRIPTION_ABBR                  AS GROUP_DESC
+                query = @"  SELECT		emp.EMPLOYEE_ID                                                     AS EIN
+			                            , emp.SURNAME+', '+emp.FIRST_NAME                                   AS NAME
+                                        , CONCAT_WS
+											(' | ', 
+			                                emp.EMP_GROUP_CODE,                    
+			                                grp.DESCRIPTION_ABBR                    
+                                            )                                                               AS GROUPS                
                                         , CONCAT_WS
 											(' | ', 
 			                                emp.HOME_LOCATION_CODE,                
@@ -298,7 +301,7 @@ namespace TPA
                 bool success;
                 DataTable dt = SqlDB.GetDataTable(Global.searchQuery, out success);
                 int count = dt.Rows.Count;
-                lblCount.Text = "Total Records: " + count.ToString();
+                //lblCount.Text = "Total Records: " + count.ToString();
             }
             catch (Exception ex)
             {
@@ -456,7 +459,7 @@ namespace TPA
                     }
 
                     // Inject into a Literal or Modal placeholder
-                    litDetails.Text = detailsHtml;
+                    //litDetails.Text = detailsHtml;
 
                     // Show modal (custom CSS modal)
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
@@ -488,7 +491,7 @@ namespace TPA
         protected void lv_search_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
             // Tell the DataPager the new page properties
-            MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            //MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             lv_search.SelectedIndex = -1;
 
             // Rebind the data for the new page
@@ -616,48 +619,6 @@ namespace TPA
             }
         }
 
-        protected void DataSource_search_Selected(object sender, SqlDataSourceStatusEventArgs e)
-        {
-            int count = e.AffectedRows;
-            lblCount.Text = "Total Records: " + count.ToString();
-        }
-        //protected void linkButtonEmpId_click(object sender, EventArgs e)
-        //{
-        //    LinkButton btn = (LinkButton)sender;
-
-        //    Session["empId_text"] = tb_empId.Text.Trim();
-        //    Session["surname_text"] = tb_surname.Text.Trim();
-        //    Session["firstname_text"] = tb_firstname.Text.Trim();
-        //    Session["formername_text"] = tb_formername.Text.Trim();
-        //    Session["knownasfirstname_text"] = tb_preferredfirstname.Text.Trim();
-        //    Session["knownassurname_text"] = tb_preferredsurname.Text.Trim();
-        //    Session["pal_text"] = tb_pal.Text.Trim();
-        //    Session["email_text"] = tb_email.Text.Trim();
-        //    Session["phone_text"] = tb_phone.Text.Trim();
-        //    Session["groupcode_text"] = tb_grpcode.Text.Trim();
-        //    Session["job_text"] = tb_job.Text.Trim();
-            
-
-        //    if(!string.IsNullOrEmpty(ddl_status.SelectedValue.ToString().Trim()))
-        //        Session["status_list"] = ddl_status.SelectedValue.ToString().Trim();
-         
-        //    // Retrieve the single string from the CommandArgument
-        //    string commandArgs = btn.CommandArgument;
-
-        //    // Split the string using the semicolon separator
-        //    string[] args = commandArgs.Split(';');
-
-        //    // Access the individual values
-        //    string empId = args[0];
-        //    string surname = args[1];
-        //    string firstname = args[2];
-
-        //    Session["selectedEmpId"] = empId;
-        //    Session["selectedSurname"] = surname;
-        //    Session["selectedFirstname"] = firstname;
-
-        //    // Redirect to smartphone page
-        //    Response.Redirect("smartphone.aspx");
-        //}
+       
     }
 }

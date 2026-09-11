@@ -94,8 +94,7 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" OnItemCommand="lv_search_ItemCommand"
-                    OnPagePropertiesChanging="lv_search_PagePropertiesChanging" OnSorting="lv_search_Sorting">
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" >                    
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -104,15 +103,13 @@
                             <tr>
                                 <th>EIN</th>
                                 <th>Name (Surname, Firstname)</th>                               
-                                <th>Group Code</th>     
-                                <th>Group Desc</th>
-                                <th>Location</th>
-                                                                
-                                <th>Contract</th>
+                                <th>Group (Code | Desc)</th>                                  
+                                <th>Location (Code | Desc)</th>                                                
+                                <th>Contract (Code | Desc | Date)</th>
                                 <th>Start Date</th>
                                 <th>Review Date</th>
-                                <th>Termination</th>
-                                <th>Previous Termination</th>
+                                <th>Termination (Code | Desc | Date)</th>
+                                <th>Previous Termination (Code | Desc | Date)</th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
@@ -121,11 +118,8 @@
                         <tr>
                             <td><asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>                           
                             <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
-                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUP_CODE")%>'></asp:Label></td>   
-                            <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("GROUP_DESC")%>'></asp:Label></td>                          
-                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>
-                       
-                            
+                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>                              
+                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>                                   
                             <td><asp:Label ID="Label5" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>  
                             <td><asp:Label ID="Label6" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
                             <td><asp:Label ID="Label7" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
@@ -139,7 +133,7 @@
                         We didn't find any data.
                     </EmptyDataTemplate>
                 </asp:ListView>
-                <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
+               <%-- <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
                     <Fields>
                         <asp:NextPreviousPagerField ButtonType="Button"
                             ShowFirstPageButton="True" ShowLastPageButton="True"
@@ -154,7 +148,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>
+                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>--%>
 
 
             </div>
@@ -163,15 +157,15 @@
 
 
     <!-- Custom Modal -->
-    <div id="detailsModal" class="myModal">
+   <%-- <div id="detailsModal" class="myModal">
         <div class="myModal-content">
             <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
             <asp:Literal ID="litDetails" runat="server"></asp:Literal>
         </div>
-    </div>
+    </div>--%>
 
 
-    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>" OnSelected="DataSource_search_Selected"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>" ></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
         SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
