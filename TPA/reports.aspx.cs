@@ -166,8 +166,11 @@ namespace TPA
 			                            , emp.SURNAME+', '+emp.FIRST_NAME       AS NAME
 			                            , emp.EMP_GROUP_CODE                    AS GROUP_CODE
 			                            , grp.DESCRIPTION_ABBR                  AS GROUP_DESC
-			                            , emp.HOME_LOCATION_CODE                AS LOCATION_CODE
-			                            , loc.DESCRIPTION_ABBR                  AS LOCATION_DESC
+                                        , CONCAT_WS
+											(' | ', 
+			                                emp.HOME_LOCATION_CODE,                
+			                                loc.DESCRIPTION_ABBR                  
+                                            )                                                               AS LOCATION
                                         , CONCAT_WS
 											(' | ', 
 			                                emp.CONTRACT_CODE,                     

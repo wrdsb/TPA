@@ -106,8 +106,8 @@
                                 <th>Name (Surname, Firstname)</th>                               
                                 <th>Group Code</th>     
                                 <th>Group Desc</th>
-                                <th>Location Code</th>
-                                <th>Location Desc</th>                                  
+                                <th>Location</th>
+                                                                
                                 <th>Contract</th>
                                 <th>Start Date</th>
                                 <th>Review Date</th>
@@ -123,8 +123,8 @@
                             <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
                             <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUP_CODE")%>'></asp:Label></td>   
                             <td><asp:Label ID="Label1" runat="server" Text='<%#Eval("GROUP_DESC")%>'></asp:Label></td>                          
-                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION_CODE")%>'></asp:Label></td>
-                            <td><asp:Label ID="Label2" runat="server" Text='<%#Eval("LOCATION_DESC")%>'></asp:Label></td>    
+                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>
+                       
                             
                             <td><asp:Label ID="Label5" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>  
                             <td><asp:Label ID="Label6" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
