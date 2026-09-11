@@ -102,14 +102,14 @@
                             </tr>
                             <tr>
                                 <th>EIN</th>
-                                <th>Name (Surname, Firstname)</th>                               
-                                <th>Group (Code | Desc)</th>                                  
-                                <th>Location (Code | Desc)</th>                                                
-                                <th>Contract (Code | Desc | Date)</th>
-                                <th>Start Date</th>
-                                <th>Review Date</th>
-                                <th>Termination (Code | Desc | Date)</th>
-                                <th>Previous Termination (Code | Desc | Date)</th>
+                                <th>Name <br /> (Surname, Firstname)</th>                               
+                                <th><span style="white-space: nowrap;">Group</span> <br /><span style="white-space: nowrap;"> (Code | Desc)</span></th>                                  
+                                <th><span style="white-space: nowrap;">Location</span> <br /><span style="white-space: nowrap;"> (Code | Desc)</span></th>                                                
+                                <th><span style="white-space: nowrap;">Contract</span> <br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
+                                <th style="white-space: nowrap;">Start Date</th>
+                                <th style="white-space: nowrap;">Review Date</th>
+                                <th><span style="white-space: nowrap;">Termination</span> <br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
+                                <th><span style="white-space: nowrap;">Previous Termination </span><br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>

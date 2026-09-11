@@ -46,17 +46,7 @@ namespace TPA
                     tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
                     tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
                     tb_firstname.Text = Session["firstname_text"] != null ? Session["firstname_text"].ToString() : string.Empty;
-                    //tb_formername.Text = Session["formername_text"] != null ? Session["formername_text"].ToString() : string.Empty;
-                    //tb_preferredfirstname.Text = Session["knownasfirstname_text"] != null ? Session["knownasfirstname_text"].ToString() : string.Empty;
-                    //tb_preferredsurname.Text = Session["knownassurname_text"] != null ? Session["knownassurname_text"].ToString() : string.Empty;
-                    //tb_pal.Text = Session["pal_text"] != null ? Session["pal_text"].ToString() : string.Empty;
-                    //tb_email.Text = Session["email_text"] != null ? Session["email_text"].ToString() : string.Empty;
-                    //tb_phone.Text = Session["phone_text"] != null ? Session["phone_text"].ToString() : string.Empty;
-                    //tb_grpcode.Text = Session["groupcode_text"] != null ? Session["groupcode_text"].ToString() : string.Empty;
-                    //tb_job.Text = Session["job_text"] != null ? Session["job_text"].ToString() : string.Empty;
-
-                    //if (Session["status_list"] != null)
-                    //    ddl_status.SelectedValue = Session["status_list"].ToString();
+                    
 
                     showSearchData();
                 }
@@ -92,45 +82,8 @@ namespace TPA
             get { return tb_firstname.Text.Trim(); }
         }
 
-        //string formername
-        //{
-        //    get { return tb_formername.Text.Trim(); }
-        //}
-        //string knownasfirstname
-        //{
-        //    get { return tb_preferredfirstname.Text.Trim(); }
-        //}
-        //string knownassurname
-        //{
-        //    get { return tb_preferredsurname.Text.Trim(); }
-        //}
-        //string pal
-        //{
-        //    get { return tb_pal.Text.Trim(); }
-        //}
-        //string email
-        //{
-        //    get { return tb_email.Text.Trim(); }
-        //}
-     
-        //string phone
-        //{
-        //    get { return tb_phone.Text.Trim(); }
-        //}
        
-        //string groupcode
-        //{
-        //    get { return tb_grpcode.Text.Trim(); }
-        //}
-        //string job
-        //{
-        //    get { return tb_job.Text.Trim(); }
-        //}
-        //string status
-        //{
-        //    get { return ddl_status.SelectedValue; }
-        //}
-
+       
         
         bool GenerateQuery()
         {
@@ -257,30 +210,10 @@ namespace TPA
                     DataSource_search.SelectParameters.Add("firstname", firstname);
                 if (!string.IsNullOrEmpty(surname))
                     DataSource_search.SelectParameters.Add("surname", surname);
-                //if (!string.IsNullOrEmpty(knownasfirstname))
-                //    DataSource_search.SelectParameters.Add("knownasfirstname", knownasfirstname);
-                //if (!string.IsNullOrEmpty(status))
-                //    DataSource_search.SelectParameters.Add("status", status);
+                
                 if (!string.IsNullOrEmpty(empid))
                     DataSource_search.SelectParameters.Add("empid", empid);
-                //if (!string.IsNullOrEmpty(email))
-                //    DataSource_search.SelectParameters.Add("email", email);
-                //if (!string.IsNullOrEmpty(phone))
-                //    DataSource_search.SelectParameters.Add("phonewithoutarea",Session["phonewithoutarea"].ToString());
-                //if (!string.IsNullOrEmpty(phone))
-                //    DataSource_search.SelectParameters.Add("area", Session["area"].ToString());
-                //if (!string.IsNullOrEmpty(formername))
-                //    DataSource_search.SelectParameters.Add("formername", formername);
-                //if (!string.IsNullOrEmpty(knownassurname))
-                //    DataSource_search.SelectParameters.Add("knownassurname", knownassurname);
-                //if (!string.IsNullOrEmpty(job))
-                //    DataSource_search.SelectParameters.Add("jobcode", Session["jobcode"].ToString());
-                //if (!string.IsNullOrEmpty(job))
-                //    DataSource_search.SelectParameters.Add("jobdesc", Session["jobdesc"].ToString());
-                //if (!string.IsNullOrEmpty(pal))
-                //    DataSource_search.SelectParameters.Add("pal", pal);
-                //if (!string.IsNullOrEmpty(groupcode))
-                //    DataSource_search.SelectParameters.Add("groupcode", groupcode);
+               
 
             }
             catch (Exception ex)
@@ -293,26 +226,7 @@ namespace TPA
             }
         }
 
-        void BindTotalRecordCount()
-        {
-            try
-            {
-                SQLProvider SqlDB = new SQLProvider();
-                bool success;
-                DataTable dt = SqlDB.GetDataTable(Global.searchQuery, out success);
-                int count = dt.Rows.Count;
-                //lblCount.Text = "Total Records: " + count.ToString();
-            }
-            catch (Exception ex)
-            {
-                Loggers.Log("Error occurred while fetching total record count from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
-                Loggers.Log("Stack Trace: " + ex.StackTrace);
-                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
-                Loggers.Log("Source: " + ex.Source);
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching total record count. Please try again later.');", true);
-            }
-        }
-       
+        
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
@@ -337,192 +251,12 @@ namespace TPA
             Session["status_list"] = null;
         }
 
-        protected void lv_search_ItemCommand(object sender, ListViewCommandEventArgs e)
-        {
-            if (e.CommandName == "ViewDetails")
-            {
-                try
-                {
-                    // Retrieve the single string from the CommandArgument
-                    string commandArgs = e.CommandArgument.ToString();
+        
 
-                    // Split the string using the semicolon separator
-                    string[] args = commandArgs.Split(';');
+        
+        
 
-                    // Access the individual values
-                    string empid = args[0];
-                    string status = args[1];
-                    //string groupcode = args[2];
-                    string locationcode = args[2];
-                    string recordchangedate = args[3];
-
-                    //groupcode = string.IsNullOrEmpty(groupcode) ? "" : groupcode;
-                    locationcode = string.IsNullOrEmpty(locationcode) ? "" : locationcode;
-                    recordchangedate = string.IsNullOrEmpty(recordchangedate) ? "" : Convert.ToDateTime(recordchangedate).ToString("MMMM dd, yyyy");
-
-                    //Loggers.Log("Fetching additional details for Employee ID: " + empid + " with status: " + status);
-
-                    string query = "";
-                    string leaveStartDate = string.Empty;
-                    string leaveEndDate = string.Empty;
-                    string terminationDate = string.Empty;
-
-                    if (status == "ONLEAVE")
-                    {
-                        // Query to get leave details for the employee
-                        query = string.Format("SELECT " +
-                            "leave_start_date," +
-                            "leave_end_date " +
-                            "FROM ec_employee_leaves " +
-                            "WHERE leave_start_date <= getdate() " +
-                            "AND (leave_end_date >= getdate() or leave_end_date is null) " +
-                            "AND employee_id = {0}", empid);
-                    }
-                    else
-                    {
-                        // Query to get termination details for the employee
-                        query = string.Format("SELECT " +
-                            "termination_date " +
-                            "FROM ec_employee " +
-                            "WHERE employee_id = {0}  ", empid);
-                    }
-
-                    string connString = ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString;
-                    SqlConnection con = new SqlConnection(connString);
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.HasRows)
-                    {
-                        if (status == "ONLEAVE")
-                        {
-                            while (reader.Read())
-                            {
-                                leaveStartDate = reader["leave_start_date"].ToString().Trim();
-                                leaveEndDate = reader["leave_end_date"].ToString().Trim();
-
-                            }
-                        }
-                        else
-                        {
-                            while (reader.Read())
-                            {
-                                terminationDate = reader["termination_date"].ToString().Trim();
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        //throw new Exception("Incorrect Value or Format.");
-                    }
-                    reader.Close();
-                    con.Close();
-
-                    string detailsHtml = string.Empty;
-                    if (status == "ONLEAVE")
-                    {
-
-                        string formatstartdate = string.IsNullOrEmpty(leaveStartDate) ? "" : Convert.ToDateTime(leaveStartDate).ToString("MMMM dd, yyyy");
-                        string formatenddate = string.IsNullOrEmpty(leaveEndDate) ? "" : Convert.ToDateTime(leaveEndDate).ToString("MMMM dd, yyyy");
-
-
-                        detailsHtml = $"<table class='table table-sm'>" +
-                                            $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                            //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                            $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                            $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                            $"<tr><td>Leave start date</td><td>{formatstartdate}</td></tr>" +
-                                            $"<tr><td>Leave end date</td><td>{formatenddate}</td></tr>" +
-                                            $"</table>";
-                    }
-                    else if (status == "ACTIVE")
-                    {
-                        detailsHtml = $"<table class='table table-sm'>" +
-                                             $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                             //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                             $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                             $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                             $"</table>";
-                    }
-                    else
-                    {
-                        string formatdate = string.IsNullOrEmpty(terminationDate) ? "" : Convert.ToDateTime(terminationDate).ToString("MMMM dd, yyyy");
-                        detailsHtml = $"<table class='table table-sm'>" +
-                                             $"<tr><td>Employee ID</td><td>{empid}</td></tr>" +
-                                             //$"<tr><td>Group Code</td><td>{groupcode}</td></tr>" +
-                                             $"<tr><td>Location Code</td><td>{locationcode}</td></tr>" +
-                                             $"<tr><td>Record change date</td><td>{recordchangedate}</td></tr>" +
-                                             $"<tr><td>Last official date</td><td>{formatdate}</td></tr>" +
-                                             $"</table>";
-                    }
-
-                    // Inject into a Literal or Modal placeholder
-                    //litDetails.Text = detailsHtml;
-
-                    // Show modal (custom CSS modal)
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal",
-                        "document.getElementById('detailsModal').style.display = 'block';", true);
-
-                    showSearchData();
-                    lv_search.SelectedIndex = e.Item.DataItemIndex % 25;
-                }
-                catch (Exception ex)
-                {
-                    Loggers.Log("Error occurred while fetching additional details from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
-                    Loggers.Log("Stack Trace: " + ex.StackTrace);
-                    Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
-                    Loggers.Log("Source: " + ex.Source);
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while fetching the details. Please try again later.');", true);
-                }
-            }
-
-        }
-
-        //protected void ddl_status_DataBound(object sender, EventArgs e)
-        //{
-        //    if (ddl_status.Items.Count > 0)
-        //    {
-        //        ddl_status.Items.Insert(0, new ListItem("", ""));
-        //        ddl_status.SelectedIndex = 0;
-        //    }
-        //}
-        protected void lv_search_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
-        {
-            // Tell the DataPager the new page properties
-            //MyDataPager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
-            lv_search.SelectedIndex = -1;
-
-            // Rebind the data for the new page
-            showSearchData();
-        }
-
-        protected void lv_search_Sorting(object sender, ListViewSortEventArgs e)
-        {
-            string sortColumn = e.SortExpression;
-            if (sortColumn == "job_code")
-            {
-                // Determine sort direction
-                string lastSortColumn = ViewState["SortColumn"] as string;
-                string lastDirection = ViewState["SortDirection"] as string ?? "ASC";
-
-                string newDirection = "ASC";
-
-                if (sortColumn == lastSortColumn && lastDirection == "ASC")
-                    newDirection = "DESC";
-
-                // Save sort state
-                ViewState["SortColumn"] = sortColumn;
-                ViewState["SortDirection"] = newDirection;
-
-                // Modify SELECT query 
-                Global.searchQuery = Global.searchQuery.Split(new string[] { " ORDER BY " }, StringSplitOptions.None)[0];
-                Global.searchQuery = Global.searchQuery + " ORDER BY " + sortColumn + " " + newDirection;
-                Global.searchQuery = Global.searchQuery + " , emp.employee_id ASC"; // to maintain consistent order
-                showSearchData();
-            }
-        }
+        
 
         [System.Web.Services.WebMethod]
         public static List<string> GetGroupCode(string prefix)
