@@ -120,11 +120,11 @@
                             <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
                             <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>                              
                             <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>                                   
-                            <td><asp:Label ID="Label5" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>  
-                            <td><asp:Label ID="Label6" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
-                            <td><asp:Label ID="Label7" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
-                             <td><asp:Label ID="Label9" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>  
-                            <td><asp:Label ID="Label8" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td> 
+                            <td><asp:Label ID="lbl_contract" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>  
+                            <td><asp:Label ID="lbl_startdate" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
+                            <td><asp:Label ID="lbl_reviewdate" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
+                            <td><asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>  
+                            <td><asp:Label ID="lbl_prevtermiation" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td> 
                          </tr>  
                     </ItemTemplate>
                     

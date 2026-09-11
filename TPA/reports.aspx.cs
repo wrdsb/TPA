@@ -353,6 +353,29 @@ namespace TPA
             }
         }
 
+        void LoadAppraisalrecords()
+        {
+            //TODO : load data from the table into the grid
+
+            foreach (ListViewItem item in lv_search.Items)
+            {
+                // Check to ensure it is a data row, not a header/footer
+                if (item.ItemType == ListViewItemType.DataItem)
+                {
+                    // Find the label control inside this row
+                    System.Web.UI.WebControls.Label lblEmp = (System.Web.UI.WebControls.Label)item.FindControl("lbl_emp");
+
+                    if (lblEmp != null)
+                    {
+                        string einValue = lblEmp.Text;
+
+                        // Do something with the EIN value for each row
+                    }
+                }
+            }
+
+        }
+
        
     }
 }
