@@ -41,12 +41,12 @@ namespace TPA
                 }
                 string qry = Global.searchQuery;
 
-                if(!string.IsNullOrEmpty(qry)) // if redirected from smartphone page.
+                if (!string.IsNullOrEmpty(qry)) // if redirected from smartphone page.
                 {
                     tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
                     tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
                     tb_firstname.Text = Session["firstname_text"] != null ? Session["firstname_text"].ToString() : string.Empty;
-                    
+
 
                     showSearchData();
                 }
@@ -56,14 +56,15 @@ namespace TPA
 
 
         protected void btn_search_Click(object sender, EventArgs e)
-        {            
+        {
             if (!GenerateQuery())
             {
                 return;
             }
-            
+
             showSearchData();
-            saveSearchDetailsintoDB();            
+            saveSearchDetailsintoDB();
+            LoadAppraisalrecords();
         }
 
         string searchFilter = string.Empty;
@@ -82,24 +83,24 @@ namespace TPA
             get { return tb_firstname.Text.Trim(); }
         }
 
-       
-       
-        
+
+
+
         bool GenerateQuery()
         {
-            
+
             searchFilter = string.Empty;
-           
+
 
             try
             {
-                string query = "";                                 
+                string query = "";
 
                 if (string.IsNullOrEmpty(surname) &&
-                    
+
                     string.IsNullOrEmpty(empid) &&
-                    string.IsNullOrEmpty(firstname) 
-                   
+                    string.IsNullOrEmpty(firstname)
+
                     )
                     return false;
 
@@ -108,12 +109,12 @@ namespace TPA
                     Empid = empid,
                     Surname = surname,
                     Firstname = firstname
-                    
+
                 };
 
                 searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
-               
-                
+
+
 
                 query = @"  SELECT		emp.EMPLOYEE_ID                                                     AS EIN
 			                            , emp.SURNAME+', '+emp.FIRST_NAME                                   AS NAME
@@ -158,12 +159,12 @@ namespace TPA
 
 
                 query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name LIKE '%' +@firstname+ '%' AND ";
-                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";               
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname LIKE '%' + @surname+ '%' AND ";
                 query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id = @empid AND ";
 
                 query = query.Substring(0, query.Length - 4);
-              
-                
+
+
                 Global.searchQuery = query;
                 return true;
             }
@@ -210,10 +211,10 @@ namespace TPA
                     DataSource_search.SelectParameters.Add("firstname", firstname);
                 if (!string.IsNullOrEmpty(surname))
                     DataSource_search.SelectParameters.Add("surname", surname);
-                
+
                 if (!string.IsNullOrEmpty(empid))
                     DataSource_search.SelectParameters.Add("empid", empid);
-               
+
 
             }
             catch (Exception ex)
@@ -226,7 +227,7 @@ namespace TPA
             }
         }
 
-        
+
 
         protected void btn_clear_Click(object sender, EventArgs e)
         {
@@ -251,12 +252,12 @@ namespace TPA
             Session["status_list"] = null;
         }
 
-        
 
-        
-        
 
-        
+
+
+
+
 
         [System.Web.Services.WebMethod]
         public static List<string> GetGroupCode(string prefix)
@@ -368,6 +369,7 @@ namespace TPA
                     if (lblEmp != null)
                     {
                         string einValue = lblEmp.Text;
+                        BindGrid(einValue);
 
                         // Do something with the EIN value for each row
                     }
@@ -375,7 +377,46 @@ namespace TPA
             }
 
         }
+        void BindGrid(string empId)
+        {
+            DataTable dt = new DataTable();
+            string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
 
-       
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string sql = @" SELECT  CONTRACT_CATEGORY                               AS EvaluationCategory
+                                            ,REVIEW_YEAR_START                              AS ReviewYearStart
+                                            ,REVIEW_YEAR_END                                AS ReviewYearEnd
+                                            ,REVIEW_DATE                                    AS ReviewDate
+                                            ,RATING                                         AS Rating
+                                            ,LOCATION_CODE                                  AS Location
+                                            ,SUPERINTENDENT_ID                              AS SuperintendentId
+                                            ,COMMENT_TEXT                                   AS Comment     
+                                    FROM    [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                                    WHERE   employee_id =  @EmployeeID";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeID", empId);
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
+                }
+                appraisalRecordsGrid.DataSource = dt;
+                appraisalRecordsGrid.DataBind();
+            }
+            catch (Exception ex)
+            {
+            }
+
+          
+        }
+
+
     }
 }

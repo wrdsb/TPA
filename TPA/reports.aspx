@@ -72,7 +72,7 @@
                             <asp:TableCell>
                                 <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                             </asp:TableCell>
-                            
+
                             <asp:TableCell>
                                 <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
                             </asp:TableCell>
@@ -80,10 +80,10 @@
                                 <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                             </asp:TableCell>
                         </asp:TableRow>
-                       
-                       
 
-                      
+
+
+
                     </asp:Table>
                 </asp:Panel>
                 <br />
@@ -94,7 +94,7 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search" >                    
+                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
                     <LayoutTemplate>
                         <table class="table table-responsive table-bordered">
                             <tr>
@@ -102,38 +102,60 @@
                             </tr>
                             <tr>
                                 <th>EIN</th>
-                                <th>Name <br /> (Surname, Firstname)</th>                               
-                                <th><span style="white-space: nowrap;">Group</span> <br /><span style="white-space: nowrap;"> (Code | Desc)</span></th>                                  
-                                <th><span style="white-space: nowrap;">Location</span> <br /><span style="white-space: nowrap;"> (Code | Desc)</span></th>                                                
-                                <th><span style="white-space: nowrap;">Contract</span> <br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
+                                <th>Name
+                                    <br />
+                                    (Surname, Firstname)</th>
+                                <th><span style="white-space: nowrap;">Group</span>
+                                    <br />
+                                    <span style="white-space: nowrap;">(Code | Desc)</span></th>
+                                <th><span style="white-space: nowrap;">Location</span>
+                                    <br />
+                                    <span style="white-space: nowrap;">(Code | Desc)</span></th>
+                                <th><span style="white-space: nowrap;">Contract</span>
+                                    <br />
+                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
                                 <th style="white-space: nowrap;">Start Date</th>
                                 <th style="white-space: nowrap;">Review Date</th>
-                                <th><span style="white-space: nowrap;">Termination</span> <br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
-                                <th><span style="white-space: nowrap;">Previous Termination </span><br /><span style="white-space: nowrap;"> (Code | Desc | Date)</span></th>
+                                <th><span style="white-space: nowrap;">Termination</span>
+                                    <br />
+                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
+                                <th><span style="white-space: nowrap;">Previous Termination </span>
+                                    <br />
+                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
                             </tr>
                             <tr id="itemPlaceholder" runat="server"></tr>
                         </table>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td><asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>                           
-                            <td><asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label> </td>                         
-                            <td><asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>                              
-                            <td><asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>                                   
-                            <td><asp:Label ID="lbl_contract" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>  
-                            <td><asp:Label ID="lbl_startdate" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>  
-                            <td><asp:Label ID="lbl_reviewdate" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>  
-                            <td><asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>  
-                            <td><asp:Label ID="lbl_prevtermiation" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td> 
-                         </tr>  
+                            <td>
+                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label>
+                            </td>
+                            <td>
+                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_contract" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_startdate" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_reviewdate" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>
+                            <td>
+                                <asp:Label ID="lbl_prevtermiation" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td>
+                        </tr>
                     </ItemTemplate>
-                    
-                    
+
+
                     <EmptyDataTemplate>
                         We didn't find any data.
                     </EmptyDataTemplate>
                 </asp:ListView>
-               <%-- <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
+                <%-- <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
                     <Fields>
                         <asp:NextPreviousPagerField ButtonType="Button"
                             ShowFirstPageButton="True" ShowLastPageButton="True"
@@ -149,15 +171,51 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>--%>
+            </div>
+        </div>
 
+        <!-- For Appraisal Grid -->
+        <div class="row">
+            <div class="col-md-12" style="min-height: 200px;">
 
+                <asp:GridView ID="appraisalRecordsGrid" runat="server"  AutoGenerateColumns="False" CssClass="table table-striped">
+                    <Columns>
+                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category"  />
+                        <asp:BoundField DataField="ReviewYearStart" HeaderText="Review Year Start" />
+                        <asp:BoundField DataField="ReviewYearEnd" HeaderText="Review Year End" />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" />
+                        <asp:BoundField DataField="Rating" HeaderText="Rating" />
+                        <asp:BoundField DataField="Location" HeaderText="Location" />
+                        <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id"  />
+                        <asp:BoundField DataField="Comment" HeaderText="Comment" />
+                      
+
+                        <%-- <asp:TemplateField HeaderText="Actions">
+              <ItemTemplate>
+                  <asp:LinkButton ID="btnEdit"
+                      runat="server"
+                      CommandArgument='<%# Container.DataItemIndex %>'
+                      Text="Modify"
+                      CssClass="btn btn-sm btn-primary"
+                      OnClick="btnEdit_Click" />
+                  <asp:LinkButton ID="btnDelete"
+                      runat="server"
+                      Text="Delete"
+                      CssClass="btn btn-sm btn-primary"
+                      CommandArgument='<%# Container.DataItemIndex %>'
+                      OnClick="btnDelete_Click"
+                      OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
+              </ItemTemplate>
+          </asp:TemplateField>--%>
+                    </Columns>
+                </asp:GridView>
             </div>
         </div>
     </div>
 
 
     <!-- Custom Modal -->
-   <%-- <div id="detailsModal" class="myModal">
+    <%-- <div id="detailsModal" class="myModal">
         <div class="myModal-content">
             <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
             <asp:Literal ID="litDetails" runat="server"></asp:Literal>
@@ -165,7 +223,7 @@
     </div>--%>
 
 
-    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>" ></asp:SqlDataSource>
+    <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
         SelectCommand="SELECT DISTINCT(emp_activity_code) FROM ec_employee ORDER BY emp_activity_code"></asp:SqlDataSource>
 </asp:Content>
