@@ -146,7 +146,7 @@
                             <td>
                                 <asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>
                             <td>
-                                <asp:Label ID="lbl_prevtermiation" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td>
+                                <asp:Label ID="lbl_prevtermination" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td>
                         </tr>
                     </ItemTemplate>
 
@@ -178,7 +178,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
 
-                <asp:GridView ID="appraisalRecordsGrid" runat="server"  AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewYearStart" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category"  />
                         <asp:BoundField DataField="ReviewYearStart" HeaderText="Review Year Start" />

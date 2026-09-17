@@ -386,16 +386,17 @@ namespace TPA
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT  CONTRACT_CATEGORY                               AS EvaluationCategory
-                                            ,REVIEW_YEAR_START                              AS ReviewYearStart
-                                            ,REVIEW_YEAR_END                                AS ReviewYearEnd
-                                            ,REVIEW_DATE                                    AS ReviewDate
-                                            ,RATING                                         AS Rating
-                                            ,LOCATION_CODE                                  AS Location
-                                            ,SUPERINTENDENT_ID                              AS SuperintendentId
-                                            ,COMMENT_TEXT                                   AS Comment     
-                                    FROM    [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                    WHERE   employee_id =  @EmployeeID";
+                    string sql = @" SELECT      CONTRACT_CATEGORY                               AS EvaluationCategory
+                                                , REVIEW_YEAR_START                             AS ReviewYearStart
+                                                , REVIEW_YEAR_END                               AS ReviewYearEnd
+                                                , REVIEW_DATE                                   AS ReviewDate
+                                                , RATING                                        AS Rating
+                                                , LOCATION_CODE                                 AS Location
+                                                , SUPERINTENDENT_ID                             AS SuperintendentId
+                                                , COMMENT_TEXT                                  AS Comment                                                                                                         
+                                    FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                                    WHERE       employee_id =  @EmployeeID
+                                    ORDER BY    2";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
