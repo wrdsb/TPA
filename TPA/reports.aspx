@@ -180,14 +180,14 @@
 
                 <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
-                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" HeaderStyle-BackColor ="#d9ffd9" />
-                        <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" HeaderStyle-BackColor ="#d9ffd9"  />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" HeaderStyle-BackColor ="#d9ffd9" />
-                        <asp:BoundField DataField="Rating" HeaderText="Rating" HeaderStyle-BackColor ="#d9ffd9"/>
-                        <asp:BoundField DataField="Location" HeaderText="Location" HeaderStyle-BackColor ="#d9ffd9" />
-                        <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" HeaderStyle-BackColor ="#d9ffd9" />
-                        <asp:BoundField DataField="Comment" HeaderText="Comment" HeaderStyle-BackColor ="#d9ffd9" />
-                        <asp:TemplateField HeaderText="Actions" HeaderStyle-BackColor ="#d9ffd9" >
+                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Category"  />
+                        <asp:BoundField DataField="ReviewYear" HeaderText="Review Year"  />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}"  />
+                        <asp:BoundField DataField="Rating" HeaderText="Rating" />
+                        <asp:BoundField DataField="Location" HeaderText="Location"  />
+                        <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
+                        <asp:BoundField DataField="Comment" HeaderText="Comment"  />
+                        <asp:TemplateField HeaderText="Actions"  >
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnEdit"
                                     runat="server"
