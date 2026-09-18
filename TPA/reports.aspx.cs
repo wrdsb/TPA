@@ -410,6 +410,14 @@ namespace TPA
           
         }
 
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

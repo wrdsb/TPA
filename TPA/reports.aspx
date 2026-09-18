@@ -178,7 +178,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
 
-                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewYearStart" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table table-striped">
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category"  />
                         <asp:BoundField DataField="ReviewYearStart" HeaderText="Review Year Start" />
@@ -190,14 +190,14 @@
                         <asp:BoundField DataField="Comment" HeaderText="Comment" />
                       
 
-                        <%-- <asp:TemplateField HeaderText="Actions">
+                         <asp:TemplateField HeaderText="Actions">
               <ItemTemplate>
                   <asp:LinkButton ID="btnEdit"
                       runat="server"
                       CommandArgument='<%# Container.DataItemIndex %>'
                       Text="Modify"
                       CssClass="btn btn-sm btn-primary"
-                      OnClick="btnEdit_Click" />
+                      OnClick="btnEdit_Click"/>
                   <asp:LinkButton ID="btnDelete"
                       runat="server"
                       Text="Delete"
@@ -206,7 +206,7 @@
                       OnClick="btnDelete_Click"
                       OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
               </ItemTemplate>
-          </asp:TemplateField>--%>
+          </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
