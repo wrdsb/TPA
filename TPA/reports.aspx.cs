@@ -379,8 +379,10 @@ namespace TPA
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
                     string sql = @" SELECT      CONTRACT_CATEGORY                               AS EvaluationCategory
-                                                , REVIEW_YEAR_START                             AS ReviewYearStart
-                                                , REVIEW_YEAR_END                               AS ReviewYearEnd
+                                                , CONCAT_WS(
+                                                    '-',
+                                                    REVIEW_YEAR_START,
+                                                    REVIEW_YEAR_END)                            AS ReviewYear                                                                            
                                                 , REVIEW_DATE                                   AS ReviewDate
                                                 , RATING                                        AS Rating
                                                 , LOCATION_CODE                                 AS Location

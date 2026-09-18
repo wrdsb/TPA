@@ -178,35 +178,32 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
 
-                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table table-striped">
+                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
-                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category"  />
-                        <asp:BoundField DataField="ReviewYearStart" HeaderText="Review Year Start" />
-                        <asp:BoundField DataField="ReviewYearEnd" HeaderText="Review Year End" />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" />
-                        <asp:BoundField DataField="Rating" HeaderText="Rating" />
-                        <asp:BoundField DataField="Location" HeaderText="Location" />
-                        <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id"  />
-                        <asp:BoundField DataField="Comment" HeaderText="Comment" />
-                      
-
-                         <asp:TemplateField HeaderText="Actions">
-              <ItemTemplate>
-                  <asp:LinkButton ID="btnEdit"
-                      runat="server"
-                      CommandArgument='<%# Container.DataItemIndex %>'
-                      Text="Modify"
-                      CssClass="btn btn-sm btn-primary"
-                      OnClick="btnEdit_Click"/>
-                  <asp:LinkButton ID="btnDelete"
-                      runat="server"
-                      Text="Delete"
-                      CssClass="btn btn-sm btn-primary"
-                      CommandArgument='<%# Container.DataItemIndex %>'
-                      OnClick="btnDelete_Click"
-                      OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
-              </ItemTemplate>
-          </asp:TemplateField>
+                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" HeaderStyle-BackColor ="#d9ffd9" />
+                        <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" HeaderStyle-BackColor ="#d9ffd9"  />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" HeaderStyle-BackColor ="#d9ffd9" />
+                        <asp:BoundField DataField="Rating" HeaderText="Rating" HeaderStyle-BackColor ="#d9ffd9"/>
+                        <asp:BoundField DataField="Location" HeaderText="Location" HeaderStyle-BackColor ="#d9ffd9" />
+                        <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" HeaderStyle-BackColor ="#d9ffd9" />
+                        <asp:BoundField DataField="Comment" HeaderText="Comment" HeaderStyle-BackColor ="#d9ffd9" />
+                        <asp:TemplateField HeaderText="Actions" HeaderStyle-BackColor ="#d9ffd9" >
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnEdit"
+                                    runat="server"
+                                    CommandArgument='<%# Container.DataItemIndex %>'
+                                    Text="Modify"
+                                    CssClass="btn btn-sm btn-primary"
+                                    OnClick="btnEdit_Click" />
+                                <asp:LinkButton ID="btnDelete"
+                                    runat="server"
+                                    Text="Delete"
+                                    CssClass="btn btn-sm btn-primary"
+                                    CommandArgument='<%# Container.DataItemIndex %>'
+                                    OnClick="btnDelete_Click"
+                                    OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
