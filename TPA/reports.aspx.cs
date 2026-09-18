@@ -396,7 +396,7 @@ namespace TPA
                                                 , COMMENT_TEXT                                  AS Comment                                                                                                         
                                     FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
                                     WHERE       employee_id =  @EmployeeID
-                                    ORDER BY    2";
+                                    ORDER BY    ADDED_DATE, CHANGED_DATE";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
