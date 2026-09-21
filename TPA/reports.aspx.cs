@@ -421,5 +421,55 @@ namespace TPA
         {
 
         }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            int recordId = Convert.ToInt32(hfRecordId.Value);
+
+            string category = ddlCategory.SelectedValue;
+            string reviewDate = txtReviewDate.Text;
+            string rating = ddlRating.SelectedValue;
+            string location = txtLocation.Text;
+            string comment = txtComment.Text;
+
+            if (recordId == 0)
+            {
+                // 1. INSERT NEW RECORD
+                // Execute SQL: INSERT INTO AppraisalRecords (Category, ReviewDate, Rating, Location, Comment) VALUES (...)
+                //InsertRecord(category, reviewDate, rating, location, comment);
+            }
+            else
+            {
+                // 2. UPDATE EXISTING RECORD (Will be used later for Edit)
+                //UpdateRecord(recordId, category, reviewDate, rating, location, comment);
+            }
+
+            // Refresh GridView to display the new row
+            //BindGrid();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            // Reset control values in server code if needed
+            ClearFormFields();
+            lblFormTitle.Text = "Add New Record";
+            hfRecordId.Value = "0";
+            pnlRecordForm.Visible = true; // Displays the form on page
+        }
+        // Helper to reset fields
+        private void ClearFormFields()
+        {
+            ddlCategory.SelectedIndex = 0;
+            txtReviewYear.Text = string.Empty;
+            txtReviewDate.Text = string.Empty;
+            ddlRating.SelectedIndex = 0;
+            txtLocation.Text = string.Empty;
+            txtSuperintendentId.Text = string.Empty;
+            txtComment.Text = string.Empty;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            pnlRecordForm.Visible = false;
+        }
     }
 }

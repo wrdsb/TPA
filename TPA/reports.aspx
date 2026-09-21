@@ -41,6 +41,24 @@
             });
         });
 
+        function openAddModal() {
+            // Reset form fields for new record entry
+            document.getElementById('<%= hfRecordId.ClientID %>').value = "0";
+            document.getElementById('<%= ddlCategory.ClientID %>').selectedIndex = 0;
+            document.getElementById('<%= txtReviewDate.ClientID %>').value = "";
+            document.getElementById('<%= ddlRating.ClientID %>').selectedIndex = 0;
+            document.getElementById('<%= txtLocation.ClientID %>').value = "";
+            document.getElementById('<%= txtComment.ClientID %>').value = "";
+
+            // Change modal title
+            document.getElementById('recordModalLabel').innerText = "Add New Record";
+
+            // Open Bootstrap 5 Modal
+            var modalElement = document.getElementById('recordModal');
+            var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+            modalInstance.show();
+        }
+
     </script>
     <style>
         .ui-autocomplete {
@@ -177,37 +195,117 @@
         <!-- For Appraisal Grid -->
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
+                <!-- Add Button -->
+                <asp:Button ID="btnAdd" runat="server" Text="Add New Record"
+                    CssClass="btn btn-primary mb-3" OnClick="btnAdd_Click" />
+
 
                 <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
-                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Category"  />
-                        <asp:BoundField DataField="ReviewYear" HeaderText="Review Year"  />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}"  />
+                        <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
+                        <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" />
                         <asp:BoundField DataField="Rating" HeaderText="Rating" />
-                        <asp:BoundField DataField="Location" HeaderText="Location"  />
+                        <asp:BoundField DataField="Location" HeaderText="Location" />
                         <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
-                        <asp:BoundField DataField="Comment" HeaderText="Comment"  />
-                        <asp:TemplateField HeaderText="Actions"  >
+                        <asp:BoundField DataField="Comment" HeaderText="Comment" />
+                        <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnEdit"
                                     runat="server"
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     Text="Modify"
-                                    CssClass="btn btn-sm btn-primary"
+                                    CssClass="btn btn-sm btn-warning"
                                     OnClick="btnEdit_Click" />
                                 <asp:LinkButton ID="btnDelete"
                                     runat="server"
                                     Text="Delete"
-                                    CssClass="btn btn-sm btn-primary"
+                                    CssClass="btn btn-sm btn-danger"
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     OnClick="btnDelete_Click"
-                                    OnClientClick="return confirm('Are you sure to delete the smartphone order?');" />
+                                    OnClientClick="return confirm('Are you sure to delete the appraisal record?');" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+
+
+
+
             </div>
         </div>
+
+
+        <!-- Form Panel (Hidden by default) -->
+
+        <div class="row">
+            <div class="col-md-12" style="min-height: 200px;">
+                <asp:Panel ID="pnlRecordForm" runat="server" Visible="false" CssClass="card card-body mb-4 bg-light">
+                    <h4 class="card-title mb-3">
+                        <asp:Label ID="lblFormTitle" runat="server" Text="Add New Record" />
+                    </h4>
+
+                    <!-- Hidden Field to track Edit vs Add (0 = New) -->
+                    <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell> Category </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-select">
+                                    <asp:ListItem Text="-- Select Category --" Value="" />
+                                    <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
+                                    <asp:ListItem Text="PROBATIONARY" Value="PROBATIONARY" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
+
+                            <asp:TableCell>Review Year</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtReviewYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992-1993" />
+                            </asp:TableCell>
+
+                            <asp:TableCell>Review Date</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                        <asp:TableRow>
+                            <asp:TableCell>Rating</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select">
+                                    <asp:ListItem Text="-- Select Rating --" Value="" />
+                                    <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
+                                    <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
+
+                            <asp:TableCell>Location</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" /></asp:TableCell>
+
+
+                            <asp:TableCell>Superintendent Id</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control" /></asp:TableCell>
+                        </asp:TableRow>
+
+                    </asp:Table>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Comment</label>
+                        <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-12 text-end mt-3">
+                        <asp:Button ID="btnSave" runat="server" Text="Save Record" CssClass="btn btn-success" OnClick="btnSave_Click" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
+                    </div>
+
+                </asp:Panel>
+
+            </div>
+        </div>
+
     </div>
 
 
