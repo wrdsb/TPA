@@ -175,7 +175,7 @@
                 </asp:ListView>
 
                 <!-- Add Button (hidden) -->
-                <asp:Button ID="btnAdd" runat="server" Text="Add New Record" Visible ="false"
+                <asp:Button ID="btnAdd" runat="server" Text="Add New Appraisal" Visible="false"
                     CssClass="btn btn-primary mb-3" OnClick="btnAdd_Click" />
                 <%-- <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
                     <Fields>
@@ -234,81 +234,81 @@
                     </Columns>
                 </asp:GridView>
 
-                
-         <!-- Form Panel (Hidden by default) -->
+
+                <!-- Form Panel (Hidden by default) -->
 
 
-         <asp:Panel ID="pnlRecordForm" runat="server" Visible="false" CssClass="card card-body mb-4 bg-light">
-             
-                  <div class="note">
-     <asp:Label ID="lblFormTitle"
-         runat="server"
-         Font-Bold="true"
-         Text="Add New Record">                       
-     </asp:Label>
- </div>
-                
-            
+                <asp:Panel ID="pnlRecordForm" runat="server" Visible="false" CssClass="card card-body mb-4 bg-light">
 
-             <!-- Hidden Field to track Edit vs Add (0 = New) -->
-             <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
-             <asp:Table runat="server">
-                 <asp:TableRow>
-                     <asp:TableCell> Category </asp:TableCell>
-                     <asp:TableCell>
-                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-select">
-                             <asp:ListItem Text="-- Select Category --" Value="" />
-                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
-                             <asp:ListItem Text="PROBATIONARY" Value="PROBATIONARY" />
-                         </asp:DropDownList>
-                     </asp:TableCell>
-
-                     <asp:TableCell>Review Year</asp:TableCell>
-                     <asp:TableCell>
-                         <asp:TextBox ID="txtReviewYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992-1993" />
-                     </asp:TableCell>
-
-                     <asp:TableCell>Review Date</asp:TableCell>
-                     <asp:TableCell>
-                         <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
-                     </asp:TableCell>
-                 </asp:TableRow>
-
-                 <asp:TableRow>
-                     <asp:TableCell>Rating</asp:TableCell>
-                     <asp:TableCell>
-                         <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select">
-                             <asp:ListItem Text="-- Select Rating --" Value="" />
-                             <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
-                             <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
-                         </asp:DropDownList>
-                     </asp:TableCell>
-
-                     <asp:TableCell>Location</asp:TableCell>
-                     <asp:TableCell>
-                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" />
-                     </asp:TableCell>
+                    <div class="announcement">
+                        <asp:Label ID="lblFormTitle"
+                            runat="server"
+                            Font-Bold="true"
+                            Text="Please submit new appraisal">                       
+                        </asp:Label>
+                    </div>
 
 
-                     <asp:TableCell>Superintendent Id</asp:TableCell>
-                     <asp:TableCell>
-                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control" />
-                     </asp:TableCell>
-                 </asp:TableRow>
 
-             </asp:Table>
+                    <!-- Hidden Field to track Edit vs Add (0 = New) -->
+                    <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
+                    <asp:Table runat="server">
+                        <asp:TableRow>
+                            <asp:TableCell> Category </asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-select">
+                                    <asp:ListItem Text="-- Select Category --" Value="" />
+                                    <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
+                                    <asp:ListItem Text="PROBATIONARY" Value="PROBATIONARY" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
 
-             <div class="col-md-12">
-                 <label class="form-label">Comment</label>
-                 <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
-             </div>
+                            <asp:TableCell>Review Year</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtReviewYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992-1993" />
+                            </asp:TableCell>
 
-             <div class="col-md-12 text-end mt-3">
-                 <asp:Button ID="btnSave" runat="server" Text="Save Record" CssClass="btn btn-success" OnClick="btnSave_Click" />
-                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
-             </div>
+                            <asp:TableCell>Review Date</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
+                            </asp:TableCell>
+                        </asp:TableRow>
 
-         </asp:Panel>
+                        <asp:TableRow>
+                            <asp:TableCell>Rating</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select">
+                                    <asp:ListItem Text="-- Select Rating --" Value="" />
+                                    <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
+                                    <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
+                                </asp:DropDownList>
+                            </asp:TableCell>
+
+                            <asp:TableCell>Location</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" />
+                            </asp:TableCell>
+
+
+                            <asp:TableCell>Superintendent Id</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control" />
+                            </asp:TableCell>
+                        </asp:TableRow>
+
+                    </asp:Table>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Comment</label>
+                        <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-md-12 text-end mt-3">
+                        <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
+                    </div>
+
+                </asp:Panel>
 
 
 
@@ -317,7 +317,7 @@
         </div>
 
 
-       
+
 
     </div>
 

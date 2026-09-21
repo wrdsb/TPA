@@ -463,7 +463,7 @@ namespace TPA
         {
             // Reset control values in server code if needed
             ClearFormFields();
-            lblFormTitle.Text = "Add New Record";
+            lblFormTitle.Text = "Please submit new appraisal";
             hfRecordId.Value = "0";
             pnlRecordForm.Visible = true; // Displays the form on page
         }
