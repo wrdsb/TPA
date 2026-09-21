@@ -188,6 +188,18 @@ namespace TPA
                 LoadParameters();
                 lv_search.DataBind();
                 lv_search.SelectedIndex = -1;
+
+                //visibility of add new record button needs to be enabled
+                if (lv_search.Items.Count > 0)
+                {
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                }
+
+            
             }
             catch (Exception ex)
             {
@@ -363,7 +375,7 @@ namespace TPA
                         string einValue = lblEmp.Text;
                         BindGrid(einValue);
 
-                        // Do something with the EIN value for each row
+                        
                     }
                 }
             }
