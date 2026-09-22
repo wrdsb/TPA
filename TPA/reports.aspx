@@ -254,12 +254,13 @@
                     <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
                     <asp:Table runat="server">
                         <asp:TableRow>
-                            <asp:TableCell> Category </asp:TableCell>
+                            <asp:TableCell> Evaluation Category </asp:TableCell>
                             <asp:TableCell>
                                 <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-select">
                                     <asp:ListItem Text="-- Select Category --" Value="" />
+                                    <asp:ListItem Text="NEW" Value="NEW" />
                                     <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
-                                    <asp:ListItem Text="PROBATIONARY" Value="PROBATIONARY" />
+                                    <asp:ListItem Text="EVAL_YEAR" Value="EVAL_YEAR" />
                                 </asp:DropDownList>
                             </asp:TableCell>
                             <asp:TableCell>Review Start Year</asp:TableCell>
@@ -281,6 +282,10 @@
                             <asp:TableCell>
                                 <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select">
                                     <asp:ListItem Text="-- Select Rating --" Value="" />
+                                    <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
+                                    <asp:ListItem Text="GOOD" Value="GOOD" />
+                                    <asp:ListItem Text="PRE TPA" Value="PRE TPA" />
+                                    <asp:ListItem Text="DEVELOPMENT NEEDED" Value="DEVELOPMENT NEEDED" />
                                     <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
                                     <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
                                 </asp:DropDownList>
