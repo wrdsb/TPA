@@ -471,7 +471,8 @@ namespace TPA
         private void ClearFormFields()
         {
             ddlCategory.SelectedIndex = 0;
-            txtReviewYear.Text = string.Empty;
+            txtReviewStartYear.Text = string.Empty;
+            txtReviewEndYear.Text = string.Empty;
             txtReviewDate.Text = string.Empty;
             ddlRating.SelectedIndex = 0;
             txtLocation.Text = string.Empty;

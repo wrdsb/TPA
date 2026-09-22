@@ -262,12 +262,14 @@
                                     <asp:ListItem Text="PROBATIONARY" Value="PROBATIONARY" />
                                 </asp:DropDownList>
                             </asp:TableCell>
-
-                            <asp:TableCell>Review Year</asp:TableCell>
+                            <asp:TableCell>Review Start Year</asp:TableCell>
                             <asp:TableCell>
-                                <asp:TextBox ID="txtReviewYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992-1993" />
+                                <asp:TextBox ID="txtReviewStartYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992" />
                             </asp:TableCell>
-
+                            <asp:TableCell>Review End Year</asp:TableCell>
+                            <asp:TableCell>
+                                <asp:TextBox ID="txtReviewEndYear" runat="server" CssClass="form-control" Placeholder="e.g. 1993" />
+                           </asp:TableCell>
                             <asp:TableCell>Review Date</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />

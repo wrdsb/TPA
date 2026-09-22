@@ -132,13 +132,22 @@ namespace TPA
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
 
         /// <summary>
-        /// txtReviewYear control.
+        /// txtReviewStartYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReviewYear;
+        protected global::System.Web.UI.WebControls.TextBox txtReviewStartYear;
+
+        /// <summary>
+        /// txtReviewEndYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReviewEndYear;
 
         /// <summary>
         /// txtReviewDate control.
