@@ -48,17 +48,11 @@ namespace TPA
 
             switch (pageName)
             {
-                //case "default.aspx":
-                //    home_link.Attributes["class"] = "active";
-                //    break;
+               
                 case "default.aspx":
-                    //smartphone_link.Visible = false; // Hide smartphone tab on reports page
                     reports_link.Attributes["class"] = "active";
                     break;
-                //case "smartphoneReport.aspx":
-                //    smartphone_link.Visible = false; // Hide smartphone tab on smartphonereports page
-                //    smartphoneReport_link.Attributes["class"] = "active";
-                //    break;
+               
             }
         }
         private string GetPageName()

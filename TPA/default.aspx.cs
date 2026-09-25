@@ -60,6 +60,9 @@ namespace TPA
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
+            if(pnlRecordForm.Visible ==  true)
+                pnlRecordForm.Visible = false;
+
             if (!GenerateQuery())
             {
                 return;

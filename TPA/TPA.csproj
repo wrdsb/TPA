@@ -286,8 +286,6 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="reports.aspx" />
-    <Content Include="smartphone.aspx" />
     <Content Include="smartphoneReport.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -330,24 +328,10 @@
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="reports.aspx.cs">
-      <DependentUpon>reports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="reports.aspx.designer.cs">
-      <DependentUpon>reports.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="smartphone.aspx.cs">
-      <DependentUpon>smartphone.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="smartphone.aspx.designer.cs">
-      <DependentUpon>smartphone.aspx</DependentUpon>
     </Compile>
     <Compile Include="smartphoneReport.aspx.cs">
       <DependentUpon>smartphoneReport.aspx</DependentUpon>
