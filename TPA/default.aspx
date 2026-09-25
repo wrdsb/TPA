@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="TPA._default" %>
+
 <%--<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server"></asp:Content>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
@@ -256,7 +257,7 @@
                         <asp:TableRow>
                             <asp:TableCell> Evaluation Category </asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-select">
+                                <asp:DropDownList ID="ddlCategory" runat="server" Width="200px" CssClass="form-control">
                                     <asp:ListItem Text="-- Select Category --" Value="" />
                                     <asp:ListItem Text="NEW" Value="NEW" />
                                     <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
@@ -270,7 +271,7 @@
                             <asp:TableCell>Review End Year</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="txtReviewEndYear" runat="server" CssClass="form-control" Placeholder="e.g. 1993" />
-                           </asp:TableCell>
+                            </asp:TableCell>
                             <asp:TableCell>Review Date</asp:TableCell>
                             <asp:TableCell>
                                 <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
@@ -280,7 +281,7 @@
                         <asp:TableRow>
                             <asp:TableCell>Rating</asp:TableCell>
                             <asp:TableCell>
-                                <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-select">
+                                <asp:DropDownList ID="ddlRating" runat="server" Width="200px" CssClass="form-control">
                                     <asp:ListItem Text="-- Select Rating --" Value="" />
                                     <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
                                     <asp:ListItem Text="GOOD" Value="GOOD" />
@@ -313,6 +314,7 @@
                     <div class="col-md-12 text-end mt-3">
                         <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
+                        <asp:Label ID="lblsubmit" runat="server" Font-Bold ="true" Font-Size="Large" BackColor="YellowGreen" Visible="false"></asp:Label> 
                     </div>
 
                 </asp:Panel>

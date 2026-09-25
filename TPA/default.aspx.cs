@@ -363,6 +363,7 @@ namespace TPA
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
         }
+      
 
         void LoadAppraisalrecords()
         {
@@ -379,8 +380,8 @@ namespace TPA
                     if (lblEmp != null)
                     {
                         string einValue = lblEmp.Text;
+                        tb_empId.Text = einValue;
                         BindGrid(einValue);
-
 
                     }
                 }
@@ -442,27 +443,84 @@ namespace TPA
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int recordId = Convert.ToInt32(hfRecordId.Value);
-
+            string empId = tb_empId.Text;
             string category = ddlCategory.SelectedValue;
-            string reviewDate = txtReviewDate.Text;
+            string reviewStartDate = txtReviewStartYear.Text;
+            string reviewEndDate = txtReviewEndYear.Text;
+            string reviewDate   = txtReviewDate.Text;
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
+            string addedBy = Session["ein"].ToString();
+            string superintendentId = txtSuperintendentId.Text;
 
-            if (recordId == 0)
+            try
             {
-                // 1. INSERT NEW RECORD
-                // Execute SQL: INSERT INTO AppraisalRecords (Category, ReviewDate, Rating, Location, Comment) VALUES (...)
-                //InsertRecord(category, reviewDate, rating, location, comment);
-            }
-            else
-            {
-                // 2. UPDATE EXISTING RECORD (Will be used later for Edit)
-                //UpdateRecord(recordId, category, reviewDate, rating, location, comment);
-            }
 
-            // Refresh GridView to display the new row
-            //BindGrid();
+                string sql = @"INSERT INTO [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                (
+                    [EMPLOYEE_ID]
+                    , [CONTRACT_CATEGORY]
+                    , [REVIEW_YEAR_START]
+                    , [REVIEW_YEAR_END]
+                    , [REVIEW_DATE]
+                    , [RATING]
+                    , [LOCATION_CODE]
+                    , [NEXT_REVIEW_YEAR_START]
+                    , [NEXT_REVIEW_YEAR_END]
+                    , [COMMENT_TEXT]
+                    , [ADDED_BY]
+                    , [ADDED_DATE]
+                    , [CHANGED_BY]
+                    , [CHANGED_DATE]
+                    , [SUPERINTENDENT_ID]
+                )
+                VALUES
+                (
+                    @empId,
+                    @category,
+                    @reviewStartDate,
+                    @reviewEndDate,
+                    @reviewDate,
+                    @rating,
+                    @location,
+                    NULL,                  -- NEXT_REVIEW_YEAR_START
+                    NULL,                  -- NEXT_REVIEW_YEAR_END
+                    @comment,
+                    @addedBy,              -- ADDED_BY
+                    GETDATE(),             -- ADDED_DATE
+                    NULL,                  -- CHANGED_BY 
+                    NULL,                  -- CHANGED_DATE 
+                    @superintendentId                   
+                )";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        cmd.Parameters.AddWithValue("@category", category);
+                        cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
+                        cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@rating", rating);
+                        cmd.Parameters.AddWithValue("@location", location);
+                        cmd.Parameters.AddWithValue("@comment", comment);
+                        cmd.Parameters.AddWithValue("@addedBy", addedBy);
+                        cmd.Parameters.AddWithValue("@superintendentId", superintendentId);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Submitted Successfully.";
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
