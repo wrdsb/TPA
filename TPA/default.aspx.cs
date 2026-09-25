@@ -8,7 +8,10 @@ using System.Globalization;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using ListViewItem = System.Web.UI.WebControls.ListViewItem;
 
 
 namespace TPA
@@ -434,6 +437,76 @@ namespace TPA
         protected void btnEdit_Click(object sender, EventArgs e)
         {
 
+            // Reset control values in server code if needed
+            ClearFormFields();
+            lblFormTitle.Text = "Please modify appraisal";
+            hfRecordId.Value = "1";
+            pnlRecordForm.Visible = true; // Displays the form on page
+
+
+            LinkButton btn = (LinkButton)sender;
+
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+                string empId = tb_empId.Text;
+             
+
+                var reviewDateTime = appraisalRecordsGrid.DataKeys[rowIndex].Value;
+
+                // Use this id to retrieve the row from the database
+                string sql = @" SELECT *
+                                FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                                WHERE REVIEW_DATE = @reviewDateTime AND EMPLOYEE_ID = @empId";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@reviewDateTime", reviewDateTime);
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
+                                    txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
+                                    txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
+                                    ddlRating.SelectedValue = reader["RATING"].ToString();
+                                    txtLocation.Text = reader["LOCATION_CODE"].ToString();
+                                    txtComment.Text = reader["COMMENT_TEXT"].ToString();
+                                    txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
+
+                                    //tb_phoneNumber.Text = reader["phone_number"].ToString();
+                                    //ddl_tier.SelectedValue = reader["tier"].ToString();
+                                    //ddl_orderedItem.SelectedValue = reader["ordered_item"].ToString();
+                                    //rbl_RogersYesNo.SelectedValue =
+                                    //    reader["rogers_account_created"].ToString() == "True" ? "1" : "0";
+                                    //rbl_BoardYesNo.SelectedValue =
+                                    //    reader["board_contribution_paid"].ToString() == "True" ? "1" : "0";
+                                    //tb_eligibleDate.Text =
+                                    //    Convert.ToDateTime(reader["next_eligible_date"])
+                                    //    .ToString("yyyy-MM-dd");
+                                    //tb_notes.Text = reader["notes"].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+               
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -442,12 +515,19 @@ namespace TPA
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if (hfRecordId.Value == "0")
+                addAppraisalRecord();
+            else
+                updateAppraisalRecord();
+        }
+        void addAppraisalRecord()
+        {
             int recordId = Convert.ToInt32(hfRecordId.Value);
             string empId = tb_empId.Text;
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
-            string reviewDate   = txtReviewDate.Text;
+            string reviewDate = txtReviewDate.Text;
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
@@ -481,7 +561,7 @@ namespace TPA
                     @category,
                     @reviewStartDate,
                     @reviewEndDate,
-                    @reviewDate,
+                    GETDATE(),             -- To get exact review date and time
                     @rating,
                     @location,
                     NULL,                  -- NEXT_REVIEW_YEAR_START
@@ -501,7 +581,7 @@ namespace TPA
                         cmd.Parameters.AddWithValue("@category", category);
                         cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
                         cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
-                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        //cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
                         cmd.Parameters.AddWithValue("@rating", rating);
                         cmd.Parameters.AddWithValue("@location", location);
                         cmd.Parameters.AddWithValue("@comment", comment);
@@ -515,11 +595,71 @@ namespace TPA
                 }
 
                 lblsubmit.Visible = true;
-                lblsubmit.Text = "Submitted Successfully.";
+                lblsubmit.Text = "Appraisal Submitted Successfully !";
             }
             catch (Exception ex)
             {
-                throw ex.InnerException;
+                lblsubmit.Text = "Error Occurred - " + ex.Message;
+            }
+        }
+
+        void updateAppraisalRecord()
+        {
+            string empId = tb_empId.Text;
+            string category = ddlCategory.SelectedValue;
+            string reviewStartDate = txtReviewStartYear.Text;
+            string reviewEndDate = txtReviewEndYear.Text;
+            string reviewDate = txtReviewDate.Text;
+            string rating = ddlRating.SelectedValue;
+            string location = txtLocation.Text;
+            string comment = txtComment.Text;
+            string changedBy = Session["ein"].ToString();
+            string superintendentId = txtSuperintendentId.Text;
+
+            try
+            {
+
+                string sql = @"UPDATE   [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                               SET      [CONTRACT_CATEGORY] = @category
+                                        , [REVIEW_YEAR_START] = @reviewStartDate
+                                        , REVIEW_YEAR_END = @reviewEndDate
+                                        , REVIEW_DATE = @reviewDate
+                                        , RATING = @rating
+                                        , LOCATION_CODE = @location
+                                        , COMMENT_TEXT = @comment
+                                        , CHANGED_BY = @changedBy
+                                        , CHANGED_DATE = getdate()
+                                        , SUPERINTENDENT_ID = @superintendentId
+                                WHERE   EMPLOYEE_ID = @empId";
+
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        cmd.Parameters.AddWithValue("@category", category);
+                        cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
+                        cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@rating", rating);
+                        cmd.Parameters.AddWithValue("@location", location);
+                        cmd.Parameters.AddWithValue("@comment", comment);
+                        cmd.Parameters.AddWithValue("@changedBy", changedBy);
+                        cmd.Parameters.AddWithValue("@superintendentId", superintendentId);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Appraisal Modified Successfully !";
+            }
+            catch (Exception ex)
+            {
+                lblsubmit.Text = "Error Occurred - " + ex.Message;
             }
         }
 

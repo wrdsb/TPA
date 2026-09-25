@@ -210,7 +210,7 @@
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                         <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM/dd/yyyy}" />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM-dd-yyyy HH:mm:ss}"  />
                         <asp:BoundField DataField="Rating" HeaderText="Rating" />
                         <asp:BoundField DataField="Location" HeaderText="Location" />
                         <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
