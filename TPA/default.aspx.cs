@@ -251,7 +251,7 @@ namespace TPA
         {
             Global.searchQuery = string.Empty;
             clearSessionValues();
-            Response.Redirect("reports.aspx");
+            Response.Redirect("default.aspx");
         }
 
         void clearSessionValues()
