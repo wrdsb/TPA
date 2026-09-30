@@ -409,7 +409,8 @@ namespace TPA
                                                 , RATING                                        AS Rating
                                                 , LOCATION_CODE                                 AS Location
                                                 , SUPERINTENDENT_ID                             AS SuperintendentId
-                                                , COMMENT_TEXT                                  AS Comment                                                                                                         
+                                                , COMMENT_TEXT                                  AS Comment   
+                                                , Id
                                     FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
                                     WHERE       employee_id =  @EmployeeID
                                     ORDER BY    ADDED_DATE, CHANGED_DATE";
@@ -453,8 +454,8 @@ namespace TPA
                 string empId = Session["empId_text"].ToString();
              
 
-                var reviewDateTime = appraisalRecordsGrid.DataKeys[rowIndex].Value;
-                Session["reviewDateTime"] = reviewDateTime;
+                var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
+                Session["Id"] = Id;
 
                 // Use this id to retrieve the row from the database
                 string sql = @" SELECT  CONTRACT_CATEGORY
@@ -466,13 +467,13 @@ namespace TPA
                                         , COMMENT_TEXT
                                         , SUPERINTENDENT_ID                                      
                                 FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                WHERE REVIEW_DATE = @reviewDateTime AND EMPLOYEE_ID = @empId";
+                                WHERE Id = @Id AND EMPLOYEE_ID = @empId";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
-                        cmd.Parameters.AddWithValue("@reviewDateTime", reviewDateTime);
+                        cmd.Parameters.AddWithValue("@Id", Id);
                         cmd.Parameters.AddWithValue("@empId", empId);
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
@@ -578,7 +579,7 @@ namespace TPA
                     @category,
                     @reviewStartDate,
                     @reviewEndDate,
-                    GETDATE(),             -- To get exact review date and time
+                    @reviewDate,             -- To get exact review date and time
                     @rating,
                     @location,
                     NULL,                  -- NEXT_REVIEW_YEAR_START
@@ -598,7 +599,7 @@ namespace TPA
                         cmd.Parameters.AddWithValue("@category", category);
                         cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
                         cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
-                        //cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
                         cmd.Parameters.AddWithValue("@rating", rating);
                         cmd.Parameters.AddWithValue("@location", location);
                         cmd.Parameters.AddWithValue("@comment", comment);
@@ -626,7 +627,7 @@ namespace TPA
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
-            //string reviewDate = txtReviewDate.Text;
+            string reviewDate = txtReviewDate.Text;
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
@@ -640,14 +641,14 @@ namespace TPA
                                SET      [CONTRACT_CATEGORY] = @category
                                         , [REVIEW_YEAR_START] = @reviewStartDate
                                         , REVIEW_YEAR_END = @reviewEndDate
-                                        , REVIEW_DATE = getdate()
+                                        , REVIEW_DATE = @reviewDate
                                         , RATING = @rating
                                         , LOCATION_CODE = @location
                                         , COMMENT_TEXT = @comment
                                         , CHANGED_BY = @changedBy
                                         , CHANGED_DATE = getdate()
                                         , SUPERINTENDENT_ID = @superintendentId
-                                WHERE   EMPLOYEE_ID = @empId AND REVIEW_DATE = @REVIEW_DATE";
+                                WHERE   EMPLOYEE_ID = @empId AND Id = @Id";
 
 
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
@@ -655,12 +656,12 @@ namespace TPA
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
 
-                        cmd.Parameters.AddWithValue("@REVIEW_DATE", Session["reviewDateTime"].ToString());
+                        cmd.Parameters.AddWithValue("@Id", Session["Id"].ToString());
                         cmd.Parameters.AddWithValue("@empId", empId);
                         cmd.Parameters.AddWithValue("@category", category);
                         cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
                         cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
-                        //cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
                         cmd.Parameters.AddWithValue("@rating", rating);
                         cmd.Parameters.AddWithValue("@location", location);
                         cmd.Parameters.AddWithValue("@comment", comment);

@@ -190,7 +190,7 @@
 
 
 
-                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="ReviewDate" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
+                <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                         <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
