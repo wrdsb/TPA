@@ -530,7 +530,12 @@ namespace TPA
                 pnlRecordForm.Visible = false;
             }
             else
+            {
                 updateAppraisalRecord();
+                BindGrid(Session["empId_text"].ToString());
+                pnlRecordForm.Visible = false;
+
+            }
         }
         void addAppraisalRecord()
         {
