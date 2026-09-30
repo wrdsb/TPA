@@ -47,7 +47,7 @@ namespace TPA
                 }
                 string qry = Global.searchQuery;
 
-                if (!string.IsNullOrEmpty(qry)) // if redirected from smartphone page.
+                if (!string.IsNullOrEmpty(qry)) 
                 {
                     tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
                     tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
@@ -383,7 +383,7 @@ namespace TPA
                     if (lblEmp != null)
                     {
                         string einValue = lblEmp.Text;
-                        tb_empId.Text = einValue;
+                        Session["empId_text"] = einValue;
                         BindGrid(einValue);
 
                     }
@@ -450,7 +450,7 @@ namespace TPA
 
             try
             {
-                string empId = tb_empId.Text;
+                string empId = Session["empId_text"].ToString();
              
 
                 var reviewDateTime = appraisalRecordsGrid.DataKeys[rowIndex].Value;
@@ -524,14 +524,18 @@ namespace TPA
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (hfRecordId.Value == "0")
+            {
                 addAppraisalRecord();
+                BindGrid(Session["empId_text"].ToString());
+                pnlRecordForm.Visible = false;
+            }
             else
                 updateAppraisalRecord();
         }
         void addAppraisalRecord()
         {
             int recordId = Convert.ToInt32(hfRecordId.Value);
-            string empId = tb_empId.Text;
+            string empId = Session["empId_text"].ToString();
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
@@ -613,7 +617,7 @@ namespace TPA
 
         void updateAppraisalRecord()
         {
-            string empId = tb_empId.Text;
+            string empId = Session["empId_text"].ToString();
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
