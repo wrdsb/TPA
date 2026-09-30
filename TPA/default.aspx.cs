@@ -454,9 +454,17 @@ namespace TPA
              
 
                 var reviewDateTime = appraisalRecordsGrid.DataKeys[rowIndex].Value;
+                Session["reviewDateTime"] = reviewDateTime;
 
                 // Use this id to retrieve the row from the database
-                string sql = @" SELECT *
+                string sql = @" SELECT  CONTRACT_CATEGORY
+                                        , REVIEW_YEAR_START
+                                        , REVIEW_YEAR_END
+                                        , FORMAT(REVIEW_DATE, 'yyyy-MM-dd') AS REVIEW_DATE
+                                        , RATING
+                                        , LOCATION_CODE
+                                        , COMMENT_TEXT
+                                        , SUPERINTENDENT_ID                                      
                                 FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
                                 WHERE REVIEW_DATE = @reviewDateTime AND EMPLOYEE_ID = @empId";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
@@ -609,7 +617,7 @@ namespace TPA
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
-            string reviewDate = txtReviewDate.Text;
+            //string reviewDate = txtReviewDate.Text;
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
@@ -623,25 +631,27 @@ namespace TPA
                                SET      [CONTRACT_CATEGORY] = @category
                                         , [REVIEW_YEAR_START] = @reviewStartDate
                                         , REVIEW_YEAR_END = @reviewEndDate
-                                        , REVIEW_DATE = @reviewDate
+                                        , REVIEW_DATE = getdate()
                                         , RATING = @rating
                                         , LOCATION_CODE = @location
                                         , COMMENT_TEXT = @comment
                                         , CHANGED_BY = @changedBy
                                         , CHANGED_DATE = getdate()
                                         , SUPERINTENDENT_ID = @superintendentId
-                                WHERE   EMPLOYEE_ID = @empId";
+                                WHERE   EMPLOYEE_ID = @empId AND REVIEW_DATE = @REVIEW_DATE";
 
 
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand(sql, con))
                     {
+
+                        cmd.Parameters.AddWithValue("@REVIEW_DATE", Session["reviewDateTime"].ToString());
                         cmd.Parameters.AddWithValue("@empId", empId);
                         cmd.Parameters.AddWithValue("@category", category);
                         cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
                         cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
-                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        //cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
                         cmd.Parameters.AddWithValue("@rating", rating);
                         cmd.Parameters.AddWithValue("@location", location);
                         cmd.Parameters.AddWithValue("@comment", comment);
