@@ -439,7 +439,7 @@ namespace TPA
 
             // Reset control values in server code if needed
             ClearFormFields();
-            lblFormTitle.Text = "Please modify appraisal";
+            lblFormTitle.Text = "Please Modify Appraisal";
             hfRecordId.Value = "1";
             pnlRecordForm.Visible = true; // Displays the form on page
 
@@ -667,7 +667,7 @@ namespace TPA
         {
             // Reset control values in server code if needed
             ClearFormFields();
-            lblFormTitle.Text = "Please submit new appraisal";
+            lblFormTitle.Text = "Please Submit New Appraisal";
             hfRecordId.Value = "0";
             pnlRecordForm.Visible = true; // Displays the form on page
         }
