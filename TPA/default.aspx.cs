@@ -682,6 +682,7 @@ namespace TPA
             txtLocation.Text = string.Empty;
             txtSuperintendentId.Text = string.Empty;
             txtComment.Text = string.Empty;
+            lblsubmit.Text = string.Empty;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

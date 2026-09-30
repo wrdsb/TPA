@@ -42,23 +42,7 @@
             });
         });
 
-        function openAddModal() {
-            // Reset form fields for new record entry
-            document.getElementById('<%= hfRecordId.ClientID %>').value = "0";
-            document.getElementById('<%= ddlCategory.ClientID %>').selectedIndex = 0;
-            document.getElementById('<%= txtReviewDate.ClientID %>').value = "";
-            document.getElementById('<%= ddlRating.ClientID %>').selectedIndex = 0;
-            document.getElementById('<%= txtLocation.ClientID %>').value = "";
-            document.getElementById('<%= txtComment.ClientID %>').value = "";
-
-            // Change modal title
-            document.getElementById('recordModalLabel').innerText = "Add New Record";
-
-            // Open Bootstrap 5 Modal
-            var modalElement = document.getElementById('recordModal');
-            var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-            modalInstance.show();
-        }
+      
 
     </script>
     <style>
@@ -210,7 +194,7 @@
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                         <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:MM-dd-yyyy HH:mm:ss}"  />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}"  />
                         <asp:BoundField DataField="Rating" HeaderText="Rating" />
                         <asp:BoundField DataField="Location" HeaderText="Location" />
                         <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
@@ -314,7 +298,7 @@
                     <div class="col-md-12 text-end mt-3">
                         <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
-                        <asp:Label ID="lblsubmit" runat="server" Font-Bold ="true" Font-Size="Large" BackColor="YellowGreen" Visible="false"></asp:Label> 
+                        <asp:Label ID="lblsubmit" runat="server" Font-Bold ="true" Font-Size="Large" BackColor="LightYellow" Visible="false"></asp:Label> 
                     </div>
 
                 </asp:Panel>
