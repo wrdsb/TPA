@@ -201,6 +201,7 @@
                         <asp:BoundField DataField="Comment" HeaderText="Comment" />
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
+                                <div style="display: flex; gap: 5px; white-space: nowrap;">
                                 <asp:LinkButton ID="btnEdit"
                                     runat="server"
                                     CommandArgument='<%# Container.DataItemIndex %>'
@@ -214,6 +215,7 @@
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     OnClick="btnDelete_Click"
                                     OnClientClick="return confirm('Are you sure to delete the appraisal record?');" />
+                                    </div>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
