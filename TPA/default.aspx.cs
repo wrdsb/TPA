@@ -520,6 +520,28 @@ namespace TPA
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            LinkButton btn = (LinkButton)sender;
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+                int id = Convert.ToInt32(appraisalRecordsGrid.DataKeys[rowIndex].Value);
+
+                string sql = @"DELETE FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] WHERE Id = @Id";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                BindGrid(Session["empId_text"].ToString());
+
+            }
+            catch (Exception ex) { }
 
         }
         protected void btnSave_Click(object sender, EventArgs e)
@@ -617,6 +639,7 @@ namespace TPA
             }
             catch (Exception ex)
             {
+                lblsubmit.Visible = true;
                 lblsubmit.Text = "Error Occurred - " + ex.Message;
             }
         }
@@ -679,6 +702,7 @@ namespace TPA
             }
             catch (Exception ex)
             {
+                lblsubmit.Visible = true;
                 lblsubmit.Text = "Error Occurred - " + ex.Message;
             }
         }

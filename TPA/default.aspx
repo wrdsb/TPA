@@ -194,7 +194,7 @@
                     <Columns>
                         <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                         <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
-                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}"  />
+                        <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}"  />
                         <asp:BoundField DataField="Rating" HeaderText="Rating" />
                         <asp:BoundField DataField="Location" HeaderText="Location" />
                         <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
@@ -206,7 +206,7 @@
                                     CommandArgument='<%# Container.DataItemIndex %>'
                                     Text="Modify"
                                     CssClass="btn btn-sm btn-warning"
-                                    OnClick="btnEdit_Click" />
+                                    OnClick="btnEdit_Click" /> 
                                 <asp:LinkButton ID="btnDelete"
                                     runat="server"
                                     Text="Delete"
