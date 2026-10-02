@@ -87,10 +87,21 @@
                         }
                     });
                 },
-                minLength: 1
+                minLength: 1,
+                select: function (event, ui) {
+                    // Extract only the code part before " - "
+                    var codeOnly = ui.item.value.split(" - ")[0].trim();
+                    $(this).val(codeOnly);
+                    return false; // Prevents jQuery UI from restoring full string
+                },
+                focus: function (event, ui) {
+                    // Updates textbox while navigating dropdown with arrow keys
+                    var codeOnly = ui.item.value.split(" - ")[0].trim();
+                    $(this).val(codeOnly);
+                    return false;
+                }
             });
         });
-
 
 
     </script>
