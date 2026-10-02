@@ -9,39 +9,6 @@
     <script>
 
         $(function () {
-            $(".search_groupcode").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "reports.aspx/GetGroupCode",
-                        type: "POST",
-                        data: JSON.stringify({ prefix: request.term }),
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            response(data.d);
-                        }
-                    });
-                },
-                minLength: 1
-            });
-        });
-
-        $(function () {
-            $(".search_job").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: "reports.aspx/GetJob",
-                        type: "POST",
-                        data: JSON.stringify({ prefix: request.term }),
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            response(data.d);
-                        }
-                    });
-                },
-                minLength: 1
-            });
-        });
-        $(function () {
             $(".search_employee").autocomplete({
                 source: function (request, response) {
                     $.ajax({
