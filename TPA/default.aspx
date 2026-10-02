@@ -92,36 +92,39 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
-                    <asp:Table runat="server">
-                        <asp:TableRow>
-                            <asp:TableCell>Emp Id</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>Surname</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
-                            </asp:TableCell>
-                            <asp:TableCell>First Name</asp:TableCell>
-                            <asp:TableCell>
-                                <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
-                            </asp:TableCell>
+                <fieldset id="fd_searcchEmployee">
+                    <legend>Search Employee</legend>
+                    <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
+                        <asp:Table runat="server">
+                            <asp:TableRow>
+                                <asp:TableCell>Emp Id</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                </asp:TableCell>
+                                <asp:TableCell>Surname</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                </asp:TableCell>
+                                <asp:TableCell>First Name</asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                </asp:TableCell>
 
-                            <asp:TableCell>
-                                <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
-                            </asp:TableCell>
-                            <asp:TableCell>
-                                <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
-                            </asp:TableCell>
-                        </asp:TableRow>
+                                <asp:TableCell>
+                                    <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
+                                </asp:TableCell>
+                            </asp:TableRow>
 
 
 
 
-                    </asp:Table>
-                </asp:Panel>
-                <br />
+                        </asp:Table>
+                    </asp:Panel>
+                    <br />
+                </fieldset>
             </div>
         </div>
 
@@ -129,67 +132,71 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
-                <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
-                    <LayoutTemplate>
-                        <table class="table table-responsive table-bordered">
+                <fieldset id="fd_employeeDetails">
+                    <legend>Employee Details</legend>
+                    <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
+                        <LayoutTemplate>
+                            <table class="table table-responsive table-bordered">
+                                <tr>
+                                    <asp:Literal runat="server" ID="litDetails"></asp:Literal>
+                                </tr>
+                                <tr>
+                                    <th>EIN</th>
+                                    <th>Name
+                                    <br />
+                                        (Surname, Firstname)</th>
+                                    <th><span style="white-space: nowrap;">Group</span>
+                                        <br />
+                                        <span style="white-space: nowrap;">(Code | Desc)</span></th>
+                                    <th><span style="white-space: nowrap;">Location</span>
+                                        <br />
+                                        <span style="white-space: nowrap;">(Code | Desc)</span></th>
+                                    <th><span style="white-space: nowrap;">Contract</span>
+                                        <br />
+                                        <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
+                                    <th style="white-space: nowrap;">Start Date</th>
+                                    <th style="white-space: nowrap;">Review Date</th>
+                                    <th><span style="white-space: nowrap;">Termination</span>
+                                        <br />
+                                        <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
+                                    <th><span style="white-space: nowrap;">Previous Termination </span>
+                                        <br />
+                                        <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
+                                </tr>
+                                <tr id="itemPlaceholder" runat="server"></tr>
+                            </table>
+                        </LayoutTemplate>
+                        <ItemTemplate>
                             <tr>
-                                <asp:Literal runat="server" ID="litDetails"></asp:Literal>
+                                <td>
+                                    <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_contract" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_startdate" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_reviewdate" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>
+                                <td>
+                                    <asp:Label ID="lbl_prevtermination" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td>
                             </tr>
-                            <tr>
-                                <th>EIN</th>
-                                <th>Name
-                                    <br />
-                                    (Surname, Firstname)</th>
-                                <th><span style="white-space: nowrap;">Group</span>
-                                    <br />
-                                    <span style="white-space: nowrap;">(Code | Desc)</span></th>
-                                <th><span style="white-space: nowrap;">Location</span>
-                                    <br />
-                                    <span style="white-space: nowrap;">(Code | Desc)</span></th>
-                                <th><span style="white-space: nowrap;">Contract</span>
-                                    <br />
-                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
-                                <th style="white-space: nowrap;">Start Date</th>
-                                <th style="white-space: nowrap;">Review Date</th>
-                                <th><span style="white-space: nowrap;">Termination</span>
-                                    <br />
-                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
-                                <th><span style="white-space: nowrap;">Previous Termination </span>
-                                    <br />
-                                    <span style="white-space: nowrap;">(Code | Desc | Date)</span></th>
-                            </tr>
-                            <tr id="itemPlaceholder" runat="server"></tr>
-                        </table>
-                    </LayoutTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label>
-                            </td>
-                            <td>
-                                <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_homelocation" runat="server" Text='<%#Eval("LOCATION")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_contract" runat="server" Text='<%#Eval("CONTRACT")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_startdate" runat="server" Text='<%#Eval("ORIGINAL_START_DATE")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_reviewdate" runat="server" Text='<%#Eval("REVIEW_DATE")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_termination" runat="server" Text='<%#Eval("TERMINATION")%>'></asp:Label></td>
-                            <td>
-                                <asp:Label ID="lbl_prevtermination" runat="server" Text='<%#Eval("PREVIOUS_TERMINATION")%>'></asp:Label></td>
-                        </tr>
-                    </ItemTemplate>
+                        </ItemTemplate>
 
 
-                    <EmptyDataTemplate>
-                        We didn't find any data.
-                    </EmptyDataTemplate>
-                </asp:ListView>
+                        <EmptyDataTemplate>
+                            We didn't find any data.
+                        </EmptyDataTemplate>
+                    </asp:ListView>
+                </fieldset>
+
 
                 <!-- Add Button (hidden) -->
                 <asp:Button ID="btnAdd" runat="server" Text="Add New Appraisal" Visible="false"
