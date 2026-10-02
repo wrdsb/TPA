@@ -74,6 +74,23 @@
             });
         });
 
+        $(function () {
+            $(".search_location").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "default.aspx/GetLocation",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+
 
 
     </script>
@@ -343,7 +360,7 @@
 
                                 <asp:TableCell>Location</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" />
+                                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
                                     <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
                                         Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                         ValidationGroup="submit">

@@ -340,6 +340,39 @@ namespace TPA
             }
         }
 
+       
+        [System.Web.Services.WebMethod]
+        public static List<string> GetLocation(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT location_code AS loccode, description_abbr AS locdesc " +
+                                                    "FROM ec_locations " +
+                                                    "WHERE location_code LIKE '%' + @p + '%' OR description_abbr LIKE '%' + @p2 + '%' " +
+                                                    "ORDER BY location_code", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    cmd.Parameters.AddWithValue("@p2", prefix);
+                    var query = cmd.CommandText;
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["loccode"].ToString() + " - " + dr["locdesc"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
+                return result;
+
+            }
+        }
+
 
         [System.Web.Services.WebMethod]
         public static List<EmployeeItem> GetEmployee(string prefix)
