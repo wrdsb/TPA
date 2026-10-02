@@ -132,7 +132,7 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
-                <fieldset id="fd_employeeDetails">
+                <fieldset id="fd_employeeDetails" runat ="server">
                     <legend>Employee Details</legend>
                     <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
                         <LayoutTemplate>
@@ -225,7 +225,7 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
 
-                <fieldset id="fd_appraisalDetails">
+                <fieldset id="fd_appraisalDetails" runat ="server">
                     <legend>Appraisal Details</legend>
 
                     <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False"  CssClass="table-responsive table-bordered">
@@ -262,6 +262,7 @@
                     <!-- Add Button (hidden) -->
                     <asp:Button  ID="btnAdd" runat="server" Text="Add New Appraisal" Visible="false"
                         CssClass="btn btn-primary mb-3" OnClick="btnAdd_Click" />
+                   
                     <br />
                     <!-- Form Panel (Hidden by default) -->
 

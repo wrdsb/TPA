@@ -69,6 +69,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.Button btn_search;
 
         /// <summary>
+        /// fd_employeeDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_employeeDetails;
+
+        /// <summary>
         /// lv_search control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView lv_search;
+
+        /// <summary>
+        /// fd_appraisalDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_appraisalDetails;
 
         /// <summary>
         /// appraisalRecordsGrid control.
