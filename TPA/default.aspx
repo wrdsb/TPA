@@ -80,6 +80,24 @@
             border: 1px solid #ccc; /* Optional: nicer border */
             z-index: 99999 !important; /* Make sure it appears above other controls */
         }
+
+        /* Existing green style */
+        .announcement {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* New orange style for modify mode */
+        .announcement-modify {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+        }
     </style>
 
 </asp:Content>
@@ -127,7 +145,7 @@
 
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
-                <fieldset id="fd_employeeDetails" runat ="server">
+                <fieldset id="fd_employeeDetails" runat="server">
                     <legend>Employee Details</legend>
                     <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
                         <LayoutTemplate>
@@ -220,10 +238,10 @@
         <div class="row">
             <div class="col-md-12" style="min-height: 200px;">
 
-                <fieldset id="fd_appraisalDetails" runat ="server">
+                <fieldset id="fd_appraisalDetails" runat="server">
                     <legend>Appraisal Details</legend>
 
-                    <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False"  CssClass="table-responsive table-bordered">
+                    <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
                         <Columns>
                             <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                             <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
@@ -255,16 +273,16 @@
                     </asp:GridView>
 
                     <!-- Add Button (hidden) -->
-                    <asp:Button  ID="btnAdd"  runat="server" Text="Add New Appraisal" Visible="false"
-                        CssClass="btn btn-primary mb-3" OnClick="btnAdd_Click" />
-                   
+                    <asp:Button ID="btnAdd" runat="server" Text="Add New Appraisal" Visible="false"
+                        CssClass="btn btn-success mb-3" OnClick="btnAdd_Click" />
+
                     <br />
                     <!-- Form Panel (Hidden by default) -->
 
 
                     <asp:Panel ID="pnlRecordForm" runat="server" Visible="false" CssClass="card card-body mb-4 bg-light">
 
-                        <div class="announcement">
+                        <div id="div_appraisalAlert" runat="server" class="announcement">
                             <asp:Label ID="lblFormTitle"
                                 runat="server"
                                 Font-Bold="true"

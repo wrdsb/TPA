@@ -519,7 +519,10 @@ namespace TPA
 
             // Reset control values in server code if needed
             ClearFormFields();
+            div_appraisalAlert.Attributes["class"] = "announcement-modify";
             lblFormTitle.Text = "Please Modify Appraisal";
+            btnSave.CssClass = "btn btn-warning";
+            btnSave.Text = "Modify";
             hfRecordId.Value = "1";
             pnlRecordForm.Visible = true; // Displays the form on page
 
@@ -790,7 +793,9 @@ namespace TPA
         {
             // Reset control values in server code if needed
             ClearFormFields();
+            div_appraisalAlert.Attributes["class"] = "announcement";
             lblFormTitle.Text = "Please Submit New Appraisal";
+            btnSave.Attributes["class"] = "btn btn-success";
             hfRecordId.Value = "0";
             pnlRecordForm.Visible = true; // Displays the form on page
         }
