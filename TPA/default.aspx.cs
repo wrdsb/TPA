@@ -796,6 +796,8 @@ namespace TPA
             div_appraisalAlert.Attributes["class"] = "announcement";
             lblFormTitle.Text = "Please Submit New Appraisal";
             btnSave.Attributes["class"] = "btn btn-success";
+            btnSave.Text = "Submit";
+            btnSave.CssClass = "btn btn-success";
             hfRecordId.Value = "0";
             pnlRecordForm.Visible = true; // Displays the form on page
         }
