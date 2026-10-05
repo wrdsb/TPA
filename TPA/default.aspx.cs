@@ -72,6 +72,8 @@ namespace TPA
         {
             if(pnlRecordForm.Visible ==  true)
                 pnlRecordForm.Visible = false;
+            pnl_employee.Visible = true;
+            pnl_appraisal.Visible = true;
 
             if (!GenerateQuery())
             {
@@ -261,6 +263,8 @@ namespace TPA
         {
             Global.searchQuery = string.Empty;
             clearSessionValues();
+            pnl_employee.Visible = false;
+            pnl_appraisal.Visible = false;
             Response.Redirect("default.aspx");
         }
 
