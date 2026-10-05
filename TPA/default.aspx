@@ -255,7 +255,7 @@
                     </asp:GridView>
 
                     <!-- Add Button (hidden) -->
-                    <asp:Button  ID="btnAdd" runat="server" Text="Add New Appraisal" Visible="false"
+                    <asp:Button  ID="btnAdd"  runat="server" Text="Add New Appraisal" Visible="false"
                         CssClass="btn btn-primary mb-3" OnClick="btnAdd_Click" />
                    
                     <br />

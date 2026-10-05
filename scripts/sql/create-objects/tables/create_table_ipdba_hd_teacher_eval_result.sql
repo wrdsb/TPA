@@ -7,7 +7,7 @@ CREATE TABLE	[IPDBA].[HD_TEACHER_EVAL_RESULT]
 				, [REVIEW_YEAR_START] [numeric](4, 0) NOT NULL
 				, [REVIEW_YEAR_END] [numeric](4, 0) NOT NULL
 				, [REVIEW_DATE] [datetime2](0) NULL
-				, [RATING] [varchar](15) NULL
+				, [RATING] [varchar](30) NULL
 				, [LOCATION_CODE] [varchar](8) NULL
 				, [NEXT_REVIEW_YEAR_START] [numeric](4, 0) NULL
 				, [NEXT_REVIEW_YEAR_END] [numeric](4, 0) NULL
@@ -25,3 +25,8 @@ GO
 
 ALTER TABLE [IPDBA].[HD_TEACHER_EVAL_RESULT]
 ADD Id INT IDENTITY(1,1) PRIMARY KEY;
+
+-- Alter size of the rating column incase if it is not modified
+
+ALTER TABLE [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+ALTER COLUMN [RATING] VARCHAR(30);

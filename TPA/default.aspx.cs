@@ -740,8 +740,8 @@ namespace TPA
             {
 
                 string sql = @"UPDATE   [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                               SET      [CONTRACT_CATEGORY] = @category
-                                        , [REVIEW_YEAR_START] = @reviewStartDate
+                               SET      CONTRACT_CATEGORY = @category
+                                        , REVIEW_YEAR_START = @reviewStartDate
                                         , REVIEW_YEAR_END = @reviewEndDate
                                         , REVIEW_DATE = @reviewDate
                                         , RATING = @rating
