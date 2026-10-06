@@ -103,6 +103,35 @@
             });
         });
 
+        $(function () {
+            $(".search_superintent").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "default.aspx/GetSuperintent",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response(data.d);
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Extract only the code part before " - "
+                    var codeOnly = ui.item.value.split(" - ")[0].trim();
+                    $(this).val(codeOnly);
+                    return false; // Prevents jQuery UI from restoring full string
+                },
+                focus: function (event, ui) {
+                    // Updates textbox while navigating dropdown with arrow keys
+                    var codeOnly = ui.item.value.split(" - ")[0].trim();
+                    $(this).val(codeOnly);
+                    return false;
+                }
+            });
+        });
+
 
     </script>
     <style>
@@ -401,7 +430,7 @@
 
                                     <asp:TableCell>Superintendent Id</asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control" />
+                                        <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">

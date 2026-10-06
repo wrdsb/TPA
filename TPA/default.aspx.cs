@@ -353,10 +353,10 @@ namespace TPA
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT location_code AS loccode, description_abbr AS locdesc " +
-                                                    "FROM ec_locations " +
-                                                    "WHERE location_code LIKE '%' + @p + '%' OR description_abbr LIKE '%' + @p2 + '%' " +
-                                                    "ORDER BY location_code", con);
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT    location_code AS loccode, description_abbr AS locdesc " +
+                                                    "FROM               ec_locations " +
+                                                    "WHERE              location_code LIKE '%' + @p + '%' OR description_abbr LIKE '%' + @p2 + '%' " +
+                                                    "ORDER BY           location_code", con);
                     cmd.Parameters.AddWithValue("@p", prefix);
                     cmd.Parameters.AddWithValue("@p2", prefix);
                     var query = cmd.CommandText;
@@ -386,10 +386,10 @@ namespace TPA
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    string sql = @"SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
-                           FROM ec_employee 
-                           WHERE first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
-                           ORDER BY surname, first_name";
+                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM                ec_employee 
+                                    WHERE               first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    ORDER BY            surname, first_name";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
@@ -454,6 +454,39 @@ namespace TPA
                 return result;
             }
         }
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetSuperintent(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM            ec_employee 
+                                    WHERE           employee_id LIKE '%' + @p + '%' OR first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    ORDER BY        employee_id DESC ";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetEmployee autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
 
 
         void saveSearchDetailsintoDB()
