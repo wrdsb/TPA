@@ -112,7 +112,7 @@
                             <asp:TableRow>
                                 <asp:TableCell>Emp Id</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_empId" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
                                 </asp:TableCell>
                                 <asp:TableCell>Surname</asp:TableCell>
                                 <asp:TableCell>
