@@ -608,6 +608,15 @@ namespace TPA
 
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
 
+            // 1. Reset all rows to their original color
+            foreach (GridViewRow row in appraisalRecordsGrid.Rows)
+            {
+                row.BackColor = System.Drawing.Color.White; // Or System.Drawing.Color.Empty
+            }
+
+            // 3. Highlight the targeted row
+            appraisalRecordsGrid.Rows[rowIndex].BackColor = System.Drawing.Color.LightCyan;
+
             try
             {
                 string empId = Session["empId_text"].ToString();
@@ -895,6 +904,13 @@ namespace TPA
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
+
+            // 1. Reset all rows to their original color
+            foreach (GridViewRow row in appraisalRecordsGrid.Rows)
+            {
+                row.BackColor = System.Drawing.Color.White; // Or System.Drawing.Color.Empty
+            }
+
         }
     }
 }

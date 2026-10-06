@@ -345,7 +345,7 @@
 
 
                         <asp:Panel ID="pnlRecordForm" runat="server" Visible="false" CssClass="card card-body mb-4 bg-light">
-
+                            <br />
                             <div id="div_appraisalAlert" runat="server" class="announcement">
                                 <asp:Label ID="lblFormTitle"
                                     runat="server"
@@ -447,8 +447,9 @@
                                     Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                     ValidationGroup="submit">
                                 </asp:RequiredFieldValidator>
+                                <br />
                             </div>
-
+                            
                             <div class="col-md-12 text-end mt-3">
                                 <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" ValidationGroup="submit" />
                                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />
