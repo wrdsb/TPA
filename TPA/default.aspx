@@ -42,6 +42,39 @@
         });
 
         $(function () {
+            $(".search_employeebyempId").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "default.aspx/GetEmployeebyempId",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.DisplayText, // Text shown in the dropdown list
+                                    value: item.DisplayText,
+                                    empId: item.EmpId,
+                                    surname: item.Surname,
+                                    firstName: item.FirstName
+                                };
+                            }));
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Fill all three textboxes when an item is chosen
+                    $("#<%= tb_empId.ClientID %>").val(ui.item.empId);
+                    $("#<%= tb_surname.ClientID %>").val(ui.item.surname);
+                    $("#<%= tb_firstname.ClientID %>").val(ui.item.firstName);
+
+                    return false; // Prevents default replacement behavior
+                }
+            });
+        });
+
+        $(function () {
             $(".search_location").autocomplete({
                 source: function (request, response) {
                     $.ajax({
@@ -112,7 +145,7 @@
                             <asp:TableRow>
                                 <asp:TableCell>Emp Id</asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
                                 </asp:TableCell>
                                 <asp:TableCell>Surname</asp:TableCell>
                                 <asp:TableCell>
