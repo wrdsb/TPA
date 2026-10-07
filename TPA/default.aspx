@@ -375,15 +375,15 @@
                                     </asp:TableCell>
                                     <asp:TableCell>Review Start Year</asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewStartYear" runat="server" CssClass="form-control" Placeholder="e.g. 1992" />
-                                        <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
+                                        <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" Placeholder="e.g. 1992" />
+                                        <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear"  runat="server" ControlToValidate="txtReviewStartYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
                                     <asp:TableCell>Review End Year</asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewEndYear" runat="server" CssClass="form-control" Placeholder="e.g. 1993" />
+                                        <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control" Placeholder="e.g. 1993" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">

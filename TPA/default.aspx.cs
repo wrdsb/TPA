@@ -466,6 +466,7 @@ namespace TPA
                     string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM            ec_employee 
                                     WHERE           employee_id LIKE '%' + @p + '%' OR first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    AND             emp_activity_code = 'ACTIVE'
                                     ORDER BY        employee_id DESC ";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
