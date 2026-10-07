@@ -217,10 +217,10 @@
                                         <asp:Literal runat="server" ID="litDetails"></asp:Literal>
                                     </tr>
                                     <tr>
-                                        <th>EIN</th>
+                                        <%--<th>EIN</th>
                                         <th>Name
                                     <br />
-                                            (Surname, Firstname)</th>
+                                            (Surname, Firstname)</th>--%>
                                         <th><span style="white-space: nowrap;">Group</span>
                                             <br />
                                             <span style="white-space: nowrap;">(Code | Desc)</span></th>
@@ -244,11 +244,11 @@
                             </LayoutTemplate>
                             <ItemTemplate>
                                 <tr>
-                                    <td>
+                                    <%--<td>
                                         <asp:Label ID="lbl_emp" runat="server" Text='<%#Eval("EIN")%>'></asp:Label></td>
                                     <td>
                                         <asp:Label ID="lbl_name" runat="server" Text='<%# Eval("NAME") %>'></asp:Label>
-                                    </td>
+                                    </td>--%>
                                     <td>
                                         <asp:Label ID="lbl_group_code" runat="server" Text='<%#Eval("GROUPS")%>'></asp:Label></td>
                                     <td>

@@ -27,7 +27,7 @@ namespace TPA
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             if (IsPostBack)
                 return;
 
@@ -54,7 +54,7 @@ namespace TPA
                 }
                 string qry = Global.searchQuery;
 
-                if (!string.IsNullOrEmpty(qry)) 
+                if (!string.IsNullOrEmpty(qry))
                 {
                     tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
                     tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
@@ -70,7 +70,7 @@ namespace TPA
 
         protected void btn_search_Click(object sender, EventArgs e)
         {
-            if(pnlRecordForm.Visible ==  true)
+            if (pnlRecordForm.Visible == true)
                 pnlRecordForm.Visible = false;
             pnl_employee.Visible = true;
             pnl_appraisal.Visible = true;
@@ -344,7 +344,7 @@ namespace TPA
             }
         }
 
-       
+
         [System.Web.Services.WebMethod]
         public static List<string> GetLocation(string prefix)
         {
@@ -442,7 +442,7 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " +dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
                         });
                     }
                 }
@@ -523,30 +523,12 @@ namespace TPA
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
         }
-      
+
 
         void LoadAppraisalrecords()
         {
-            //TODO : load data from the table into the grid
-
-            foreach (ListViewItem item in lv_search.Items)
-            {
-                // Check to ensure it is a data row, not a header/footer
-                if (item.ItemType == ListViewItemType.DataItem)
-                {
-                    // Find the label control inside this row
-                    System.Web.UI.WebControls.Label lblEmp = (System.Web.UI.WebControls.Label)item.FindControl("lbl_emp");
-
-                    if (lblEmp != null)
-                    {
-                        string einValue = lblEmp.Text;
-                        Session["empId_text"] = einValue;
-                        BindGrid(einValue);
-
-                    }
-                }
-            }
-
+            BindGrid(empid);
+            Session["empId_text"] = empid;
         }
         void BindGrid(string empId)
         {
@@ -612,7 +594,7 @@ namespace TPA
             try
             {
                 string empId = Session["empId_text"].ToString();
-             
+
 
                 var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
                 Session["Id"] = Id;
@@ -666,7 +648,7 @@ namespace TPA
                         }
                     }
                 }
-               
+
 
 
             }
