@@ -305,7 +305,10 @@
                     <fieldset id="fd_appraisalDetails" runat="server">
                         <legend>Appraisal Details</legend>
 
-                        <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered">
+                        <asp:GridView ID="appraisalRecordsGrid" runat="server" DataKeyNames="Id" AutoGenerateColumns="False" CssClass="table-responsive table-bordered" OnRowCommand="appraisalRecordsGrid_RowCommand">
+
+                            <SelectedRowStyle BackColor="#FFF3CD" ForeColor="#856404" Font-Bold="true" />
+
                             <Columns>
                                 <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
                                 <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
@@ -319,6 +322,7 @@
                                         <div style="display: flex; gap: 5px; white-space: nowrap;">
                                             <asp:LinkButton ID="btnEdit"
                                                 runat="server"
+                                                CommandName="ModifyRecord"
                                                 CommandArgument='<%# Container.DataItemIndex %>'
                                                 Text="Modify"
                                                 CssClass="btn btn-sm btn-warning"
@@ -376,7 +380,7 @@
                                     <asp:TableCell>Review Start Year</asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" Placeholder="e.g. 1992" />
-                                        <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear"  runat="server" ControlToValidate="txtReviewStartYear"
+                                        <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
@@ -449,7 +453,7 @@
                                 </asp:RequiredFieldValidator>
                                 <br />
                             </div>
-                            
+
                             <div class="col-md-12 text-end mt-3">
                                 <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" ValidationGroup="submit" />
                                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="btnCancel_Click" CausesValidation="false" />

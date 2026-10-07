@@ -609,15 +609,6 @@ namespace TPA
 
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
 
-            // 1. Reset all rows to their original color
-            foreach (GridViewRow row in appraisalRecordsGrid.Rows)
-            {
-                row.BackColor = System.Drawing.Color.White; // Or System.Drawing.Color.Empty
-            }
-
-            // 3. Highlight the targeted row
-            appraisalRecordsGrid.Rows[rowIndex].BackColor = System.Drawing.Color.LightCyan;
-
             try
             {
                 string empId = Session["empId_text"].ToString();
@@ -726,6 +717,7 @@ namespace TPA
                 updateAppraisalRecord();
                 BindGrid(Session["empId_text"].ToString());
                 pnlRecordForm.Visible = false;
+                appraisalRecordsGrid.SelectedIndex = -1;
 
             }
         }
@@ -905,13 +897,18 @@ namespace TPA
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
+            appraisalRecordsGrid.SelectedIndex = -1;
+        }
 
-            // 1. Reset all rows to their original color
-            foreach (GridViewRow row in appraisalRecordsGrid.Rows)
+        protected void appraisalRecordsGrid_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ModifyRecord")
             {
-                row.BackColor = System.Drawing.Color.White; // Or System.Drawing.Color.Empty
-            }
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
 
+                // Sets SelectedIndex to highlight the row using SelectedRowStyle
+                appraisalRecordsGrid.SelectedIndex = rowIndex;
+            }
         }
     }
 }
