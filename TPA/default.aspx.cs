@@ -587,6 +587,8 @@ namespace TPA
             hfRecordId.Value = "1";
             pnlRecordForm.Visible = true; // Displays the form on page
 
+            scrollToBottom();
+
 
             LinkButton btn = (LinkButton)sender;
 
@@ -871,6 +873,10 @@ namespace TPA
             txtReviewEndYear.Text = (currentYear).ToString();
             pnlRecordForm.Visible = true; // Displays the form on page
 
+            scrollToBottom();
+        }
+        void scrollToBottom()
+        {
             // Register script to scroll to the bottom of the form or window
             string script = @"
             setTimeout(function() {
@@ -883,8 +889,6 @@ namespace TPA
             }, 100);";
 
             ScriptManager.RegisterStartupScript(this, GetType(), "ScrollToBottom", script, true);
-
-
         }
         // Helper to reset fields
         private void ClearFormFields()
