@@ -379,7 +379,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>Review Start Year</asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control"  />
+                                        <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -387,11 +387,19 @@
                                     </asp:TableCell>
                                     <asp:TableCell>Review End Year</asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control"  />
+                                        <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
+                                        <asp:CompareValidator ID="cv_YearRange" runat="server"
+                                            ControlToValidate="txtReviewEndYear"
+                                            ControlToCompare="txtReviewStartYear"
+                                            Operator="GreaterThan"
+                                            Type="Integer"
+                                            ErrorMessage="End year must be greater than start year."
+                                            ForeColor="Red" Display="Dynamic"
+                                            ValidationGroup="submit" />
                                     </asp:TableCell>
                                     <asp:TableCell>Review Date</asp:TableCell>
                                     <asp:TableCell>

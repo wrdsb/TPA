@@ -222,6 +222,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtReviewEndYear;
 
         /// <summary>
+        /// cv_YearRange control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cv_YearRange;
+
+        /// <summary>
         /// txtReviewDate control.
         /// </summary>
         /// <remarks>
