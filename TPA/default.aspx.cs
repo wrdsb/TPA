@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -711,7 +712,7 @@ namespace TPA
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
             TimeSpan timeOfDay = DateTime.Now.TimeOfDay;
-            string reviewDate = txtReviewDate.Text +" "+ timeOfDay.ToString(@"hh\:mm\:ss"); 
+            string reviewDate = txtReviewDate.Text + " " + timeOfDay.ToString(@"hh\:mm\:ss");
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
@@ -869,6 +870,21 @@ namespace TPA
             // Set end year to current year or future year
             txtReviewEndYear.Text = (currentYear).ToString();
             pnlRecordForm.Visible = true; // Displays the form on page
+
+            // Register script to scroll to the bottom of the form or window
+            string script = @"
+            setTimeout(function() {
+                var submitBtn = document.getElementById('" + btnSave.ClientID + @"');
+                if (submitBtn) {
+                submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }
+            }, 100);";
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "ScrollToBottom", script, true);
+
+
         }
         // Helper to reset fields
         private void ClearFormFields()
