@@ -902,6 +902,7 @@ namespace TPA
             txtSuperintendentId.Text = string.Empty;
             txtComment.Text = string.Empty;
             lblsubmit.Text = string.Empty;
+            appraisalRecordsGrid.SelectedIndex = -1;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
