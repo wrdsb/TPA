@@ -552,7 +552,7 @@ namespace TPA
                                                 , Id
                                     FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
                                     WHERE       employee_id =  @EmployeeID
-                                    ORDER BY    ADDED_DATE, CHANGED_DATE";
+                                    ORDER BY    Id";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
@@ -862,6 +862,12 @@ namespace TPA
             btnSave.Text = "Submit";
             btnSave.CssClass = "btn btn-success";
             hfRecordId.Value = "0";
+            int currentYear = DateTime.Now.Year;
+            // Set start year to current year (or a specific default)
+            txtReviewStartYear.Text = (currentYear - 5).ToString();
+
+            // Set end year to current year or future year
+            txtReviewEndYear.Text = (currentYear).ToString();
             pnlRecordForm.Visible = true; // Displays the form on page
         }
         // Helper to reset fields
