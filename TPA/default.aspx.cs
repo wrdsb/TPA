@@ -710,7 +710,8 @@ namespace TPA
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
-            string reviewDate = txtReviewDate.Text;
+            TimeSpan timeOfDay = DateTime.Now.TimeOfDay;
+            string reviewDate = txtReviewDate.Text +" "+ timeOfDay.ToString(@"hh\:mm\:ss"); 
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
@@ -793,7 +794,8 @@ namespace TPA
             string category = ddlCategory.SelectedValue;
             string reviewStartDate = txtReviewStartYear.Text;
             string reviewEndDate = txtReviewEndYear.Text;
-            string reviewDate = txtReviewDate.Text;
+            TimeSpan timeOfDay = DateTime.Now.TimeOfDay;
+            string reviewDate = txtReviewDate.Text + " " + timeOfDay.ToString(@"hh\:mm\:ss");
             string rating = ddlRating.SelectedValue;
             string location = txtLocation.Text;
             string comment = txtComment.Text;
