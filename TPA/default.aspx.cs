@@ -663,6 +663,9 @@ namespace TPA
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            pnlRecordForm.Visible = false;
+            appraisalRecordsGrid.SelectedIndex = -1;
+
             LinkButton btn = (LinkButton)sender;
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
 
