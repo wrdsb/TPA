@@ -310,8 +310,9 @@
                             <SelectedRowStyle BackColor="#FFF3CD" ForeColor="#856404" Font-Bold="true" />
 
                             <Columns>
-                                <asp:BoundField DataField="EvaluationCategory" HeaderText="Category" />
-                                <asp:BoundField DataField="ReviewYear" HeaderText="Review Year" />
+                                <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category" />
+                                <asp:BoundField DataField="ReviewStartYear" HeaderText="Review Start Year" />
+                                <asp:BoundField DataField="ReviewEndYear" HeaderText="Review End Year" />
                                 <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}" />
                                 <asp:BoundField DataField="Rating" HeaderText="Rating" />
                                 <asp:BoundField DataField="Location" HeaderText="Location" />
