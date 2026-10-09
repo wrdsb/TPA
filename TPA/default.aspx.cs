@@ -633,17 +633,6 @@ namespace TPA
                                     txtComment.Text = reader["COMMENT_TEXT"].ToString();
                                     txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
 
-                                    //tb_phoneNumber.Text = reader["phone_number"].ToString();
-                                    //ddl_tier.SelectedValue = reader["tier"].ToString();
-                                    //ddl_orderedItem.SelectedValue = reader["ordered_item"].ToString();
-                                    //rbl_RogersYesNo.SelectedValue =
-                                    //    reader["rogers_account_created"].ToString() == "True" ? "1" : "0";
-                                    //rbl_BoardYesNo.SelectedValue =
-                                    //    reader["board_contribution_paid"].ToString() == "True" ? "1" : "0";
-                                    //tb_eligibleDate.Text =
-                                    //    Convert.ToDateTime(reader["next_eligible_date"])
-                                    //    .ToString("yyyy-MM-dd");
-                                    //tb_notes.Text = reader["notes"].ToString();
                                 }
                             }
                         }
