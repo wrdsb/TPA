@@ -176,11 +176,11 @@
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
                                 </asp:TableCell>
-                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Surname"></asp:Label></asp:TableCell>
+                                <asp:TableCell><asp:Label ID="lblSurname" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Surname"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
                                 </asp:TableCell>
-                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="First Name"></asp:Label></asp:TableCell>
+                                <asp:TableCell><asp:Label ID="lblFirstName" runat="server" Font-Bold="true" ForeColor="GrayText" Text="First Name"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
                                 </asp:TableCell>
@@ -269,30 +269,8 @@
                         </asp:ListView>
                     </fieldset>
                 </asp:Panel>
-
-
-
-                <%-- <asp:DataPager ID="MyDataPager" EnableEventValidation="false" runat="server" PagedControlID="lv_search" PageSize="25">
-                    <Fields>
-                        <asp:NextPreviousPagerField ButtonType="Button"
-                            ShowFirstPageButton="True" ShowLastPageButton="True"
-                            PreviousPageText="&laquo; Prev"
-                            NextPageText="Next &raquo;"
-                            FirstPageText="First"
-                            LastPageText="Last" />
-                        <asp:NumericPagerField ButtonCount="5" />
-                    </Fields>
-                </asp:DataPager>
-                <!-- Add multiple &nbsp; for more space -->
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblCount" runat="server" CssClass="text-info"></asp:Label>--%>
             </div>
         </div>
-
-
-
 
         <!-- For Appraisal Grid -->
         <div class="row">
@@ -361,7 +339,7 @@
                             <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
                             <asp:Table runat="server">
                                 <asp:TableRow>
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Evaluation Category"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblEvaluationCategory" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Evaluation Category"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlCategory" runat="server" Width="200px" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Category --" Value="" />
@@ -374,7 +352,7 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Start Year"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblReviewStartYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Start Year"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
@@ -382,7 +360,7 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review End Year"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblReviewEndYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review End Year"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
@@ -398,7 +376,7 @@
                                             ForeColor="Red" Display="Dynamic"
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Date"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblReviewDate" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Date"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewDate" runat="server" ControlToValidate="txtReviewDate"
@@ -410,7 +388,7 @@
                                 </asp:TableRow>
 
                                 <asp:TableRow>
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblRating" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlRating" runat="server" Width="200px" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Rating --" Value="" />
@@ -427,7 +405,7 @@
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
 
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Location"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblLocation" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Location"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
@@ -437,7 +415,7 @@
                                     </asp:TableCell>
 
 
-                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label></asp:TableCell>
+                                    <asp:TableCell><asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"

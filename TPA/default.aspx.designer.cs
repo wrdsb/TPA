@@ -42,6 +42,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox tb_empId;
 
         /// <summary>
+        /// lblSurname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSurname;
+
+        /// <summary>
         /// tb_surname control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_surname;
+
+        /// <summary>
+        /// lblFirstName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFirstName;
 
         /// <summary>
         /// tb_firstname control.
@@ -177,6 +195,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.HiddenField hfRecordId;
 
         /// <summary>
+        /// lblEvaluationCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEvaluationCategory;
+
+        /// <summary>
         /// ddlCategory control.
         /// </summary>
         /// <remarks>
@@ -195,6 +222,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ddlCategory;
 
         /// <summary>
+        /// lblReviewStartYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReviewStartYear;
+
+        /// <summary>
         /// txtReviewStartYear control.
         /// </summary>
         /// <remarks>
@@ -211,6 +247,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtReviewStartYear;
+
+        /// <summary>
+        /// lblReviewEndYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReviewEndYear;
 
         /// <summary>
         /// txtReviewEndYear control.
@@ -240,6 +285,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.CompareValidator cv_YearRange;
 
         /// <summary>
+        /// lblReviewDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReviewDate;
+
+        /// <summary>
         /// txtReviewDate control.
         /// </summary>
         /// <remarks>
@@ -256,6 +310,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtReviewDate;
+
+        /// <summary>
+        /// lblRating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRating;
 
         /// <summary>
         /// ddlRating control.
@@ -276,6 +339,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ddlRating;
 
         /// <summary>
+        /// lblLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation;
+
+        /// <summary>
         /// txtLocation control.
         /// </summary>
         /// <remarks>
@@ -292,6 +364,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtLocation;
+
+        /// <summary>
+        /// lblSuperIntendentId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSuperIntendentId;
 
         /// <summary>
         /// txtSuperintendentId control.
