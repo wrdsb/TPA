@@ -53,18 +53,6 @@ namespace TPA
 
                     Response.Redirect("login.aspx");
                 }
-                string qry = Global.searchQuery;
-
-                if (!string.IsNullOrEmpty(qry))
-                {
-                    tb_empId.Text = Session["empId_text"] != null ? Session["empId_text"].ToString() : string.Empty;
-                    tb_surname.Text = Session["surname_text"] != null ? Session["surname_text"].ToString() : string.Empty;
-                    tb_firstname.Text = Session["firstname_text"] != null ? Session["firstname_text"].ToString() : string.Empty;
-
-
-                    showSearchData();
-                }
-
             }
         }
 
@@ -638,16 +626,11 @@ namespace TPA
                         }
                     }
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
