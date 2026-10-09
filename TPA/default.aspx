@@ -172,15 +172,15 @@
                     <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
                         <asp:Table runat="server">
                             <asp:TableRow>
-                                <asp:TableCell>Emp Id</asp:TableCell>
+                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Emp Id"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
                                 </asp:TableCell>
-                                <asp:TableCell>Surname</asp:TableCell>
+                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Surname"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
                                 </asp:TableCell>
-                                <asp:TableCell>First Name</asp:TableCell>
+                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="First Name"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
                                 </asp:TableCell>
@@ -192,10 +192,6 @@
                                     <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
                                 </asp:TableCell>
                             </asp:TableRow>
-
-
-
-
                         </asp:Table>
                     </asp:Panel>
                     <br />
@@ -365,7 +361,7 @@
                             <asp:HiddenField ID="hfRecordId" runat="server" Value="0" />
                             <asp:Table runat="server">
                                 <asp:TableRow>
-                                    <asp:TableCell> Evaluation Category </asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Evaluation Category"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlCategory" runat="server" Width="200px" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Category --" Value="" />
@@ -378,7 +374,7 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
-                                    <asp:TableCell>Review Start Year</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Start Year"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
@@ -386,7 +382,7 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
-                                    <asp:TableCell>Review End Year</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review End Year"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
@@ -402,7 +398,7 @@
                                             ForeColor="Red" Display="Dynamic"
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
-                                    <asp:TableCell>Review Date</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Date"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewDate" runat="server" ControlToValidate="txtReviewDate"
@@ -414,7 +410,7 @@
                                 </asp:TableRow>
 
                                 <asp:TableRow>
-                                    <asp:TableCell>Rating</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlRating" runat="server" Width="200px" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Rating --" Value="" />
@@ -431,7 +427,7 @@
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
 
-                                    <asp:TableCell>Location</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Location"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
@@ -441,7 +437,7 @@
                                     </asp:TableCell>
 
 
-                                    <asp:TableCell>Superintendent Id</asp:TableCell>
+                                    <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label></asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
@@ -454,7 +450,7 @@
                             </asp:Table>
 
                             <div class="col-md-12">
-                                <label class="form-label">Comment</label>
+                                <asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Comment"></asp:Label>
                                 <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
                                 <asp:RequiredFieldValidator ID="rfv_txtComment" runat="server" ControlToValidate="txtComment"
                                     Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"

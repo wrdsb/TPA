@@ -539,7 +539,7 @@ namespace TPA
                                                 , Id
                                     FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
                                     WHERE       employee_id =  @EmployeeID
-                                    ORDER BY    Id";
+                                    ORDER BY    Id DESC";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
