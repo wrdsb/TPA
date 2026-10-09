@@ -451,21 +451,7 @@
 
             </div>
         </div>
-
-
-
-
     </div>
-
-
-    <!-- Custom Modal -->
-    <%-- <div id="detailsModal" class="myModal">
-        <div class="myModal-content">
-            <span class="myClose" onclick="document.getElementById('detailsModal').style.display='none';">&times;</span>
-            <asp:Literal ID="litDetails" runat="server"></asp:Literal>
-        </div>
-    </div>--%>
-
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource_status" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"
