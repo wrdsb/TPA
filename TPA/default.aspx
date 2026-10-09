@@ -172,7 +172,7 @@
                     <asp:Panel ID="pnlSearch" runat="server" DefaultButton="btn_search">
                         <asp:Table runat="server">
                             <asp:TableRow>
-                                <asp:TableCell><asp:Label runat="server" Font-Bold="true" ForeColor="GrayText" Text="Emp Id"></asp:Label></asp:TableCell>
+                                <asp:TableCell><asp:Label ID ="lblEmp" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Emp Id"></asp:Label></asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
                                 </asp:TableCell>
