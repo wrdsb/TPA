@@ -21,18 +21,18 @@ namespace TPA
         protected void Page_Load(object sender, EventArgs e)
         {
             //Lets try redirecting to a new login page which then verifies the authentication and then handles the redirection there.            
-            //if (Request.IsAuthenticated == false)
-            //{
-            //    //Unauthenticated. Prompt for Azure Auth
-            //    HttpContext.Current.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "login.aspx" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
-            //    return;
-            //}
-            //else
+            if (Request.IsAuthenticated == false)
+            {
+                //Unauthenticated. Prompt for Azure Auth
+                HttpContext.Current.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "login.aspx" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                return;
+            }
+            else
             {
                 //Authenticated. Compare Azure Login Email with email from the DB
                 //Logger.Log("User authenticated via Azure AD. Proceeding with application login.");
                 string emailAddress = User.Identity.Name;
-                emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
+                //emailAddress = "meenakshi_durairaj@wrdsb.ca"; //For testing purpose, hardcoded email address
                 //Loggers.Log("User authenticated via email: " + emailAddress);
                 if (emailAddress != null)
                 {
