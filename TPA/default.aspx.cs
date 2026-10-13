@@ -1,56 +1,489 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using ListViewItem = System.Web.UI.WebControls.ListViewItem;
 
 
 namespace TPA
 {
+    public class EmployeeItem
+    {
+        public string EmpId { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string DisplayText { get; set; }
+    }
     public partial class _default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (IsPostBack)
+                return;
+
+            Session["auditComplete"] = true;
+
+            if (Session["auditComplete"] == null || Convert.ToBoolean(Session["auditComplete"]) == false)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Cache.SetAllowResponseInBrowserHistory(false);
             Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
             Response.Cache.SetNoStore();
 
-            if (!Page.User.Identity.IsAuthenticated)
-            {
-                Session.Clear();
-                Session.Abandon();
-                Session.RemoveAll();
-                FormsAuthentication.RedirectToLoginPage();
-            }
-
-            // if both session variables are null, redirect to login.aspx page
-            if (Session["surname"] == null || Session["firstname"] == null)
-            {
-                Session.Clear();
-                Session.Abandon();
-                Response.Redirect("login.aspx");
-            }
-
-
             if (!Page.IsPostBack)
             {
-                Session["auditComplete"] = false;
+                if (Session["surname"] == null || Session["firstname"] == null)
+                {
+                    Session.Clear();
+                    Session.Abandon();
+
+                    Response.Redirect("login.aspx");
+                }
+            }
+        }
+
+
+        protected void btn_search_Click(object sender, EventArgs e)
+        {
+            if (pnlRecordForm.Visible == true)
+                pnlRecordForm.Visible = false;
+            pnl_employee.Visible = true;
+            pnl_appraisal.Visible = true;
+
+            if (!GenerateQuery())
+            {
+                return;
             }
 
+            showSearchData();
+            saveSearchDetailsintoDB();
+            LoadAppraisalrecords();
         }
 
-        protected void btn_clear_Click(object sender, EventArgs e)
+        string searchFilter = string.Empty;
+        string empid
         {
-            Response.Redirect("default.aspx");
+            get { return tb_empId.Text.Trim(); }
         }
 
-        protected void btn_submit_Click(object sender, EventArgs e)
+        string surname
+        {
+            get { return tb_surname.Text.Trim(); }
+        }
+
+        string firstname
+        {
+            get { return tb_firstname.Text.Trim(); }
+        }
+
+
+
+
+        bool GenerateQuery()
+        {
+
+            searchFilter = string.Empty;
+
+
+            try
+            {
+                string query = "";
+
+                if (string.IsNullOrEmpty(surname) &&
+
+                    string.IsNullOrEmpty(empid) &&
+                    string.IsNullOrEmpty(firstname)
+
+                    )
+                    return false;
+
+                var filtersObj = new
+                {
+                    Empid = empid,
+                    Surname = surname,
+                    Firstname = firstname
+
+                };
+
+                searchFilter = "Search Parameters : " + JsonConvert.SerializeObject(filtersObj);
+
+
+
+                query = @"  SELECT		emp.EMPLOYEE_ID                                                     AS EIN
+			                            , emp.SURNAME+', '+emp.FIRST_NAME                                   AS NAME
+                                        , CONCAT_WS
+											(' | ', 
+			                                emp.EMP_GROUP_CODE,                    
+			                                grp.DESCRIPTION_ABBR                    
+                                            )                                                               AS GROUPS                
+                                        , CONCAT_WS
+											(' | ', 
+			                                emp.HOME_LOCATION_CODE,                
+			                                loc.DESCRIPTION_ABBR                  
+                                            )                                                               AS LOCATION
+                                        , CONCAT_WS
+											(' | ', 
+			                                emp.CONTRACT_CODE,                     
+			                                cnt.DESCRIPTION_ABBR,                  
+			                                CONVERT(VARCHAR(10), emp.CONTRACT_DATE, 120)                   
+                                            )                                                               AS CONTRACT
+			                            , CONVERT(VARCHAR(10), emp.ORIGINAL_START_DATE, 120)                AS ORIGINAL_START_DATE
+			                            , CONVERT(VARCHAR(10), emp.REVIEW_DATE , 120)                       AS REVIEW_DATE
+			                            , CONCAT_WS
+											(' | ', 
+											emp.TERMINATION_CODE,                 
+											t.DESCRIPTION_ABBR,					
+											CONVERT(VARCHAR(10), emp.TERMINATION_DATE, 120)                 
+											)									                            AS TERMINATION
+			                            , CONCAT_WS
+											(' | ', 
+											emp.PREVIOUS_TERMINATION_CODE, 
+											pt.DESCRIPTION_ABBR, 
+											CONVERT(VARCHAR(10), emp.PREVIOUS_TERMINATION_DATE, 120)
+											)									                            AS PREVIOUS_TERMINATION
+                            FROM		EC_EMPLOYEE emp
+                            JOIN		EC_GROUP_CODES grp			ON  grp.EMP_GROUP_CODE = emp.EMP_GROUP_CODE
+                            JOIN		EC_LOCATIONS loc			ON	loc.LOCATION_CODE = emp.HOME_LOCATION_CODE
+                            LEFT JOIN	EC_CODE_CONTRACT_CODE cnt	ON	cnt.CODE_VALUE = emp.CONTRACT_CODE
+                            LEFT JOIN	EC_CODE_TERMINATION_CODE t	ON	t.CODE_VALUE = emp.TERMINATION_CODE
+                            LEFT JOIN	EC_CODE_TERMINATION_CODE pt	ON	pt.CODE_VALUE = emp.PREVIOUS_TERMINATION_CODE
+                            WHERE ";
+
+
+
+                query += string.IsNullOrEmpty(firstname) ? "" : "emp.first_name = @firstname AND ";
+                query += string.IsNullOrEmpty(surname) ? "" : "emp.surname = @surname AND ";
+                query += string.IsNullOrEmpty(empid) ? "" : "emp.employee_id = @empid AND ";
+
+                query = query.Substring(0, query.Length - 4);
+
+
+                Global.searchQuery = query;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while building search query from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while building the search query. Please try again later.');", true);
+                return false;
+            }
+        }
+
+        protected void showSearchData()
         {
             try
             {
-                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;            
+                DataSource_search.SelectCommand = Global.searchQuery;
+                //Response.Write("Executing Query: " + DataSource_search.SelectCommand);
+                LoadParameters();
+                lv_search.DataBind();
+                lv_search.SelectedIndex = -1;
+
+                //visibility of add new record button needs to be enabled
+                if (lv_search.Items.Count > 0)
+                {
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while binding search query " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while binding search query. Please try again later.');", true);
+            }
+
+        }
+
+        void LoadParameters()
+        {
+            try
+            {
+                // Clear old parameters(important!)
+                DataSource_search.SelectParameters.Clear();
+
+                if (!string.IsNullOrEmpty(firstname))
+                    DataSource_search.SelectParameters.Add("firstname", firstname);
+                if (!string.IsNullOrEmpty(surname))
+                    DataSource_search.SelectParameters.Add("surname", surname);
+
+                if (!string.IsNullOrEmpty(empid))
+                    DataSource_search.SelectParameters.Add("empid", empid);
+
+
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error occurred while loading parameters from reports page by user: " + Session["username"] + " . Error: " + ex.Message);
+                Loggers.Log("Stack Trace: " + ex.StackTrace);
+                Loggers.Log("Inner Exception: " + (ex.InnerException != null ? ex.InnerException.Message : "N/A"));
+                Loggers.Log("Source: " + ex.Source);
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('An error occurred while loading parameters. Please try again later.');", true);
+            }
+        }
+
+
+
+        protected void btn_clear_Click(object sender, EventArgs e)
+        {
+            Global.searchQuery = string.Empty;
+            clearSessionValues();
+            pnl_employee.Visible = false;
+            pnl_appraisal.Visible = false;
+            Response.Redirect("default.aspx");
+        }
+
+        void clearSessionValues()
+        {
+            Session["empId_text"] = null;
+            Session["surname_text"] = null;
+            Session["firstname_text"] = null;
+
+        }
+
+
+
+
+
+
+
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetGroupCode(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT emp_group_code AS grpcode " +
+                                                    "FROM ec_employee_positions " +
+                                                    "WHERE emp_group_code LIKE '%' + @p + '%' " +
+                                                    "ORDER BY emp_group_code", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["grpcode"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetGroupCode autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetJob(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT job_code AS jobcode, description_text AS jobdesc " +
+                                                    "FROM ec_jobs " +
+                                                    "WHERE job_code LIKE '%' + @p + '%' OR description_text LIKE '%' + @p2 + '%' " +
+                                                    "ORDER BY job_code", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    cmd.Parameters.AddWithValue("@p2", prefix);
+                    var query = cmd.CommandText;
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["jobcode"].ToString() + " - " + dr["jobdesc"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
+                return result;
+
+            }
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetLocation(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT DISTINCT    location_code AS loccode, description_abbr AS locdesc " +
+                                                    "FROM               ec_locations " +
+                                                    "WHERE              location_code LIKE '%' + @p + '%' OR description_abbr LIKE '%' + @p2 + '%' " +
+                                                    "ORDER BY           location_code", con);
+                    cmd.Parameters.AddWithValue("@p", prefix);
+                    cmd.Parameters.AddWithValue("@p2", prefix);
+                    var query = cmd.CommandText;
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["loccode"].ToString() + " - " + dr["locdesc"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetJob autocomplete method: " + ex.Message);
+                return result;
+
+            }
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static List<EmployeeItem> GetEmployee(string prefix)
+        {
+            List<EmployeeItem> result = new List<EmployeeItem>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM                ec_employee 
+                                    WHERE               first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    ORDER BY            surname, first_name";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(new EmployeeItem
+                        {
+                            EmpId = dr["emp_id"].ToString(),
+                            FirstName = dr["firstname"].ToString(),
+                            Surname = dr["surname"].ToString(),
+                            DisplayText = dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                        });
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetEmployee autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
+
+        [System.Web.Services.WebMethod]
+        public static List<EmployeeItem> GetEmployeebyempId(string prefix)
+        {
+            List<EmployeeItem> result = new List<EmployeeItem>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM            ec_employee 
+                                    WHERE           employee_id LIKE '%' + @p + '%' 
+                                    ORDER BY        employee_id DESC ";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(new EmployeeItem
+                        {
+                            EmpId = dr["emp_id"].ToString(),
+                            FirstName = dr["firstname"].ToString(),
+                            Surname = dr["surname"].ToString(),
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                        });
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetEmployee autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
+        [System.Web.Services.WebMethod]
+        public static List<string> GetSuperintent(string prefix)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM            ec_employee 
+                                    WHERE           employee_id LIKE '%' + @p + '%' OR first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    AND             emp_activity_code = 'ACTIVE'
+                                    ORDER BY        employee_id DESC ";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString());
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetEmployee autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+
+
+
+        void saveSearchDetailsintoDB()
+        {
+            try
+            {
+                string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
                 using (SqlConnection con = new SqlConnection(connString))
                 {
                     con.Open();
@@ -64,7 +497,7 @@ namespace TPA
                         cmd.Parameters.AddWithValue("@surName", Session["surname"]);
                         cmd.Parameters.AddWithValue("@email", Session["email"]);
                         cmd.Parameters.AddWithValue("@userId", Session["username"]);
-                        cmd.Parameters.AddWithValue("@purpose", tb_purpose.Text.Trim());   
+                        cmd.Parameters.AddWithValue("@purpose", searchFilter);
                         cmd.Parameters.AddWithValue("@currenDate", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
@@ -78,27 +511,388 @@ namespace TPA
                 Loggers.Log("Error inserting audit record: " + ex.Message);
                 throw new Exception("Error inserting audit record: " + ex.Message);
             }
-            Session["auditComplete"] = true;
-            clearSession();
-            Response.Redirect("reports.aspx");
+        }
+
+
+        void LoadAppraisalrecords()
+        {
+            BindGrid(empid);
+            Session["empId_text"] = empid;
+        }
+        void BindGrid(string empId)
+        {
+            DataTable dt = new DataTable();
+            string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string sql = @" SELECT      CONTRACT_CATEGORY                               AS EvaluationCategory   
+                                                , REVIEW_YEAR_START                             AS ReviewStartYear
+                                                , REVIEW_YEAR_END                               AS ReviewEndYear
+                                                , REVIEW_DATE                                   AS ReviewDate
+                                                , RATING                                        AS Rating
+                                                , LOCATION_CODE                                 AS Location
+                                                , SUPERINTENDENT_ID                             AS SuperintendentId
+                                                , COMMENT_TEXT                                  AS Comment   
+                                                , Id
+                                    FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                                    WHERE       employee_id =  @EmployeeID
+                                    ORDER BY    Id DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeID", empId);
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
+                }
+                appraisalRecordsGrid.DataSource = dt;
+                appraisalRecordsGrid.DataBind();
+            }
+            catch (Exception ex)
+            {
+            }
+
 
         }
-        void clearSession()
-        {   
-            Global.searchQuery = string.Empty;
-            Session["empId_text"] = null;
-            Session["surname_text"] = null;
-            Session["firstname_text"] = null;
-            Session["formername_text"] = null;
-            Session["knownasfirstname_text"] = null;
-            Session["knownassurname_text"] = null;
-            Session["pal_text"] = null;
-            Session["email_text"] = null;
-            Session["phone_text"] = null;
-            Session["groupcode_text"] = null;
-            Session["job_text"] = null;
-            Session["status_list"] = null;
 
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+
+            // Reset control values in server code if needed
+            ClearFormFields();
+            div_appraisalAlert.Attributes["class"] = "announcement-modify";
+            lblFormTitle.Text = "Please Modify Appraisal";
+            btnSave.CssClass = "btn btn-warning";
+            btnSave.Text = "Modify";
+            hfRecordId.Value = "1";
+            pnlRecordForm.Visible = true; // Displays the form on page
+
+            scrollToBottom();
+
+
+            LinkButton btn = (LinkButton)sender;
+
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+                string empId = Session["empId_text"].ToString();
+
+
+                var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
+                Session["Id"] = Id;
+
+                // Use this id to retrieve the row from the database
+                string sql = @" SELECT  CONTRACT_CATEGORY
+                                        , REVIEW_YEAR_START
+                                        , REVIEW_YEAR_END
+                                        , FORMAT(REVIEW_DATE, 'yyyy-MM-dd') AS REVIEW_DATE
+                                        , RATING
+                                        , LOCATION_CODE
+                                        , COMMENT_TEXT
+                                        , SUPERINTENDENT_ID                                      
+                                FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                                WHERE Id = @Id AND EMPLOYEE_ID = @empId";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", Id);
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
+                                    txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
+                                    txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
+                                    ddlRating.SelectedValue = reader["RATING"].ToString();
+                                    txtLocation.Text = reader["LOCATION_CODE"].ToString();
+                                    txtComment.Text = reader["COMMENT_TEXT"].ToString();
+                                    txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            pnlRecordForm.Visible = false;
+            appraisalRecordsGrid.SelectedIndex = -1;
+
+            LinkButton btn = (LinkButton)sender;
+            int rowIndex = Convert.ToInt32(btn.CommandArgument);
+
+            try
+            {
+                int id = Convert.ToInt32(appraisalRecordsGrid.DataKeys[rowIndex].Value);
+
+                string sql = @"DELETE FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] WHERE Id = @Id";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+                BindGrid(Session["empId_text"].ToString());
+
+            }
+            catch (Exception ex) { }
+
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (hfRecordId.Value == "0")
+            {
+                addAppraisalRecord();
+                BindGrid(Session["empId_text"].ToString());
+                pnlRecordForm.Visible = false;
+            }
+            else
+            {
+                updateAppraisalRecord();
+                BindGrid(Session["empId_text"].ToString());
+                pnlRecordForm.Visible = false;
+                appraisalRecordsGrid.SelectedIndex = -1;
+
+            }
+        }
+        void addAppraisalRecord()
+        {
+            int recordId = Convert.ToInt32(hfRecordId.Value);
+            string empId = Session["empId_text"].ToString();
+            string category = ddlCategory.SelectedValue;
+            string reviewStartDate = txtReviewStartYear.Text;
+            string reviewEndDate = txtReviewEndYear.Text;
+            TimeSpan timeOfDay = DateTime.Now.TimeOfDay;
+            string reviewDate = txtReviewDate.Text + " " + timeOfDay.ToString(@"hh\:mm\:ss");
+            string rating = ddlRating.SelectedValue;
+            string location = txtLocation.Text;
+            string comment = txtComment.Text;
+            string addedBy = Session["ein"].ToString();
+            string superintendentId = txtSuperintendentId.Text;
+
+            try
+            {
+
+                string sql = @"INSERT INTO [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                (
+                    [EMPLOYEE_ID]
+                    , [CONTRACT_CATEGORY]
+                    , [REVIEW_YEAR_START]
+                    , [REVIEW_YEAR_END]
+                    , [REVIEW_DATE]
+                    , [RATING]
+                    , [LOCATION_CODE]
+                    , [NEXT_REVIEW_YEAR_START]
+                    , [NEXT_REVIEW_YEAR_END]
+                    , [COMMENT_TEXT]
+                    , [ADDED_BY]
+                    , [ADDED_DATE]
+                    , [CHANGED_BY]
+                    , [CHANGED_DATE]
+                    , [SUPERINTENDENT_ID]
+                )
+                VALUES
+                (
+                    @empId,
+                    @category,
+                    @reviewStartDate,
+                    @reviewEndDate,
+                    @reviewDate,             -- To get exact review date and time
+                    @rating,
+                    @location,
+                    NULL,                  -- NEXT_REVIEW_YEAR_START
+                    NULL,                  -- NEXT_REVIEW_YEAR_END
+                    @comment,
+                    @addedBy,              -- ADDED_BY
+                    GETDATE(),             -- ADDED_DATE
+                    NULL,                  -- CHANGED_BY 
+                    NULL,                  -- CHANGED_DATE 
+                    @superintendentId                   
+                )";
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        cmd.Parameters.AddWithValue("@category", category);
+                        cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
+                        cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@rating", rating);
+                        cmd.Parameters.AddWithValue("@location", location);
+                        cmd.Parameters.AddWithValue("@comment", comment);
+                        cmd.Parameters.AddWithValue("@addedBy", addedBy);
+                        cmd.Parameters.AddWithValue("@superintendentId", superintendentId);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Appraisal Submitted Successfully !";
+            }
+            catch (Exception ex)
+            {
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Error Occurred - " + ex.Message;
+            }
+        }
+
+        void updateAppraisalRecord()
+        {
+            string empId = Session["empId_text"].ToString();
+            string category = ddlCategory.SelectedValue;
+            string reviewStartDate = txtReviewStartYear.Text;
+            string reviewEndDate = txtReviewEndYear.Text;
+            TimeSpan timeOfDay = DateTime.Now.TimeOfDay;
+            string reviewDate = txtReviewDate.Text + " " + timeOfDay.ToString(@"hh\:mm\:ss");
+            string rating = ddlRating.SelectedValue;
+            string location = txtLocation.Text;
+            string comment = txtComment.Text;
+            string changedBy = Session["ein"].ToString();
+            string superintendentId = txtSuperintendentId.Text;
+
+            try
+            {
+
+                string sql = @"UPDATE   [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+                               SET      CONTRACT_CATEGORY = @category
+                                        , REVIEW_YEAR_START = @reviewStartDate
+                                        , REVIEW_YEAR_END = @reviewEndDate
+                                        , REVIEW_DATE = @reviewDate
+                                        , RATING = @rating
+                                        , LOCATION_CODE = @location
+                                        , COMMENT_TEXT = @comment
+                                        , CHANGED_BY = @changedBy
+                                        , CHANGED_DATE = getdate()
+                                        , SUPERINTENDENT_ID = @superintendentId
+                                WHERE   EMPLOYEE_ID = @empId AND Id = @Id";
+
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, con))
+                    {
+
+                        cmd.Parameters.AddWithValue("@Id", Session["Id"].ToString());
+                        cmd.Parameters.AddWithValue("@empId", empId);
+                        cmd.Parameters.AddWithValue("@category", category);
+                        cmd.Parameters.AddWithValue("@reviewStartDate", reviewStartDate);
+                        cmd.Parameters.AddWithValue("@reviewEndDate", reviewEndDate);
+                        cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+                        cmd.Parameters.AddWithValue("@rating", rating);
+                        cmd.Parameters.AddWithValue("@location", location);
+                        cmd.Parameters.AddWithValue("@comment", comment);
+                        cmd.Parameters.AddWithValue("@changedBy", changedBy);
+                        cmd.Parameters.AddWithValue("@superintendentId", superintendentId);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Appraisal Modified Successfully !";
+            }
+            catch (Exception ex)
+            {
+                lblsubmit.Visible = true;
+                lblsubmit.Text = "Error Occurred - " + ex.Message;
+            }
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            // Reset control values in server code if needed
+            ClearFormFields();
+            div_appraisalAlert.Attributes["class"] = "announcement";
+            lblFormTitle.Text = "Please Submit New Appraisal";
+            btnSave.Attributes["class"] = "btn btn-success";
+            btnSave.Text = "Submit";
+            btnSave.CssClass = "btn btn-success";
+            hfRecordId.Value = "0";
+            int currentYear = DateTime.Now.Year;
+            // Set start year to current year (or a specific default)
+            txtReviewStartYear.Text = (currentYear - 5).ToString();
+
+            // Set end year to current year or future year
+            txtReviewEndYear.Text = (currentYear).ToString();
+            pnlRecordForm.Visible = true; // Displays the form on page
+
+            scrollToBottom();
+        }
+        void scrollToBottom()
+        {
+            // Register script to scroll to the bottom of the form or window
+            string script = @"
+            setTimeout(function() {
+                var submitBtn = document.getElementById('" + btnSave.ClientID + @"');
+                if (submitBtn) {
+                submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }
+            }, 100);";
+
+            ScriptManager.RegisterStartupScript(this, GetType(), "ScrollToBottom", script, true);
+        }
+        // Helper to reset fields
+        private void ClearFormFields()
+        {
+            ddlCategory.SelectedIndex = 0;
+            txtReviewStartYear.Text = string.Empty;
+            txtReviewEndYear.Text = string.Empty;
+            txtReviewDate.Text = string.Empty;
+            ddlRating.SelectedIndex = 0;
+            txtLocation.Text = string.Empty;
+            txtSuperintendentId.Text = string.Empty;
+            txtComment.Text = string.Empty;
+            lblsubmit.Text = string.Empty;
+            appraisalRecordsGrid.SelectedIndex = -1;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            pnlRecordForm.Visible = false;
+            appraisalRecordsGrid.SelectedIndex = -1;
+        }
+
+        protected void appraisalRecordsGrid_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ModifyRecord")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+
+                // Sets SelectedIndex to highlight the row using SelectedRowStyle
+                appraisalRecordsGrid.SelectedIndex = rowIndex;
+            }
         }
     }
 }

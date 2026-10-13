@@ -60,15 +60,6 @@ namespace TPA
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// home_link control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl home_link;
-
-        /// <summary>
         /// reports_link control.
         /// </summary>
         /// <remarks>

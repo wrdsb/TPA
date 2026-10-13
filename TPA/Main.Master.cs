@@ -17,31 +17,10 @@ namespace TPA
             if (!Page.IsPostBack)
             {
                 lbl_username.Text = Context.User.Identity.Name;
-
-                reports_link.Visible = false;
-                //smartphone_link.Visible = false;
-                //smartphoneReport_link.Visible=false;
-
+               
             }
 
-            
-
-            if (Session["auditComplete"] != null)
-            {
-                var auditComplete = Convert.ToBoolean(Session["auditComplete"]);
-                if (auditComplete == true)
-                {
-                    reports_link.Visible = true;
-
-                    //By default, smartphone tab is set to visible and active here. It's hidden on the reports page. 
-                    //smartphone_link.Visible = true; 
-                    //smartphone_link.Attributes["class"] = "active";
-
-                    //smartphoneReport_link.Visible = true;
-                }
-            }
-
-
+            Session["auditComplete"] = true;
             SetCurrentPage();
         }
 
@@ -69,17 +48,11 @@ namespace TPA
 
             switch (pageName)
             {
+               
                 case "default.aspx":
-                    home_link.Attributes["class"] = "active";
-                    break;
-                case "reports.aspx":
-                    //smartphone_link.Visible = false; // Hide smartphone tab on reports page
                     reports_link.Attributes["class"] = "active";
                     break;
-                //case "smartphoneReport.aspx":
-                //    smartphone_link.Visible = false; // Hide smartphone tab on smartphonereports page
-                //    smartphoneReport_link.Attributes["class"] = "active";
-                //    break;
+               
             }
         }
         private string GetPageName()
