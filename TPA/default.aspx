@@ -347,10 +347,10 @@
 
                                 <asp:TableRow>
                                     <asp:TableCell>
-                                        <asp:Label ID="lblEvaluationCategory" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Evaluation Category"></asp:Label>
+                                        <asp:Label ID="lblEvaluationCategory" runat="server" Font-Bold="true" ForeColor="GrayText" Width="180 px " Text="Evaluation Category"></asp:Label>
                                     </asp:TableCell>
-                                    <asp:TableCell>
-                                        <asp:DropDownList ID="ddlCategory" runat="server" Width="200px" CssClass="form-control">
+                                    <asp:TableCell ColumnSpan="3">
+                                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Category --" Value="" />
                                             <asp:ListItem Text="NEW" Value="NEW" />
                                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
@@ -361,11 +361,15 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
+                                </asp:TableRow>
+
+
+                                <asp:TableRow>
                                     <asp:TableCell>
                                         <asp:Label ID="lblReviewStartYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Start Year"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewStartYear" runat="server" TextMode="Number" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewStartYear" runat="server" Width="330 px" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -375,7 +379,7 @@
                                         <asp:Label ID="lblReviewEndYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review End Year"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewEndYear" runat="server" TextMode="Number" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewEndYear" runat="server" Width="330 px" TextMode="Number" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -390,6 +394,7 @@
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
                                 </asp:TableRow>
+
 
                                 <asp:TableRow>
                                     <asp:TableCell>
@@ -406,7 +411,7 @@
                                         <asp:Label ID="lblRating" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:DropDownList ID="ddlRating" runat="server" Width="200px" CssClass="form-control">
+                                        <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Rating --" Value="" />
                                             <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
                                             <asp:ListItem Text="GOOD" Value="GOOD" />
@@ -420,6 +425,10 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
+                                </asp:TableRow>
+
+
+                                <asp:TableRow>
                                     <asp:TableCell>
                                         <asp:Label ID="lblLocation" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Location"></asp:Label>
                                     </asp:TableCell>
@@ -430,9 +439,6 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
-                                </asp:TableRow>
-
-                                <asp:TableRow>
                                     <asp:TableCell>
                                         <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label>
                                     </asp:TableCell>
@@ -443,18 +449,22 @@
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
+                                </asp:TableRow>
+
+
+                                <asp:TableRow>
                                     <asp:TableCell>
                                         <asp:Label ID="lblComment" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Comment"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell ColumnSpan="3">
-                                        <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine"  Rows="3" CssClass="form-control" />
+                                        <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtComment" runat="server" ControlToValidate="txtComment"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
-
                                     </asp:TableCell>
                                 </asp:TableRow>
+
 
                                 <asp:TableFooterRow>
                                     <asp:TableCell>
