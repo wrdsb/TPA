@@ -468,10 +468,10 @@
 
                                 <asp:TableFooterRow>
                                     <asp:TableCell>
-                                        <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" ValidationGroup="submit" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-default" OnClick="btnCancel_Click" CausesValidation="false" />                                      
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-default" OnClick="btnCancel_Click" CausesValidation="false" />
+                                        <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" ValidationGroup="submit" />
                                     </asp:TableCell>
                                 </asp:TableFooterRow>
 
