@@ -754,13 +754,11 @@ namespace TPA
                     }
                 }
 
-                lblsubmit.Visible = true;
-                lblsubmit.Text = "Appraisal Submitted Successfully !";
+                
             }
             catch (Exception ex)
             {
-                lblsubmit.Visible = true;
-                lblsubmit.Text = "Error Occurred - " + ex.Message;
+                Loggers.Log("Error Occurred - " + ex.Message);
             }
         }
 
@@ -816,15 +814,11 @@ namespace TPA
                         cmd.ExecuteNonQuery();
                         con.Close();
                     }
-                }
-
-                lblsubmit.Visible = true;
-                lblsubmit.Text = "Appraisal Modified Successfully !";
+                }               
             }
             catch (Exception ex)
-            {
-                lblsubmit.Visible = true;
-                lblsubmit.Text = "Error Occurred - " + ex.Message;
+            {            
+                Loggers.Log( "Error Occurred - " + ex.Message);
             }
         }
 
@@ -874,7 +868,6 @@ namespace TPA
             txtLocation.Text = string.Empty;
             txtSuperintendentId.Text = string.Empty;
             txtComment.Text = string.Empty;
-            lblsubmit.Text = string.Empty;
             appraisalRecordsGrid.SelectedIndex = -1;
         }
 
