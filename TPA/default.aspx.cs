@@ -834,7 +834,7 @@ namespace TPA
             hfRecordId.Value = "0";
             int currentYear = DateTime.Now.Year;
             // Set start year to current year (or a specific default)
-            txtReviewStartYear.Text = (currentYear - 5).ToString();
+            txtReviewStartYear.Text = (currentYear - 1).ToString();
 
             // Set end year to current year or future year
             txtReviewEndYear.Text = (currentYear).ToString();
