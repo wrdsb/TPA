@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.Web;
 using System.Web.Security;
@@ -636,7 +637,7 @@ namespace TPA
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
-            appraisalRecordsGrid.SelectedIndex = -1;
+            //appraisalRecordsGrid.SelectedIndex = -1;
 
             LinkButton btn = (LinkButton)sender;
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
@@ -669,13 +670,15 @@ namespace TPA
                 addAppraisalRecord();
                 BindGrid(Session["empId_text"].ToString());
                 pnlRecordForm.Visible = false;
+                appraisalRecordsGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#d4edda");
+                appraisalRecordsGrid.SelectedIndex = 0;
             }
             else
             {
                 updateAppraisalRecord();
                 BindGrid(Session["empId_text"].ToString());
                 pnlRecordForm.Visible = false;
-                appraisalRecordsGrid.SelectedIndex = -1;
+                //appraisalRecordsGrid.SelectedIndex = -1;
 
             }
         }
@@ -878,7 +881,7 @@ namespace TPA
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
-            appraisalRecordsGrid.SelectedIndex = -1;
+            //appraisalRecordsGrid.SelectedIndex = -1;
         }
 
         protected void appraisalRecordsGrid_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -886,6 +889,7 @@ namespace TPA
             if (e.CommandName == "ModifyRecord")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
+                appraisalRecordsGrid.SelectedRowStyle.BackColor = ColorTranslator.FromHtml("#FFF3CD");
 
                 // Sets SelectedIndex to highlight the row using SelectedRowStyle
                 appraisalRecordsGrid.SelectedIndex = rowIndex;
