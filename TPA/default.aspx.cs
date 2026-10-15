@@ -833,11 +833,15 @@ namespace TPA
             btnSave.CssClass = "btn btn-success";
             hfRecordId.Value = "0";
             int currentYear = DateTime.Now.Year;
-            // Set start year to current year (or a specific default)
+            // Set start year to previous year
             txtReviewStartYear.Text = (currentYear - 1).ToString();
 
-            // Set end year to current year or future year
+            // Set end year to current year 
             txtReviewEndYear.Text = (currentYear).ToString();
+
+            // Set Review Date with specific format
+            txtReviewDate.Text = DateTime.Today.ToString("yyyy-MM-dd");
+
             pnlRecordForm.Visible = true; // Displays the form on page
 
             scrollToBottom();
