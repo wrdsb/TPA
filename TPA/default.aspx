@@ -406,6 +406,17 @@
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
+
+                                        <!-- Markup -->
+                                        <asp:TextBox ID="txtJqueryDate" runat="server" clientidmode="Static"></asp:TextBox>
+                                        <!-- JavaScript -->
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $("#txtJqueryDate").datepicker({
+                                                    dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                                });
+                                            });
+                                        </script>
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:Label ID="lblRating" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label>
