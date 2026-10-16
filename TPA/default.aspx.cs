@@ -881,7 +881,7 @@ namespace TPA
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
-            //appraisalRecordsGrid.SelectedIndex = -1;
+            appraisalRecordsGrid.SelectedIndex = -1;
         }
 
         protected void appraisalRecordsGrid_RowCommand(object sender, GridViewCommandEventArgs e)
