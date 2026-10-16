@@ -401,11 +401,43 @@
                                         <asp:Label ID="lblReviewDate" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Date"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewDate" runat="server" TextMode="Date" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewDate" runat="server" clientidmode="Static" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewDate" runat="server" ControlToValidate="txtReviewDate"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
+                                         <!-- JavaScript -->
+                                         <script type="text/javascript">
+                                             $(function () {
+                                                 $("#txtReviewDate").datepicker({
+                                                     dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                                 });
+                                             });
+                                         </script>
+                                        <!-- Enforces the strict yyyy-mm-dd format -->
+                                        <asp:RegularExpressionValidator 
+                                            ID="rev_revDate" 
+                                            runat="server" 
+                                            ControlToValidate="txtReviewDate" 
+                                            ValidationExpression="^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$" 
+                                            ErrorMessage="Invalid date format. Please use YYYY-MM-DD." 
+                                            ForeColor="Red" 
+                                            Display="Dynamic">
+                                        </asp:RegularExpressionValidator>
+
+                                        <%-- jQuery Date control example to maintain specific date format - for reference
+
+                                            <!-- Markup -->
+                                        <asp:TextBox ID="txtJqueryDate" runat="server" clientidmode="Static"></asp:TextBox>
+                                        <!-- JavaScript -->
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $("#txtJqueryDate").datepicker({
+                                                    dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                                });
+                                            });
+                                        </script>--%>
+
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:Label ID="lblRating" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label>
