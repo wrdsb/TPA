@@ -200,10 +200,12 @@ namespace TPA
                 //visibility of add new record button needs to be enabled
                 if (lv_search.Items.Count > 0)
                 {
+                    pnl_appraisal.Visible = true;
                     btnAdd.Visible = true;
                 }
                 else
                 {
+                    pnl_appraisal.Visible = false;
                     btnAdd.Visible = false;
                 }
 
