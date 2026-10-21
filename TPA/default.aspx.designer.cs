@@ -42,6 +42,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox tb_empId;
 
         /// <summary>
+        /// rfv_tb_empId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_tb_empId;
+
+        /// <summary>
         /// lblSurname control.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox tb_surname;
 
         /// <summary>
+        /// rfv_tb_surname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_tb_surname;
+
+        /// <summary>
         /// lblFirstName control.
         /// </summary>
         /// <remarks>
@@ -76,6 +94,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_firstname;
+
+        /// <summary>
+        /// rfv_tb_firstname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_tb_firstname;
 
         /// <summary>
         /// btn_clear control.
@@ -112,6 +139,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl fd_employeeDetails;
+
+        /// <summary>
+        /// lblEmpDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmpDetails;
 
         /// <summary>
         /// lv_search control.
