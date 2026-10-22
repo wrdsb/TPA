@@ -200,11 +200,13 @@ namespace TPA
                 //visibility of add new record button needs to be enabled
                 if (lv_search.Items.Count > 0)
                 {
+                    lblEmpDetails.Text = string.Format("Employee Details: {0} {1} ({2})", tb_firstname.Text, tb_surname.Text, tb_empId.Text);
                     pnl_appraisal.Visible = true;
                     btnAdd.Visible = true;
                 }
                 else
                 {
+                    lblEmpDetails.Text = "Employee Details";
                     pnl_appraisal.Visible = false;
                     btnAdd.Visible = false;
                 }
