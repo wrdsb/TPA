@@ -173,7 +173,7 @@
                         <asp:Table runat="server">
                             <asp:TableRow>
                                 <asp:TableCell>
-                                    <asp:Label ID="lblEmp" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Emp Id"></asp:Label>
+                                    <asp:Label ID="lblEmp" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Employee ID"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
@@ -305,7 +305,7 @@
                                 <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}" />
                                 <asp:BoundField DataField="Rating" HeaderText="Rating" />
                                 <asp:BoundField DataField="Location" HeaderText="Location" />
-                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
+                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent ID" />
                                 <asp:BoundField DataField="Comment" HeaderText="Comment" />
                                 <asp:TemplateField HeaderText="Actions">
                                     <ItemTemplate>
@@ -480,7 +480,7 @@
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label>
+                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent ID"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
