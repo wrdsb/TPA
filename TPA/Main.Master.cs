@@ -50,7 +50,10 @@ namespace TPA
             {
                
                 case "default.aspx":
-                    reports_link.Attributes["class"] = "active";
+                    appraisal_link.Attributes["class"] = "active";
+                    break;
+                case "report.aspx":
+                    report_link.Attributes["class"] = "active";
                     break;
                
             }
