@@ -402,6 +402,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
+        /// txtLocDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLocDesc;
+
+        /// <summary>
         /// rfv_txtLocation control.
         /// </summary>
         /// <remarks>
@@ -427,6 +436,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSuperintendentId;
+
+        /// <summary>
+        /// txtSuperintendentName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSuperintendentName;
 
         /// <summary>
         /// rfv_txtSuperintendentId control.

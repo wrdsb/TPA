@@ -90,14 +90,27 @@
                 minLength: 1,
                 select: function (event, ui) {
                     // Extract only the code part before " - "
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtLocDesc.ClientID %>").val(name);
+                        $(this).val(codeOnly);
+                    }
                     return false; // Prevents jQuery UI from restoring full string
                 },
                 focus: function (event, ui) {
                     // Updates textbox while navigating dropdown with arrow keys
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtLocDesc.ClientID %>").val(name);
+                        $(this).val(codeOnly);
+                    }
                     return false;
                 }
             });
@@ -118,15 +131,31 @@
                 },
                 minLength: 1,
                 select: function (event, ui) {
-                    // Extract only the code part before " - "
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtSuperintendentName.ClientID %>").val(name);
+
+                        // If lblSuperintendentName is an <asp:TextBox>, use .val(name) instead
+
+                        $(this).val(codeOnly);
+                    }
                     return false; // Prevents jQuery UI from restoring full string
                 },
                 focus: function (event, ui) {
-                    // Updates textbox while navigating dropdown with arrow keys
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtSuperintendentName.ClientID %>").val(name);
+
+                        $(this).val(codeOnly);
+                    }
                     return false;
                 }
             });
@@ -477,6 +506,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
+                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Text="Location Description" Enabled ="false" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -487,6 +517,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
+                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Text="Superintendent Name" Enabled ="false"   />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
