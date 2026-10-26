@@ -599,57 +599,83 @@ namespace TPA
 
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
 
-            try
-            {
-                string empId = Session["empId_text"].ToString();
+            // Use the index to pull the specific row from the collection
+            GridViewRow row = appraisalRecordsGrid.Rows[rowIndex];
+
+            // Get text from a specific cell index (e.g., column index 0)
+            ddlCategory.SelectedValue = row.Cells[0].Text;          
+            txtReviewStartYear.Text = row.Cells[1].Text;
+            txtReviewEndYear.Text = row.Cells[2].Text;
+            txtReviewDate.Text = row.Cells[3].Text;
+            ddlRating.SelectedValue = row.Cells[4].Text;
+
+            var loc_val = row.Cells[5].Text.Split(new string[] { " - " }, StringSplitOptions.None);
+            var loc = loc_val[0].Trim();
+            var loc_desc = loc_val[1].Trim();
+            txtLocation.Text = loc;
+            txtLocDesc.Text = loc_desc;
+
+            var superIntendent_value = row.Cells[6].Text.Split(new string[] { " - " }, StringSplitOptions.None);
+            var id = superIntendent_value[0].Trim();
+            var name = superIntendent_value[1].Trim();
+            txtSuperintendentId.Text = id;
+            txtSuperintendentName.Text = name;
+            txtComment.Text = row.Cells[7].Text;
+            
+
+            var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
+            Session["Id"] = Id;
+
+            //try
+            //{
+            //    string empId = Session["empId_text"].ToString();
 
 
-                var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
-                Session["Id"] = Id;
+               
 
-                // Use this id to retrieve the row from the database
-                string sql = @" SELECT  CONTRACT_CATEGORY
-                                        , REVIEW_YEAR_START
-                                        , REVIEW_YEAR_END
-                                        , FORMAT(REVIEW_DATE, 'yyyy-MM-dd') AS REVIEW_DATE
-                                        , RATING
-                                        , LOCATION_CODE
-                                        , COMMENT_TEXT
-                                        , SUPERINTENDENT_ID                                      
-                                FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                WHERE Id = @Id AND EMPLOYEE_ID = @empId";
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.Parameters.AddWithValue("@Id", Id);
-                        cmd.Parameters.AddWithValue("@empId", empId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
-                                    txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
-                                    txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
-                                    txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
-                                    ddlRating.SelectedValue = reader["RATING"].ToString();
-                                    txtLocation.Text = reader["LOCATION_CODE"].ToString();
-                                    txtComment.Text = reader["COMMENT_TEXT"].ToString();
-                                    txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
+            //    // Use this id to retrieve the row from the database
+            //    string sql = @" SELECT  CONTRACT_CATEGORY
+            //                            , REVIEW_YEAR_START
+            //                            , REVIEW_YEAR_END
+            //                            , FORMAT(REVIEW_DATE, 'yyyy-MM-dd') AS REVIEW_DATE
+            //                            , RATING
+            //                            , LOCATION_CODE
+            //                            , COMMENT_TEXT
+            //                            , SUPERINTENDENT_ID                                      
+            //                    FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
+            //                    WHERE Id = @Id AND EMPLOYEE_ID = @empId";
+            //    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
+            //    {
+            //        con.Open();
+            //        using (SqlCommand cmd = new SqlCommand(sql, con))
+            //        {
+            //            cmd.Parameters.AddWithValue("@Id", Id);
+            //            cmd.Parameters.AddWithValue("@empId", empId);
+            //            using (SqlDataReader reader = cmd.ExecuteReader())
+            //            {
+            //                if (reader.HasRows)
+            //                {
+            //                    while (reader.Read())
+            //                    {
+            //                        ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
+            //                        txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
+            //                        txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
+            //                        txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
+            //                        ddlRating.SelectedValue = reader["RATING"].ToString();
+            //                        txtLocation.Text = reader["LOCATION_CODE"].ToString();
+            //                        txtComment.Text = reader["COMMENT_TEXT"].ToString();
+            //                        txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
 
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -891,7 +917,9 @@ namespace TPA
             txtReviewDate.Text = string.Empty;
             ddlRating.SelectedIndex = 0;
             txtLocation.Text = string.Empty;
+            txtLocDesc.Text = "Location Description";
             txtSuperintendentId.Text = string.Empty;
+            txtSuperintendentName.Text = "Superintendent Name";
             txtComment.Text = string.Empty;
             appraisalRecordsGrid.SelectedIndex = -1;
         }
