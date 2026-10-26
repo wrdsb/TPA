@@ -533,17 +533,30 @@ namespace TPA
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT      CONTRACT_CATEGORY                               AS EvaluationCategory   
-                                                , REVIEW_YEAR_START                             AS ReviewStartYear
-                                                , REVIEW_YEAR_END                               AS ReviewEndYear
-                                                , REVIEW_DATE                                   AS ReviewDate
-                                                , RATING                                        AS Rating
-                                                , LOCATION_CODE                                 AS Location
-                                                , SUPERINTENDENT_ID                             AS SuperintendentId
-                                                , COMMENT_TEXT                                  AS Comment   
-                                                , Id
-                                    FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                    WHERE       employee_id =  @EmployeeID
+                    string sql = @" SELECT      T.CONTRACT_CATEGORY                                                 AS EvaluationCategory   
+                                                , T.REVIEW_YEAR_START                                               AS ReviewStartYear
+                                                , T.REVIEW_YEAR_END                                                 AS ReviewEndYear
+                                                , T.REVIEW_DATE                                                     AS ReviewDate
+                                                , T.RATING                                                          AS Rating
+                                                , CONCAT_WS
+                                                    ( 
+                                                    ' - ' 
+                                                    , T.LOCATION_CODE                                                          
+                                                    , L.DESCRIPTION_ABBR COLLATE Latin1_General_CI_AS
+                                                    )                                                               AS Location                                                
+                                                , CONCAT_WS
+                                                    (
+                                                    ' - '
+                                                    , T.SUPERINTENDENT_ID                             
+                                                    , E.SURNAME + ', ' + E.FIRST_NAME COLLATE Latin1_General_CI_AS
+                                                    )                                                               AS SuperintendentId
+                                                , T.COMMENT_TEXT                                                    AS Comment   
+                                                , T.Id
+
+                                    FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T 
+                                    JOIN        [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
+                                    JOIN        [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
+                                    WHERE       T.EMPLOYEE_ID =  @EmployeeID
                                     ORDER BY    Id DESC";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
@@ -561,6 +574,7 @@ namespace TPA
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
 
 
