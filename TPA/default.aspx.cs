@@ -397,7 +397,7 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
                         });
                     }
                 }
@@ -434,7 +434,7 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
                         });
                     }
                 }
