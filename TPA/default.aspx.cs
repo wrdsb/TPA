@@ -373,7 +373,44 @@ namespace TPA
 
 
         [System.Web.Services.WebMethod]
-        public static List<EmployeeItem> GetEmployee(string prefix)
+        public static List<EmployeeItem> GetEmployeeSurname(string prefix)
+        {
+            List<EmployeeItem> result = new List<EmployeeItem>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
+                {
+                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
+                                    FROM                ec_employee 
+                                    WHERE               first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    ORDER BY            surname, first_name";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        result.Add(new EmployeeItem
+                        {
+                            EmpId = dr["emp_id"].ToString(),
+                            FirstName = dr["firstname"].ToString(),
+                            Surname = dr["surname"].ToString(),
+                            DisplayText = dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                        });
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Loggers.Log("Error in GetEmployee autocomplete method: " + ex.Message);
+                return result;
+            }
+        }
+        [System.Web.Services.WebMethod]
+        public static List<EmployeeItem> GetEmployeeFirstname(string prefix)
         {
             List<EmployeeItem> result = new List<EmployeeItem>();
             try

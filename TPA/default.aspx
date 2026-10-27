@@ -9,10 +9,43 @@
     <script>
 
         $(function () {
-            $(".search_employee").autocomplete({
+            $(".search_employee_surname").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "default.aspx/GetEmployee",
+                        url: "default.aspx/GetEmployeeSurname",
+                        type: "POST",
+                        data: JSON.stringify({ prefix: request.term }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.DisplayText, // Text shown in the dropdown list
+                                    value: item.DisplayText,
+                                    empId: item.EmpId,
+                                    surname: item.Surname,
+                                    firstName: item.FirstName
+                                };
+                            }));
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Fill all three textboxes when an item is chosen
+                    $("#<%= tb_empId.ClientID %>").val(ui.item.empId);
+                    $("#<%= tb_surname.ClientID %>").val(ui.item.surname);
+                    $("#<%= tb_firstname.ClientID %>").val(ui.item.firstName);
+
+                    return false; // Prevents default replacement behavior
+                }
+            });
+        });
+
+        $(function () {
+            $(".search_employee_firstname").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "default.aspx/GetEmployeeFirstname",
                         type: "POST",
                         data: JSON.stringify({ prefix: request.term }),
                         contentType: "application/json; charset=utf-8",
@@ -90,7 +123,7 @@
                 minLength: 1,
                 select: function (event, ui) {
                     // Extract only the code part before " - "
-                    
+
                     if (ui.item && ui.item.value) {
                         var parts = ui.item.value.split(" - ");
                         var codeOnly = parts[0] ? parts[0].trim() : "";
@@ -214,7 +247,7 @@
                                     <asp:Label ID="lblSurname" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Surname"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                    <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee_surname"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfv_tb_surname" runat="server" ControlToValidate="tb_surname"
                                         Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required" ValidationGroup="Search">   
                                     </asp:RequiredFieldValidator>
@@ -223,7 +256,7 @@
                                     <asp:Label ID="lblFirstName" runat="server" Font-Bold="true" ForeColor="GrayText" Text="First Name"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                    <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee_firstname"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfv_tb_firstname" runat="server" ControlToValidate="tb_firstname"
                                         Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required" ValidationGroup="Search">   
                                     </asp:RequiredFieldValidator>
@@ -331,7 +364,7 @@
                                 <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category" />
                                 <asp:BoundField DataField="ReviewStartYear" HeaderText="Review Start Year" />
                                 <asp:BoundField DataField="ReviewEndYear" HeaderText="Review End Year" />
-                                <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}" > 
+                                <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}">
                                     <HeaderStyle Width="110px" CssClass="text-nowrap" />
                                     <ItemStyle Width="110px" CssClass="text-nowrap" />
                                 </asp:BoundField>
@@ -449,11 +482,11 @@
                                         </asp:RequiredFieldValidator>
                                         <!-- JavaScript -->
                                         <script type="text/javascript">
-                                             $(function () {
-                                                 $("#txtReviewDate").datepicker({
-                                                     dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
-                                                 });
-                                             });
+                                            $(function () {
+                                                $("#txtReviewDate").datepicker({
+                                                    dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
+                                                });
+                                            });
                                         </script>
                                         <!-- Enforces the strict yyyy-mm-dd format -->
                                         <asp:RegularExpressionValidator
@@ -506,7 +539,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
-                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Enabled ="false" />
+                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Enabled="false" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -517,7 +550,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
-                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled ="false"   />
+                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled="false" />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
