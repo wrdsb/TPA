@@ -506,7 +506,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
-                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Text="Location Description" Enabled ="false" />
+                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Enabled ="false" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -517,7 +517,7 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
-                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Text="Superintendent Name" Enabled ="false"   />
+                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled ="false"   />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
