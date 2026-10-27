@@ -632,11 +632,29 @@ namespace TPA
                             {
                                 while (reader.Read())
                                 {
-                                    ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    var categoryValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    // Verify the item actually exists in the dropdown before selecting it
+                                    if (ddlCategory.Items.FindByValue(categoryValue) != null)
+                                    {
+                                        ddlCategory.SelectedValue = categoryValue;
+                                    }
+                                    else
+                                    {
+                                        ddlCategory.SelectedIndex = 0; // Fallback to default/first item (e.g., "--Select--")
+                                    }
                                     txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
                                     txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
                                     txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
-                                    ddlRating.SelectedValue = reader["RATING"].ToString();
+                                    var ratingValue = reader["RATING"].ToString();
+                                    // Verify the item actually exists in the dropdown before selecting it
+                                    if (ddlRating.Items.FindByValue(ratingValue) != null)
+                                    {
+                                        ddlRating.SelectedValue = ratingValue;
+                                    }
+                                    else
+                                    {
+                                        ddlRating.SelectedIndex = 0; // Fallback to default/first item (e.g., "--Select--")
+                                    }
                                     txtLocation.Text = reader["LOCATION_CODE"].ToString();
                                     txtLocDesc.Text = reader["LOC_DESCRIPTION_ABBR"].ToString();
                                     txtComment.Text = reader["COMMENT_TEXT"].ToString();

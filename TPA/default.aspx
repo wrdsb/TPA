@@ -395,7 +395,7 @@
                                             <asp:ListItem Text="-- Select Category --" Value="" />
                                             <asp:ListItem Text="NEW" Value="NEW" />
                                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
-                                            <asp:ListItem Text="EVAL_YEAR" Value="EVAL_YEAR" />
+                                            <asp:ListItem Text="EVAL YEAR" Value="EVAL YEAR" />
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfv_ddlCategory" runat="server" ControlToValidate="ddlCategory"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
