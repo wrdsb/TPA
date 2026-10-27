@@ -557,7 +557,7 @@ namespace TPA
                                     LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
                                     LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
                                     WHERE               T.EMPLOYEE_ID =  @EmployeeID
-                                    ORDER BY            Id DESC";
+                                    ORDER BY            T.ADDED_DATE DESC";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
