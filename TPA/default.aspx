@@ -90,14 +90,27 @@
                 minLength: 1,
                 select: function (event, ui) {
                     // Extract only the code part before " - "
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtLocDesc.ClientID %>").val(name);
+                        $(this).val(codeOnly);
+                    }
                     return false; // Prevents jQuery UI from restoring full string
                 },
                 focus: function (event, ui) {
                     // Updates textbox while navigating dropdown with arrow keys
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtLocDesc.ClientID %>").val(name);
+                        $(this).val(codeOnly);
+                    }
                     return false;
                 }
             });
@@ -118,15 +131,31 @@
                 },
                 minLength: 1,
                 select: function (event, ui) {
-                    // Extract only the code part before " - "
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtSuperintendentName.ClientID %>").val(name);
+
+                        // If lblSuperintendentName is an <asp:TextBox>, use .val(name) instead
+
+                        $(this).val(codeOnly);
+                    }
                     return false; // Prevents jQuery UI from restoring full string
                 },
                 focus: function (event, ui) {
-                    // Updates textbox while navigating dropdown with arrow keys
-                    var codeOnly = ui.item.value.split(" - ")[0].trim();
-                    $(this).val(codeOnly);
+                    if (ui.item && ui.item.value) {
+                        var parts = ui.item.value.split(" - ");
+                        var codeOnly = parts[0] ? parts[0].trim() : "";
+                        var name = parts[1] ? parts[1].trim() : "";
+
+                        // Use .text() or .html() for <asp:Label> (<span>)
+                        $("#<%=txtSuperintendentName.ClientID %>").val(name);
+
+                        $(this).val(codeOnly);
+                    }
                     return false;
                 }
             });
@@ -173,29 +202,37 @@
                         <asp:Table runat="server">
                             <asp:TableRow>
                                 <asp:TableCell>
-                                    <asp:Label ID="lblEmp" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Emp Id"></asp:Label>
+                                    <asp:Label ID="lblEmp" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Employee ID"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_empId" TextMode="Number" runat="server" Width="150px" CssClass="form-control search_employeebyempId"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfv_tb_empId" runat="server" ControlToValidate="tb_empId"
+                                        Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required" ValidationGroup="Search">   
+                                    </asp:RequiredFieldValidator>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:Label ID="lblSurname" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Surname"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_surname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfv_tb_surname" runat="server" ControlToValidate="tb_surname"
+                                        Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required" ValidationGroup="Search">   
+                                    </asp:RequiredFieldValidator>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:Label ID="lblFirstName" runat="server" Font-Bold="true" ForeColor="GrayText" Text="First Name"></asp:Label>
                                 </asp:TableCell>
                                 <asp:TableCell>
                                     <asp:TextBox ID="tb_firstname" runat="server" Width="150px" CssClass="form-control search_employee"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfv_tb_firstname" runat="server" ControlToValidate="tb_firstname"
+                                        Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required" ValidationGroup="Search">   
+                                    </asp:RequiredFieldValidator>
                                 </asp:TableCell>
-
                                 <asp:TableCell>
                                     <asp:Button ID="btn_clear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btn_clear_Click" />
                                 </asp:TableCell>
                                 <asp:TableCell>
-                                    <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" />
+                                    <asp:Button ID="btn_search" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btn_search_Click" ValidationGroup="Search" />
                                 </asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
@@ -211,7 +248,8 @@
             <div class="col-md-12" style="min-height: 200px;">
                 <asp:Panel ID="pnl_employee" Visible="false" runat="server">
                     <fieldset id="fd_employeeDetails" runat="server">
-                        <legend>Employee Details</legend>
+                        <legend>
+                            <asp:Label ID="lblEmpDetails" runat="server" Text="Employee Details"></asp:Label></legend>
                         <asp:ListView ID="lv_search" runat="server" DataSourceID="DataSource_search">
                             <LayoutTemplate>
                                 <table class="table table-responsive table-bordered">
@@ -293,10 +331,13 @@
                                 <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category" />
                                 <asp:BoundField DataField="ReviewStartYear" HeaderText="Review Start Year" />
                                 <asp:BoundField DataField="ReviewEndYear" HeaderText="Review End Year" />
-                                <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}" />
+                                <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}" > 
+                                    <HeaderStyle Width="110px" CssClass="text-nowrap" />
+                                    <ItemStyle Width="110px" CssClass="text-nowrap" />
+                                </asp:BoundField>
                                 <asp:BoundField DataField="Rating" HeaderText="Rating" />
                                 <asp:BoundField DataField="Location" HeaderText="Location" />
-                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent Id" />
+                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent ID" />
                                 <asp:BoundField DataField="Comment" HeaderText="Comment" />
                                 <asp:TemplateField HeaderText="Actions">
                                     <ItemTemplate>
@@ -354,7 +395,7 @@
                                             <asp:ListItem Text="-- Select Category --" Value="" />
                                             <asp:ListItem Text="NEW" Value="NEW" />
                                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
-                                            <asp:ListItem Text="EVAL_YEAR" Value="EVAL_YEAR" />
+                                            <asp:ListItem Text="EVAL YEAR" Value="EVAL YEAR" />
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfv_ddlCategory" runat="server" ControlToValidate="ddlCategory"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
@@ -401,27 +442,27 @@
                                         <asp:Label ID="lblReviewDate" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Date"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewDate" runat="server" clientidmode="Static" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewDate" runat="server" ClientIDMode="Static" CssClass="form-control" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewDate" runat="server" ControlToValidate="txtReviewDate"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
-                                         <!-- JavaScript -->
-                                         <script type="text/javascript">
+                                        <!-- JavaScript -->
+                                        <script type="text/javascript">
                                              $(function () {
                                                  $("#txtReviewDate").datepicker({
                                                      dateFormat: "yy-mm-dd" // In jQuery UI, 'yy' stands for a 4-digit year
                                                  });
                                              });
-                                         </script>
+                                        </script>
                                         <!-- Enforces the strict yyyy-mm-dd format -->
-                                        <asp:RegularExpressionValidator 
-                                            ID="rev_revDate" 
-                                            runat="server" 
-                                            ControlToValidate="txtReviewDate" 
-                                            ValidationExpression="^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$" 
-                                            ErrorMessage="Invalid date format. Please use YYYY-MM-DD." 
-                                            ForeColor="Red" 
+                                        <asp:RegularExpressionValidator
+                                            ID="rev_revDate"
+                                            runat="server"
+                                            ControlToValidate="txtReviewDate"
+                                            ValidationExpression="^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$"
+                                            ErrorMessage="Invalid date format. Please use YYYY-MM-DD."
+                                            ForeColor="Red"
                                             Display="Dynamic">
                                         </asp:RegularExpressionValidator>
 
@@ -437,7 +478,6 @@
                                                 });
                                             });
                                         </script>--%>
-
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:Label ID="lblRating" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Rating"></asp:Label>
@@ -466,16 +506,18 @@
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control search_location" />
+                                        <asp:TextBox ID="txtLocDesc" runat="server" CssClass="form-control" Enabled ="false" />
                                         <asp:RequiredFieldValidator ID="rfv_txtLocation" runat="server" ControlToValidate="txtLocation"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent Id"></asp:Label>
+                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent ID"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
+                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled ="false"   />
                                         <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -500,7 +542,7 @@
 
                                 <asp:TableFooterRow>
                                     <asp:TableCell>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-default" OnClick="btnCancel_Click" CausesValidation="false" />                                      
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-default" OnClick="btnCancel_Click" CausesValidation="false" />
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:Button ID="btnSave" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="btnSave_Click" ValidationGroup="submit" />
@@ -517,5 +559,5 @@
     </div>
 
     <asp:SqlDataSource ID="DataSource_search" runat="server" ConnectionString="<%$ ConnectionStrings:SQLDB %>"></asp:SqlDataSource>
-   
+
 </asp:Content>

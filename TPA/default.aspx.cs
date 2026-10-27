@@ -200,10 +200,14 @@ namespace TPA
                 //visibility of add new record button needs to be enabled
                 if (lv_search.Items.Count > 0)
                 {
+                    lblEmpDetails.Text = string.Format("Employee Details: {0} {1} ({2})", tb_firstname.Text, tb_surname.Text, tb_empId.Text);
+                    pnl_appraisal.Visible = true;
                     btnAdd.Visible = true;
                 }
                 else
                 {
+                    lblEmpDetails.Text = "Employee Details";
+                    pnl_appraisal.Visible = false;
                     btnAdd.Visible = false;
                 }
 
@@ -529,18 +533,31 @@ namespace TPA
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT      CONTRACT_CATEGORY                               AS EvaluationCategory   
-                                                , REVIEW_YEAR_START                             AS ReviewStartYear
-                                                , REVIEW_YEAR_END                               AS ReviewEndYear
-                                                , REVIEW_DATE                                   AS ReviewDate
-                                                , RATING                                        AS Rating
-                                                , LOCATION_CODE                                 AS Location
-                                                , SUPERINTENDENT_ID                             AS SuperintendentId
-                                                , COMMENT_TEXT                                  AS Comment   
-                                                , Id
-                                    FROM        [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                    WHERE       employee_id =  @EmployeeID
-                                    ORDER BY    Id DESC";
+                    string sql = @" SELECT              T.CONTRACT_CATEGORY                                                 AS EvaluationCategory   
+                                                        , T.REVIEW_YEAR_START                                               AS ReviewStartYear
+                                                        , T.REVIEW_YEAR_END                                                 AS ReviewEndYear
+                                                        , T.REVIEW_DATE                                                     AS ReviewDate
+                                                        , T.RATING                                                          AS Rating
+                                                        , CONCAT_WS
+                                                            ( 
+                                                            ' - ' 
+                                                            , T.LOCATION_CODE                                                          
+                                                            , L.DESCRIPTION_ABBR COLLATE Latin1_General_CI_AS
+                                                            )                                                               AS Location                                                
+                                                        , CONCAT_WS
+                                                            (
+                                                            ' - '
+                                                            , T.SUPERINTENDENT_ID                             
+                                                            , E.SURNAME + ', ' + E.FIRST_NAME COLLATE Latin1_General_CI_AS
+                                                            )                                                               AS SuperintendentId
+                                                        , T.COMMENT_TEXT                                                    AS Comment   
+                                                        , T.Id
+
+                                    FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T 
+                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
+                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
+                                    WHERE               T.EMPLOYEE_ID =  @EmployeeID
+                                    ORDER BY            T.ADDED_DATE DESC";
 
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
@@ -557,6 +574,7 @@ namespace TPA
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
 
 
@@ -576,7 +594,6 @@ namespace TPA
 
             scrollToBottom();
 
-
             LinkButton btn = (LinkButton)sender;
 
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
@@ -584,22 +601,24 @@ namespace TPA
             try
             {
                 string empId = Session["empId_text"].ToString();
-
-
                 var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
                 Session["Id"] = Id;
 
                 // Use this id to retrieve the row from the database
-                string sql = @" SELECT  CONTRACT_CATEGORY
-                                        , REVIEW_YEAR_START
-                                        , REVIEW_YEAR_END
-                                        , FORMAT(REVIEW_DATE, 'yyyy-MM-dd') AS REVIEW_DATE
-                                        , RATING
-                                        , LOCATION_CODE
-                                        , COMMENT_TEXT
-                                        , SUPERINTENDENT_ID                                      
-                                FROM [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] 
-                                WHERE Id = @Id AND EMPLOYEE_ID = @empId";
+                string sql = @" SELECT              T.CONTRACT_CATEGORY                         AS CONTRACT_CATEGORY
+                                                    , T.REVIEW_YEAR_START                       AS REVIEW_YEAR_START
+                                                    , T.REVIEW_YEAR_END                         AS REVIEW_YEAR_END
+                                                    , FORMAT(T.REVIEW_DATE, 'yyyy-MM-dd')       AS REVIEW_DATE
+                                                    , T.RATING                                  AS RATING
+                                                    , T.LOCATION_CODE                           AS LOCATION_CODE
+                                                    , L.DESCRIPTION_ABBR                        AS LOC_DESCRIPTION_ABBR
+                                                    , T.COMMENT_TEXT                            AS COMMENT_TEXT
+                                                    , T.SUPERINTENDENT_ID                       AS SUPERINTENDENT_ID
+                                                    , E.SURNAME + ', ' + E.FIRST_NAME           AS SUPERINTENDENT_NAME
+                                FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T
+                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
+                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
+                                WHERE               T.Id = @Id AND T.EMPLOYEE_ID = @empId";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
                     con.Open();
@@ -613,14 +632,34 @@ namespace TPA
                             {
                                 while (reader.Read())
                                 {
-                                    ddlCategory.SelectedValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    var categoryValue = reader["CONTRACT_CATEGORY"].ToString();
+                                    // Verify the item actually exists in the dropdown before selecting it
+                                    if (ddlCategory.Items.FindByValue(categoryValue) != null)
+                                    {
+                                        ddlCategory.SelectedValue = categoryValue;
+                                    }
+                                    else
+                                    {
+                                        ddlCategory.SelectedIndex = 0; // Fallback to default/first item (e.g., "--Select--")
+                                    }
                                     txtReviewStartYear.Text = reader["REVIEW_YEAR_START"].ToString();
                                     txtReviewEndYear.Text = reader["REVIEW_YEAR_END"].ToString();
                                     txtReviewDate.Text = reader["REVIEW_DATE"].ToString();
-                                    ddlRating.SelectedValue = reader["RATING"].ToString();
+                                    var ratingValue = reader["RATING"].ToString();
+                                    // Verify the item actually exists in the dropdown before selecting it
+                                    if (ddlRating.Items.FindByValue(ratingValue) != null)
+                                    {
+                                        ddlRating.SelectedValue = ratingValue;
+                                    }
+                                    else
+                                    {
+                                        ddlRating.SelectedIndex = 0; // Fallback to default/first item (e.g., "--Select--")
+                                    }
                                     txtLocation.Text = reader["LOCATION_CODE"].ToString();
+                                    txtLocDesc.Text = reader["LOC_DESCRIPTION_ABBR"].ToString();
                                     txtComment.Text = reader["COMMENT_TEXT"].ToString();
                                     txtSuperintendentId.Text = reader["SUPERINTENDENT_ID"].ToString();
+                                    txtSuperintendentName.Text = reader["SUPERINTENDENT_NAME"].ToString();
 
                                 }
                             }
@@ -873,7 +912,9 @@ namespace TPA
             txtReviewDate.Text = string.Empty;
             ddlRating.SelectedIndex = 0;
             txtLocation.Text = string.Empty;
+            txtLocDesc.Text = string.Empty;
             txtSuperintendentId.Text = string.Empty;
+            txtSuperintendentName.Text = string.Empty;
             txtComment.Text = string.Empty;
             appraisalRecordsGrid.SelectedIndex = -1;
         }
