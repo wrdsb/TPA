@@ -382,7 +382,7 @@ namespace TPA
                 {
                     string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM                ec_employee 
-                                    WHERE               first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
+                                    WHERE               surname LIKE '%' + @p + '%' 
                                     ORDER BY            surname, first_name";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -419,8 +419,8 @@ namespace TPA
                 {
                     string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM                ec_employee 
-                                    WHERE               first_name LIKE '%' + @p + '%' OR surname LIKE '%' + @p + '%' 
-                                    ORDER BY            surname, first_name";
+                                    WHERE               first_name LIKE '%' + @p + '%' 
+                                    ORDER BY            first_name, surname ";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.Add("@p", SqlDbType.VarChar).Value = prefix;
