@@ -452,6 +452,14 @@
                                             <asp:ListItem Text="NEW" Value="NEW" />
                                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
                                             <asp:ListItem Text="EVAL YEAR" Value="EVAL YEAR" />
+
+                                        <%--<asp:ListItem Text="DECE" Value="DECE" />
+                                            <asp:ListItem Text="DECE EVAL YEAR" Value="DECE EVAL YEAR" />
+
+                                            <asp:ListItem Text="LTO" Value="LTO" />
+                                            <asp:ListItem Text="LTO EVAL YEAR" Value="LTO EVAL YEAR" />
+                                            <asp:ListItem Text="TCHRLAYOFF" Value="TCHRLAYOFF" />--%>
+
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfv_ddlCategory" runat="server" ControlToValidate="ddlCategory"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
