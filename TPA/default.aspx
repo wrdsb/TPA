@@ -210,7 +210,7 @@
             });
 
             // Instantly clear description as the user types/deletes characters
-            $(".search_location").on("input", function () {
+            $(".search_superintent").on("input", function () {
                 if ($.trim($(this).val()) === "") {
                     $("#<%=txtSuperintendentName.ClientID %>").val("");
                 }
