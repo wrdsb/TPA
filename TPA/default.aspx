@@ -200,6 +200,19 @@
                         $(this).val(codeOnly);
                     }
                     return false;
+                },
+                change: function (event, ui) {
+                    // If nothing valid is selected or the field is cleared, reset description
+                    if (!ui.item || $.trim($(this).val()) === "") {
+                        $("#<%=txtSuperintendentName.ClientID %>").val("");
+                    }
+                }
+            });
+
+            // Instantly clear description as the user types/deletes characters
+            $(".search_location").on("input", function () {
+                if ($.trim($(this).val()) === "") {
+                    $("#<%=txtSuperintendentName.ClientID %>").val("");
                 }
             });
         });
