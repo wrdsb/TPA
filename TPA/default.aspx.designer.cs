@@ -375,15 +375,6 @@ namespace TPA
         protected global::System.Web.UI.WebControls.DropDownList ddlRating;
 
         /// <summary>
-        /// rfv_ddlRating control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ddlRating;
-
-        /// <summary>
         /// lblLocation control.
         /// </summary>
         /// <remarks>
@@ -447,15 +438,6 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox txtSuperintendentName;
 
         /// <summary>
-        /// rfv_txtSuperintendentId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtSuperintendentId;
-
-        /// <summary>
         /// lblComment control.
         /// </summary>
         /// <remarks>
@@ -472,15 +454,6 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtComment;
-
-        /// <summary>
-        /// rfv_txtComment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtComment;
 
         /// <summary>
         /// btnCancel control.

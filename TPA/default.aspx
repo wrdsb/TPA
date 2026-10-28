@@ -525,10 +525,10 @@
                                             <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
                                             <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
                                         </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfv_ddlRating" runat="server" ControlToValidate="ddlRating"
+                                        <%--<asp:RequiredFieldValidator ID="rfv_ddlRating" runat="server" ControlToValidate="ddlRating"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
-                                        </asp:RequiredFieldValidator>
+                                        </asp:RequiredFieldValidator>--%>
                                     </asp:TableCell>
                                 </asp:TableRow>
 
@@ -551,10 +551,10 @@
                                     <asp:TableCell>
                                         <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
                                         <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled="false" />
-                                        <asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
+                                        <%--<asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
-                                        </asp:RequiredFieldValidator>
+                                        </asp:RequiredFieldValidator>--%>
                                     </asp:TableCell>
                                 </asp:TableRow>
 
@@ -565,10 +565,10 @@
                                     </asp:TableCell>
                                     <asp:TableCell ColumnSpan="3">
                                         <asp:TextBox ID="txtComment" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
-                                        <asp:RequiredFieldValidator ID="rfv_txtComment" runat="server" ControlToValidate="txtComment"
+                                        <%--<asp:RequiredFieldValidator ID="rfv_txtComment" runat="server" ControlToValidate="txtComment"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
-                                        </asp:RequiredFieldValidator>
+                                        </asp:RequiredFieldValidator>--%>
                                     </asp:TableCell>
                                 </asp:TableRow>
 
