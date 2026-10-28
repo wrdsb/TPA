@@ -128,7 +128,7 @@
                         var name = parts[1] ? parts[1].trim() : "";
                 
                         $("#<%=txtLocDesc.ClientID %>").val(name);
-                        $(this).val(codeOnly);
+                        $(this).val(codeOnly).change();
                     }
                     return false; // Prevents jQuery UI from restoring full string
                 },
@@ -139,7 +139,7 @@
                         var name = parts[1] ? parts[1].trim() : "";
                 
                         $("#<%=txtLocDesc.ClientID %>").val(name);
-                        $(this).val(codeOnly);
+                        $(this).val(codeOnly).change();
                     }
                     return false;
                 },
