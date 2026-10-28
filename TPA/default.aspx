@@ -122,29 +122,39 @@
                 },
                 minLength: 1,
                 select: function (event, ui) {
-                    // Extract only the code part before " - "
-
                     if (ui.item && ui.item.value) {
                         var parts = ui.item.value.split(" - ");
                         var codeOnly = parts[0] ? parts[0].trim() : "";
                         var name = parts[1] ? parts[1].trim() : "";
-                        // Use .text() or .html() for <asp:Label> (<span>)
+                
                         $("#<%=txtLocDesc.ClientID %>").val(name);
                         $(this).val(codeOnly);
                     }
                     return false; // Prevents jQuery UI from restoring full string
                 },
                 focus: function (event, ui) {
-                    // Updates textbox while navigating dropdown with arrow keys
                     if (ui.item && ui.item.value) {
                         var parts = ui.item.value.split(" - ");
                         var codeOnly = parts[0] ? parts[0].trim() : "";
                         var name = parts[1] ? parts[1].trim() : "";
-                        // Use .text() or .html() for <asp:Label> (<span>)
+                
                         $("#<%=txtLocDesc.ClientID %>").val(name);
                         $(this).val(codeOnly);
                     }
                     return false;
+                },
+                change: function (event, ui) {
+                    // If nothing valid is selected or the field is cleared, reset description
+                    if (!ui.item || $.trim($(this).val()) === "") {
+                        $("#<%=txtLocDesc.ClientID %>").val("");
+                    }
+                }
+            });
+
+            // Instantly clear description as the user types/deletes characters
+            $(".search_location").on("input", function () {
+                if ($.trim($(this).val()) === "") {
+                    $("#<%=txtLocDesc.ClientID %>").val("");
                 }
             });
         });
