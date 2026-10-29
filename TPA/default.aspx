@@ -126,7 +126,7 @@
                         var parts = ui.item.value.split(" - ");
                         var codeOnly = parts[0] ? parts[0].trim() : "";
                         var name = parts[1] ? parts[1].trim() : "";
-                
+
                         $("#<%=txtLocDesc.ClientID %>").val(name);
                         $(this).val(codeOnly).change();
                     }
@@ -137,7 +137,7 @@
                         var parts = ui.item.value.split(" - ");
                         var codeOnly = parts[0] ? parts[0].trim() : "";
                         var name = parts[1] ? parts[1].trim() : "";
-                
+
                         $("#<%=txtLocDesc.ClientID %>").val(name);
                         $(this).val(codeOnly).change();
                     }
@@ -444,7 +444,7 @@
 
                                 <asp:TableRow>
                                     <asp:TableCell>
-                                        <asp:Label ID="lblEvaluationCategory" runat="server" Font-Bold="true" ForeColor="GrayText" Width="180 px " Text="Evaluation Category"></asp:Label>
+                                        <asp:Label ID="lblEvaluationCategory" runat="server" Font-Bold="true" ForeColor="GrayText" Width="180px " Text="Evaluation Category"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell ColumnSpan="3">
                                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
@@ -453,13 +453,12 @@
                                             <asp:ListItem Text="PERMANENT" Value="PERMANENT" />
                                             <asp:ListItem Text="EVAL YEAR" Value="EVAL YEAR" />
 
-                                        <%--<asp:ListItem Text="DECE" Value="DECE" />
+                                            <%--<asp:ListItem Text="DECE" Value="DECE" />
                                             <asp:ListItem Text="DECE EVAL YEAR" Value="DECE EVAL YEAR" />
 
                                             <asp:ListItem Text="LTO" Value="LTO" />
                                             <asp:ListItem Text="LTO EVAL YEAR" Value="LTO EVAL YEAR" />
                                             <asp:ListItem Text="TCHRLAYOFF" Value="TCHRLAYOFF" />--%>
-
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfv_ddlCategory" runat="server" ControlToValidate="ddlCategory"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
@@ -474,17 +473,34 @@
                                         <asp:Label ID="lblReviewStartYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review Start Year"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewStartYear" runat="server" Width="330 px" TextMode="Number" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewStartYear" runat="server" Width="330px" TextMode="Number" CssClass="form-control"
+                                            min="1900"
+                                            max="2099"
+                                            step="1"
+                                            placeholder="YYYY"
+                                            MaxLength="4" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewStartYear" runat="server" ControlToValidate="txtReviewStartYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
                                         </asp:RequiredFieldValidator>
+                                        <asp:RegularExpressionValidator ID="revReviewStartYear" runat="server"
+                                            ControlToValidate="txtReviewStartYear"
+                                            ValidationExpression="^(19|20)\d{2}$"
+                                            ErrorMessage="Please enter a valid 4-digit year (e.g., 2025)."
+                                            ForeColor="Red"
+                                            Display="Dynamic" 
+                                            ValidationGroup="submit" />
                                     </asp:TableCell>
                                     <asp:TableCell>
                                         <asp:Label ID="lblReviewEndYear" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Review End Year"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtReviewEndYear" runat="server" Width="330 px" TextMode="Number" CssClass="form-control" />
+                                        <asp:TextBox ID="txtReviewEndYear" runat="server" Width="330px" TextMode="Number" CssClass="form-control"
+                                            min="1900"
+                                            max="2099"
+                                            step="1"
+                                            placeholder="YYYY"
+                                            MaxLength="4" />
                                         <asp:RequiredFieldValidator ID="rfv_txtReviewEndYear" runat="server" ControlToValidate="txtReviewEndYear"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
@@ -496,6 +512,13 @@
                                             Type="Integer"
                                             ErrorMessage="End year must be greater than start year."
                                             ForeColor="Red" Display="Dynamic"
+                                            ValidationGroup="submit" />
+                                        <asp:RegularExpressionValidator ID="revReviewEndYear" runat="server"
+                                            ControlToValidate="txtReviewEndYear"
+                                            ValidationExpression="^(19|20)\d{2}$"
+                                            ErrorMessage="Please enter a valid 4-digit year (e.g., 2025)."
+                                            ForeColor="Red"
+                                            Display="Dynamic" 
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
                                 </asp:TableRow>

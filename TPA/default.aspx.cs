@@ -382,7 +382,7 @@ namespace TPA
                 {
                     string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM                ec_employee 
-                                    WHERE               surname LIKE '%' + @p + '%' 
+                                    WHERE               surname LIKE  @p + '%' 
                                     ORDER BY            surname, first_name";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -419,7 +419,7 @@ namespace TPA
                 {
                     string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM                ec_employee 
-                                    WHERE               first_name LIKE '%' + @p + '%' 
+                                    WHERE               first_name LIKE  @p + '%' 
                                     ORDER BY            first_name, surname ";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -458,7 +458,7 @@ namespace TPA
                 {
                     string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
                                     FROM            ec_employee 
-                                    WHERE           employee_id LIKE '%' + @p + '%' 
+                                    WHERE           employee_id LIKE  @p + '%' 
                                     ORDER BY        employee_id DESC ";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -713,7 +713,7 @@ namespace TPA
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
-            //appraisalRecordsGrid.SelectedIndex = -1;
+            appraisalRecordsGrid.SelectedIndex = -1;
 
             LinkButton btn = (LinkButton)sender;
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
@@ -736,7 +736,10 @@ namespace TPA
                 BindGrid(Session["empId_text"].ToString());
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
         protected void btnSave_Click(object sender, EventArgs e)

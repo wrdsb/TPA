@@ -285,6 +285,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtReviewStartYear;
 
         /// <summary>
+        /// revReviewStartYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revReviewStartYear;
+
+        /// <summary>
         /// lblReviewEndYear control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cv_YearRange;
+
+        /// <summary>
+        /// revReviewEndYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revReviewEndYear;
 
         /// <summary>
         /// lblReviewDate control.
