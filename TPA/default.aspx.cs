@@ -713,7 +713,7 @@ namespace TPA
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             pnlRecordForm.Visible = false;
-            //appraisalRecordsGrid.SelectedIndex = -1;
+            appraisalRecordsGrid.SelectedIndex = -1;
 
             LinkButton btn = (LinkButton)sender;
             int rowIndex = Convert.ToInt32(btn.CommandArgument);
@@ -736,7 +736,10 @@ namespace TPA
                 BindGrid(Session["empId_text"].ToString());
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
         protected void btnSave_Click(object sender, EventArgs e)
