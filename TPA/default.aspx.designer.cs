@@ -285,6 +285,15 @@ namespace TPA
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtReviewStartYear;
 
         /// <summary>
+        /// revReviewStartYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revReviewStartYear;
+
+        /// <summary>
         /// lblReviewEndYear control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cv_YearRange;
+
+        /// <summary>
+        /// revReviewEndYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revReviewEndYear;
 
         /// <summary>
         /// lblReviewDate control.
@@ -375,15 +393,6 @@ namespace TPA
         protected global::System.Web.UI.WebControls.DropDownList ddlRating;
 
         /// <summary>
-        /// rfv_ddlRating control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_ddlRating;
-
-        /// <summary>
         /// lblLocation control.
         /// </summary>
         /// <remarks>
@@ -400,6 +409,15 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
+
+        /// <summary>
+        /// txtLocDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLocDesc;
 
         /// <summary>
         /// rfv_txtLocation control.
@@ -429,13 +447,13 @@ namespace TPA
         protected global::System.Web.UI.WebControls.TextBox txtSuperintendentId;
 
         /// <summary>
-        /// rfv_txtSuperintendentId control.
+        /// txtSuperintendentName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtSuperintendentId;
+        protected global::System.Web.UI.WebControls.TextBox txtSuperintendentName;
 
         /// <summary>
         /// lblComment control.
@@ -454,15 +472,6 @@ namespace TPA
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtComment;
-
-        /// <summary>
-        /// rfv_txtComment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfv_txtComment;
 
         /// <summary>
         /// btnCancel control.
