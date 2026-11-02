@@ -584,7 +584,7 @@ namespace TPA
                                                         , CONCAT_WS
                                                             (
                                                             ' - '
-                                                            , T.SUPERINTENDENT_ID                             
+                                                            , TRIM(T.SUPERINTENDENT_ID)                             
                                                             , E.SURNAME + ', ' + E.FIRST_NAME COLLATE Latin1_General_CI_AS
                                                             )                                                               AS SuperintendentId
                                                         , T.COMMENT_TEXT                                                    AS Comment   
@@ -592,7 +592,7 @@ namespace TPA
 
                                     FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T 
                                     LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
-                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
+                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
                                     WHERE               T.EMPLOYEE_ID =  @EmployeeID
                                     ORDER BY            T.ADDED_DATE DESC";
 
@@ -650,11 +650,11 @@ namespace TPA
                                                     , T.LOCATION_CODE                           AS LOCATION_CODE
                                                     , L.DESCRIPTION_ABBR                        AS LOC_DESCRIPTION_ABBR
                                                     , T.COMMENT_TEXT                            AS COMMENT_TEXT
-                                                    , T.SUPERINTENDENT_ID                       AS SUPERINTENDENT_ID
+                                                    , TRIM(T.SUPERINTENDENT_ID)                 AS SUPERINTENDENT_ID
                                                     , E.SURNAME + ', ' + E.FIRST_NAME           AS SUPERINTENDENT_NAME
                                 FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T
                                 LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
-                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = T.SUPERINTENDENT_ID COLLATE Latin1_General_CI_AS
+                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
                                 WHERE               T.Id = @Id AND T.EMPLOYEE_ID = @empId";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
