@@ -60,13 +60,22 @@ namespace TPA
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
-        /// reports_link control.
+        /// appraisal_link control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reports_link;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl appraisal_link;
+
+        /// <summary>
+        /// report_link control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl report_link;
 
         /// <summary>
         /// ContentPlaceHolder1 control.
