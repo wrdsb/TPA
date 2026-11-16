@@ -9,4 +9,34 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    </asp:Content>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset id="fd_searcchEmployee">
+                    <legend>Report Links</legend>
+                    <asp:Panel ID="pnlSearch" runat="server">
+                        <asp:Table runat="server">
+                            <asp:TableRow>
+                                <asp:TableCell>
+                                    <a href="http://ec-hr-dbt/Reports/report/HR/TPA/DECE%20Performace%20Appraisal">DECE Performance Appraisal</a>                              
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                     <a href="http://ec-hr-dbt/Reports/report/HR/TPA/LTO%20Performance%20Appraisal">LTO Performance Appraisal</a>
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <a href="http://ec-hr-dbt/Reports/report/HR/TPA/NTIP_TO_OCT">NTIP TO OCT</a>                                  
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <a href="http://ec-hr-dbt/Reports/report/HR/TPA/NTIP_TO_OCT_file">NTIP TO OCT File</a>                                  
+                                </asp:TableCell>
+                                <asp:TableCell>
+                                    <a href="http://ec-hr-dbt/Reports/report/HR/TPA/Teacher%20Performace%20Appraisal">Teacher Performance Appraisal</a>                                  
+                                </asp:TableCell>
+                            </asp:TableRow>
+                        </asp:Table>
+                    </asp:Panel>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</asp:Content>
