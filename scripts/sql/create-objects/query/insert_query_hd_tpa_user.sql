@@ -13,6 +13,7 @@ insert into [hd_tpa_user] values ('41903','HOLSTK','1') -- Katy holst
 insert into [hd_tpa_user] values ('46757','DYCEM','1') -- Maria Dyce
 insert into [hd_tpa_user] values ('30701','LEEJE','1') -- jennifer Lee
 insert into [hd_tpa_user] values ('39111','OLIVERSA','1') -- Stephanie Oliver-Guppy 
+insert into [hd_tpa_user] values ('37940','SOUSAB','1') -- Sousa, Beth
 
 
 
