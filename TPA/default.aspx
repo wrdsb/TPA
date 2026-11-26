@@ -456,9 +456,9 @@
                                             <asp:ListItem Text="DECE" Value="DECE" />
                                             <asp:ListItem Text="DECE EVAL YEAR" Value="DECE EVAL YEAR" />
 
-                                            <asp:ListItem Text="LTO" Value="LTO" />
+                                        <%--<asp:ListItem Text="LTO" Value="LTO" />
                                             <asp:ListItem Text="LTO EVAL YEAR" Value="LTO EVAL YEAR" />
-                                            <asp:ListItem Text="TCHRLAYOFF" Value="TCHRLAYOFF" />
+                                            <asp:ListItem Text="TCHRLAYOFF" Value="TCHRLAYOFF" />--%>
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="rfv_ddlCategory" runat="server" ControlToValidate="ddlCategory"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
@@ -572,12 +572,13 @@
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Rating --" Value="" />
-                                            <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
+                                           <%-- <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
                                             <asp:ListItem Text="GOOD" Value="GOOD" />
-                                            <asp:ListItem Text="PRE TPA" Value="PRE TPA" />
-                                            <asp:ListItem Text="DEVELOPMENT NEEDED" Value="DEVELOPMENT NEEDED" />
+                                            <asp:ListItem Text="PRE TPA" Value="PRE TPA" />--%>
+                                            
                                             <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
                                             <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
+                                            <asp:ListItem Text="DEVELOPMENT NEEDED" Value="DEVELOPMENT NEEDED" />
                                         </asp:DropDownList>
                                         <%--<asp:RequiredFieldValidator ID="rfv_ddlRating" runat="server" ControlToValidate="ddlRating"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
