@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -564,12 +565,13 @@ namespace TPA
         {
             DataTable dt = new DataTable();
             string connString = ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString;
+            string WRDSB = WebConfigurationManager.AppSettings["WrdsbDatabaseName"].ToString();
 
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string sql = @" SELECT              T.CONTRACT_CATEGORY                                                 AS EvaluationCategory   
+                    string sql = $@" SELECT              T.CONTRACT_CATEGORY                                                 AS EvaluationCategory   
                                                         , T.REVIEW_YEAR_START                                               AS ReviewStartYear
                                                         , T.REVIEW_YEAR_END                                                 AS ReviewEndYear
                                                         , T.REVIEW_DATE                                                     AS ReviewDate
@@ -590,8 +592,8 @@ namespace TPA
                                                         , T.Id
 
                                     FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T 
-                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
-                                    LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
+                                    LEFT JOIN           [{WRDSB}].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
+                                    LEFT JOIN           [{WRDSB}].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
                                     WHERE               T.EMPLOYEE_ID =  @EmployeeID
                                     ORDER BY            T.ADDED_DATE DESC";
 
@@ -646,9 +648,9 @@ namespace TPA
                 string empId = Session["empId_text"].ToString();
                 var Id = appraisalRecordsGrid.DataKeys[rowIndex].Value;
                 Session["Id"] = Id;
-
+                string WRDSB = WebConfigurationManager.AppSettings["WrdsbDatabaseName"].ToString();
                 // Use this id to retrieve the row from the database
-                string sql = @" SELECT              T.CONTRACT_CATEGORY                         AS CONTRACT_CATEGORY
+                string sql = $@" SELECT              T.CONTRACT_CATEGORY                         AS CONTRACT_CATEGORY
                                                     , T.REVIEW_YEAR_START                       AS REVIEW_YEAR_START
                                                     , T.REVIEW_YEAR_END                         AS REVIEW_YEAR_END
                                                     , FORMAT(T.REVIEW_DATE, 'yyyy-MM-dd')       AS REVIEW_DATE
@@ -659,8 +661,8 @@ namespace TPA
                                                     , TRIM(T.SUPERINTENDENT_ID)                 AS SUPERINTENDENT_ID
                                                     , E.SURNAME + ', ' + E.FIRST_NAME           AS SUPERINTENDENT_NAME
                                 FROM                [HDHRP].[IPDBA].[HD_TEACHER_EVAL_RESULT] T
-                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
-                                LEFT JOIN           [WRDSB_50_TEST].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
+                                LEFT JOIN           [{WRDSB}].[dbo].[EC_LOCATIONS] L ON L.LOCATION_CODE = T.LOCATION_CODE COLLATE Latin1_General_CI_AS
+                                LEFT JOIN           [{WRDSB}].[dbo].[EC_EMPLOYEE] E ON E.EMPLOYEE_ID = TRIM(T.SUPERINTENDENT_ID) COLLATE Latin1_General_CI_AS
                                 WHERE               T.Id = @Id AND T.EMPLOYEE_ID = @empId";
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB_HDHRP"].ConnectionString))
                 {
