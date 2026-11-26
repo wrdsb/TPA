@@ -10,7 +10,6 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Data.Entity.Infrastructure.Design.Executor;
 using ListViewItem = System.Web.UI.WebControls.ListViewItem;
@@ -611,7 +610,14 @@ namespace TPA
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string safeMessage = HttpUtility.JavaScriptStringEncode(ex.Message);
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    this.GetType(),
+                    "errAlert",
+                    $"alert('Error: {safeMessage}');",
+                    true
+                );
             }
 
 
@@ -706,7 +712,14 @@ namespace TPA
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string safeMessage = HttpUtility.JavaScriptStringEncode(ex.Message);
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    this.GetType(),
+                    "errAlert",
+                    $"alert('Error: {safeMessage}');",
+                    true
+                );
             }
         }
 
@@ -738,7 +751,14 @@ namespace TPA
             }
             catch (Exception ex) 
             {
-                MessageBox.Show(ex.Message);
+                string safeMessage = HttpUtility.JavaScriptStringEncode(ex.Message);
+                ScriptManager.RegisterStartupScript(
+                    this,
+                    this.GetType(),
+                    "errAlert",
+                    $"alert('Error: {safeMessage}');",
+                    true
+                );
             }
 
         }
