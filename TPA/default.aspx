@@ -218,6 +218,41 @@
         });
 
 
+        $(function () {
+            var $startYear = $("#<%=txtReviewStartYear.ClientID %>");
+            var $endYear = $("#<%=txtReviewEndYear.ClientID %>");
+
+            $startYear.on("input change", function () 
+            {
+                var val = $.trim($(this).val());
+
+                // Check if the entered value is strictly a 4-digit number
+                if (/^\d{4}$/.test(val)) 
+                {
+                    var nextYear = parseInt(val, 10) + 1;
+                    $endYear.val(nextYear).change(); // .change() updates any attached ASP.NET validators
+                } else if (val === "") {
+                // Optional: Clear end year if start year is cleared
+                $endYear.val("").change();
+                }
+            });
+
+             $endYear.on("input change", function () 
+             {
+                 var val = $.trim($(this).val());
+
+                 // Check if the entered value is strictly a 4-digit number
+                 if (/^\d{4}$/.test(val)) 
+                 {
+                     var prevYear = parseInt(val, 10) - 1;
+                     $startYear.val(prevYear).change(); // .change() updates any attached ASP.NET validators
+                 } else if (val === "") {
+                 // Optional: Clear end year if start year is cleared
+                 $startYear.val("").change();
+                 }
+             });
+        });
+
     </script>
     <style>
         .ui-autocomplete {
@@ -456,7 +491,7 @@
                                             <asp:ListItem Text="DECE" Value="DECE" />
                                             <asp:ListItem Text="DECE EVAL YEAR" Value="DECE EVAL YEAR" />
 
-                                        <%--<asp:ListItem Text="LTO" Value="LTO" />
+                                            <%--<asp:ListItem Text="LTO" Value="LTO" />
                                             <asp:ListItem Text="LTO EVAL YEAR" Value="LTO EVAL YEAR" />
                                             <asp:ListItem Text="TCHRLAYOFF" Value="TCHRLAYOFF" />--%>
                                         </asp:DropDownList>
@@ -488,7 +523,7 @@
                                             ValidationExpression="^(19|20)\d{2}$"
                                             ErrorMessage="Please enter a valid 4-digit year (e.g., 2025)."
                                             ForeColor="Red"
-                                            Display="Dynamic" 
+                                            Display="Dynamic"
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
                                     <asp:TableCell>
@@ -518,7 +553,7 @@
                                             ValidationExpression="^(19|20)\d{2}$"
                                             ErrorMessage="Please enter a valid 4-digit year (e.g., 2025)."
                                             ForeColor="Red"
-                                            Display="Dynamic" 
+                                            Display="Dynamic"
                                             ValidationGroup="submit" />
                                     </asp:TableCell>
                                 </asp:TableRow>
@@ -572,10 +607,10 @@
                                     <asp:TableCell>
                                         <asp:DropDownList ID="ddlRating" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="-- Select Rating --" Value="" />
-                                           <%-- <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
+                                            <%-- <asp:ListItem Text="EXEMPLARY" Value="EXEMPLARY" />
                                             <asp:ListItem Text="GOOD" Value="GOOD" />
                                             <asp:ListItem Text="PRE TPA" Value="PRE TPA" />--%>
-                                            
+
                                             <asp:ListItem Text="SATISFACTORY" Value="SATISFACTORY" />
                                             <asp:ListItem Text="UNSATISFACTORY" Value="UNSATISFACTORY" />
                                             <asp:ListItem Text="DEVELOPMENT NEEDED" Value="DEVELOPMENT NEEDED" />
