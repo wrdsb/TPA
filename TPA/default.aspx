@@ -387,7 +387,7 @@
                                 <asp:BoundField DataField="EvaluationCategory" HeaderText="Evaluation Category" />
                                 <asp:BoundField DataField="ReviewStartYear" HeaderText="Review Start Year" />
                                 <asp:BoundField DataField="ReviewEndYear" HeaderText="Review End Year" />
-                                <asp:BoundField DataField="ReviewDate" HeaderText="Review Date" DataFormatString="{0:yyyy-MM-dd}">
+                                <asp:BoundField DataField="ReviewDate" HeaderText="Last Review Date" DataFormatString="{0:yyyy-MM-dd}">
                                     <HeaderStyle Width="110px" CssClass="text-nowrap" />
                                     <ItemStyle Width="110px" CssClass="text-nowrap" />
                                 </asp:BoundField>
