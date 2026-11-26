@@ -23,6 +23,8 @@ namespace TPA
         public string EmpId { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string knownAsSurName { get; set; }
+        public string knownAsFirstName { get; set; }
         public string DisplayText { get; set; }
     }
     public partial class _default : System.Web.UI.Page
@@ -380,9 +382,9 @@ namespace TPA
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
+                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname, known_as_first, known_as
                                     FROM                ec_employee 
-                                    WHERE               surname LIKE  @p + '%' 
+                                    WHERE               surname LIKE  @p + '%'  OR known_as LIKE @p + '%'
                                     ORDER BY            surname, first_name";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -397,7 +399,9 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            knownAsFirstName = dr["known_as_first"].ToString(),
+                            knownAsSurName = dr["known_as"].ToString(),
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
                         });
                     }
                 }
