@@ -428,7 +428,7 @@
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Rating" HeaderText="Rating" />
                                 <asp:BoundField DataField="Location" HeaderText="Location" />
-                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent ID" />
+                                <asp:BoundField DataField="SuperintendentId" HeaderText="Superintendent ID" Visible ="false" />
                                 <asp:BoundField DataField="Comment" HeaderText="Comment" />
                                 <asp:TemplateField HeaderText="Actions">
                                     <ItemTemplate>
@@ -636,11 +636,11 @@
                                         </asp:RequiredFieldValidator>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent ID"></asp:Label>
+                                        <asp:Label ID="lblSuperIntendentId" runat="server" Font-Bold="true" ForeColor="GrayText" Text="Superintendent ID" Visible ="false"></asp:Label>
                                     </asp:TableCell>
                                     <asp:TableCell>
-                                        <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" />
-                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled="false" />
+                                        <asp:TextBox ID="txtSuperintendentId" runat="server" CssClass="form-control search_superintent" Visible ="false" />
+                                        <asp:TextBox ID="txtSuperintendentName" runat="server" CssClass="form-control" Enabled="false" Visible ="false" />
                                         <%--<asp:RequiredFieldValidator ID="rfv_txtSuperintendentId" runat="server" ControlToValidate="txtSuperintendentId"
                                             Display="Dynamic" Text="Required" ForeColor="Red" ErrorMessage="Required"
                                             ValidationGroup="submit">
