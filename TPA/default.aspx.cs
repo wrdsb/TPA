@@ -394,14 +394,31 @@ namespace TPA
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
+                        var empid = dr["emp_id"].ToString();
+                        var firstName = dr["firstname"].ToString();
+                        var surName = dr["surname"].ToString();
+                        var knownFirst = dr["known_as_first"].ToString();
+                        var knownSur = dr["known_as"].ToString();
+
+                        // Check if known-as fields are identical to legal names (case-insensitive)
+                        bool hasDifferentFirst = !firstName.Equals(knownFirst, StringComparison.OrdinalIgnoreCase);
+                        bool hasDifferentSur = !surName.Equals(knownSur, StringComparison.OrdinalIgnoreCase);
+
+                        string displayText = $"{empid} - {surName}, {firstName}";
+
+                        if (hasDifferentFirst || hasDifferentSur)
+                        {
+                            displayText += $" (Known as: {knownSur}, {knownFirst})";
+                        }
+
                         result.Add(new EmployeeItem
                         {
-                            EmpId = dr["emp_id"].ToString(),
-                            FirstName = dr["firstname"].ToString(),
-                            Surname = dr["surname"].ToString(),
-                            knownAsFirstName = dr["known_as_first"].ToString(),
-                            knownAsSurName = dr["known_as"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
+                            EmpId = empid,
+                            FirstName = firstName,
+                            Surname = surName,
+                            knownAsFirstName = knownFirst,
+                            knownAsSurName = knownSur,
+                            DisplayText = displayText
                         });
                     }
                 }
@@ -433,14 +450,31 @@ namespace TPA
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
+                        var empid = dr["emp_id"].ToString();
+                        var firstName = dr["firstname"].ToString();
+                        var surName = dr["surname"].ToString();
+                        var knownFirst = dr["known_as_first"].ToString();
+                        var knownSur = dr["known_as"].ToString();
+
+                        // Check if known-as fields are identical to legal names (case-insensitive)
+                        bool hasDifferentFirst = !firstName.Equals(knownFirst, StringComparison.OrdinalIgnoreCase);
+                        bool hasDifferentSur = !surName.Equals(knownSur, StringComparison.OrdinalIgnoreCase);
+
+                        string displayText = $"{empid} - {surName}, {firstName}";
+
+                        if (hasDifferentFirst || hasDifferentSur)
+                        {
+                            displayText += $" (Known as: {knownSur}, {knownFirst})";
+                        }
+
                         result.Add(new EmployeeItem
                         {
-                            EmpId = dr["emp_id"].ToString(),
-                            FirstName = dr["firstname"].ToString(),
-                            Surname = dr["surname"].ToString(),
-                            knownAsFirstName = dr["known_as_first"].ToString(),
-                            knownAsSurName = dr["known_as"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
+                            EmpId = empid,
+                            FirstName = firstName,
+                            Surname = surName,
+                            knownAsFirstName = knownFirst,
+                            knownAsSurName = knownSur,
+                            DisplayText = displayText
                         });
                     }
                 }
@@ -474,14 +508,31 @@ namespace TPA
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
+                        var empid = dr["emp_id"].ToString();
+                        var firstName = dr["firstname"].ToString();
+                        var surName = dr["surname"].ToString();
+                        var knownFirst = dr["known_as_first"].ToString();
+                        var knownSur = dr["known_as"].ToString();
+
+                        // Check if known-as fields are identical to legal names (case-insensitive)
+                        bool hasDifferentFirst = !firstName.Equals(knownFirst, StringComparison.OrdinalIgnoreCase);
+                        bool hasDifferentSur = !surName.Equals(knownSur, StringComparison.OrdinalIgnoreCase);
+
+                        string displayText = $"{empid} - {surName}, {firstName}";
+
+                        if (hasDifferentFirst || hasDifferentSur)
+                        {
+                            displayText += $" (Known as: {knownSur}, {knownFirst})";
+                        }
+
                         result.Add(new EmployeeItem
                         {
-                            EmpId = dr["emp_id"].ToString(),
-                            FirstName = dr["firstname"].ToString(),
-                            Surname = dr["surname"].ToString(),
-                            knownAsFirstName = dr["known_as_first"].ToString(),
-                            knownAsSurName = dr["known_as"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
+                            EmpId = empid,
+                            FirstName = firstName,
+                            Surname = surName,
+                            knownAsFirstName = knownFirst,
+                            knownAsSurName = knownSur,                          
+                            DisplayText = displayText
                         });
                     }
                 }
