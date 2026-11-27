@@ -421,9 +421,9 @@ namespace TPA
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname 
+                    string sql = @" SELECT DISTINCT     employee_id AS emp_id, first_name AS firstname, surname, known_as_first, known_as
                                     FROM                ec_employee 
-                                    WHERE               first_name LIKE  @p + '%' 
+                                    WHERE               first_name LIKE  @p + '%' OR known_as_first LIKE @p + '%'
                                     ORDER BY            first_name, surname ";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -438,7 +438,9 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            knownAsFirstName = dr["known_as_first"].ToString(),
+                            knownAsSurName = dr["known_as"].ToString(),
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
                         });
                     }
                 }
@@ -460,7 +462,7 @@ namespace TPA
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLDB"].ConnectionString))
                 {
-                    string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname 
+                    string sql = @" SELECT DISTINCT employee_id AS emp_id, first_name AS firstname, surname, known_as_first, known_as
                                     FROM            ec_employee 
                                     WHERE           employee_id LIKE  @p + '%' 
                                     ORDER BY        employee_id DESC ";
@@ -477,7 +479,9 @@ namespace TPA
                             EmpId = dr["emp_id"].ToString(),
                             FirstName = dr["firstname"].ToString(),
                             Surname = dr["surname"].ToString(),
-                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString()
+                            knownAsFirstName = dr["known_as_first"].ToString(),
+                            knownAsSurName = dr["known_as"].ToString(),
+                            DisplayText = dr["emp_id"].ToString() + " - " + dr["surname"].ToString() + ", " + dr["firstname"].ToString() + " (" + dr["known_as"].ToString() + ", " + dr["known_as_first"].ToString() + ") "
                         });
                     }
                 }
